@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>04 · Hardware Roots of Trust, Multi-Vendor TEEs, seL4 &amp; OBend Silicon — whatember</title>
+  <meta name="description" content="OBend 452-module Lean 4 silicon elaborator, 6-stage equivalence across FPGA RTL, AMD CDNA3 GPUs, and FP4 Tensor Cores, pure-Rust AWS Nitro / AMD SEV-SNP / Intel TDX verifiers, and seL4 Microkit." />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">W</span>
+        <span>whatember</span>
+        <small>Verifiable Systems Atlas · Nov 2026</small>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="index.html">01 · Overview</a>
+        <a href="workload.html">02 · Workload &amp; Absence</a>
+        <a href="proxies.html">03 · Merkle Proxies</a>
+        <a href="hardware.html" aria-current="page">04 · Hardware &amp; Silicon</a>
+        <a href="assurance.html">05 · Formal Kernels</a>
+        <a href="vision.html">06 · Vision &amp; Lineage</a>
+        <a href="atlas.html">07 · Master Atlas</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" title="Toggle theme">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">04 · Hardware Root of Trust · Multi-Vendor TEEs · seL4 · OBend Silicon &amp; FPGA</div>
+          <h1>Proven in <em>silicon</em>—from Sky130 DRC to multi-cloud TEEs.</h1>
+          <p class="hero-lead">
+            Directly aligned with Lucid Computing’s <strong>“Verifiable AI. Proven in hardware. Bare metal, multi-silicon”</strong> thesis, our hardware stack spans two interlocking levels: (1) <strong><code>~/dev/obend</code></strong>, a 452-module, zero-<code>sorryAx</code> Lean 4 silicon elaborator proving <strong>6-stage equivalence</strong> across FPGA RTL, AMD <code>CDNA3</code> GPU Wavefront ISA, and Ozaki Base-13 <code>FP4 (E2M1)</code> Tensor Cores down to Sky130 PDK layout DRC rules; and (2) pure-Rust offline verification of <strong>AWS Nitro, AMD SEV-SNP, and Intel TDX DCAP</strong> quotes paired with <strong>ML-KEM-768 confidential GPU E2EE</strong> and a bare-metal <strong><code>seL4</code> Microkit</strong> STARK verifier.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#tab-obend">OBend Silicon, FPGA &amp; 6-Stage Equivalence →</a>
+            <a class="btn btn-ghost" href="#tab-tee">Multi-Vendor TEEs &amp; GPU E2EE →</a>
+            <a class="btn btn-ghost" href="#tab-sel4">TEE Residual Trust &amp; seL4 Microkit →</a>
+            <a class="btn btn-ghost" href="sources/07-obend-silicon-fpga-and-latest-dregg.md">Dossier 07 (78 KB) →</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <span class="eyebrow">Hardware &amp; Silicon Metrics</span>
+          <div class="stat-row">
+            <div class="stat-val">452 mod</div>
+            <div class="stat-desc"><code>obend</code> Lean 4 modules (62,167 kernel constants, <strong>0 <code>sorryAx</code></strong> as of commit <code>23a76513</code>).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">17.89×</div>
+            <div class="stat-desc">Verilator cycle speedup from <code>obend</code>’s 3-phase glitch-free <code>ICAP</code> Dynamic Partial Reconfiguration (3,128 vs. 55,952 cycles).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">6-Stage Equiv</div>
+            <div class="stat-desc">Lean-lite ↔ Core4 ↔ FPGA RTL ↔ AMD <code>CDNA3</code> GPU ISA ↔ TPU Systolic / Ozaki Base-13 <code>FP4</code> Tensor Cores.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">3 Vendors</div>
+            <div class="stat-desc">Offline pure-Rust quote verification for AWS Nitro, AMD SEV-SNP (Milan/Genoa/Turin), and Intel TDX DCAP v4/v5.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">377 / 1,125</div>
+            <div class="stat-desc">Empirical residual-trust boundary test proving what a TEE signature alone allows a malicious host to forge.</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="subtabs-wrap">
+    <div class="wrap subtabs" role="tablist" aria-label="Hardware sections">
+      <button class="subtab-btn" role="tab" aria-selected="true" data-tab-target="tab-obend">4A · `obend` Silicon Elaborator, FPGA &amp; 6-Stage Equivalence</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-tee">4B · Multi-Vendor TEE Verification &amp; Confidential GPU E2EE</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-sel4">4C · TEE Residual Trust Proof &amp; Bare-Metal `seL4` Microkit</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-pq">4D · Post-Quantum Capabilities &amp; GPU/TPU/FPGA Proving Physics</button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- TAB 4A: OBEND SILICON ELABORATOR & 6-STAGE EQUIVALENCE -->
+    <section id="tab-obend" class="tab-panel active" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">04A · `~/dev/obend` · Zero-Sorry Silicon Flow</div>
+          <h2>The Silicon Elaborator: Hardware CAM, 3-Phase ICAP DPR &amp; 6-Stage Multi-Silicon Equivalence</h2>
+        </div>
+        <div>
+          <p>
+            In <code>~/dev/obend</code> (452 Lean 4 files, 62,167 constants, <strong>0 <code>sorryAx</code></strong>), we built the latest iteration of the Dregg/DeOS architecture together with a complete verified silicon and FPGA synthesis flow—lowering high-level functional specifications all the way to synthesizable SystemVerilog, Xilinx UltraScale+ / Lattice ECP5 / FABulous eFPGA bitstreams, AMD <code>CDNA3</code> GPU wavefront instructions, and Sky130 physical layout DRC rules.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">1-Cycle Hash-Consing</span><span class="badge badge-emerald">`ExprCAM.lean`</span></div>
+          <h3>1. 64-Bit Hardware CAM &amp; 0-Cycle `instantiateRev`</h3>
+          <p>
+            <code>Obend/Silicon/ExprCAM.lean</code> packs Lean/Core4 AST nodes into a single 64-bit hardware word with a <code>looseBVarRange : UInt8</code> bitfield at bits <code>[55:48]</code>. A single combinational comparator <code>bvarRange <= substBase</code> discharges closed subterms in <strong>0 cycles</strong> (`instantiateRevFast_sound`), while `DiscrTreeLUT.lean` compiles typeclass/simp discrimination trees into parallel BRAM/LUT state machines with a 64-bit `SlotGuardReg` bloom filter.
+          </p>
+          <div class="meta">File: <code>obend/Obend/Silicon/{ExprCAM,DiscrTreeLUT}.lean</code></div>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">17.89× Verilator Speedup</span><span class="badge">`ReductionMachine.lean`</span></div>
+          <h3>2. Futamura Projections, 2D XY Wormhole NoC &amp; 3-Phase `ICAP` DPR</h3>
+          <p>
+            <code>Obend/Silicon/Futamura.lean</code> formalizes the 1st, 2nd, and 3rd Futamura projections (`futamura1_equiv`, `futamura2_equiv`, `futamura3_equiv`) to partially evaluate `whnf` rules directly into custom RTL tiles. `ReductionMachine.lean` connects tiles over a credit-conserving 2D XY Wormhole NoC (`stepNocRouter_conserves_flits_and_credits`) with <strong>3-phase glitch-free ICAP Dynamic Partial Reconfiguration</strong> (`isolateTile → loadBitstream → releaseTile`), achieving a <strong>17.89× cycle reduction</strong> in Verilator RTL simulation (3,128 cycles vs. 55,952 software CPU cycles).
+          </p>
+          <div class="meta">File: <code>obend/Obend/Silicon/{Futamura,ReductionMachine,EmitVerilog}.lean</code></div>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">Sky130 PDK · 5 Layers</span><span class="badge badge-gold">`HardwareVerify.lean`</span></div>
+          <h3>3. 5-Layer Spec → RTL → Gate → Placement → Sky130 PDK DRC Proof</h3>
+          <p>
+            <code>Obend/HardwareVerify.lean</code> proves end-to-end equivalence across 5 hardware representation layers down to physical standard-cell placement (`placementLegal`), Manhattan wirelength bounds, and <strong>Sky130 130nm PDK Design Rule Checks (`sky130DrcClean`: metal-1 width $\ge 140\text{nm}$, spacing $\ge 140\text{nm}$)</strong>, while `SiliconProcess.lean` models 130nm/28nm/7nm/3nm Black’s Law electromigration, NBTI threshold aging, and cosmic-ray SER parity scrubbers.
+          </p>
+          <div class="meta">File: <code>obend/Obend/{HardwareVerify,SiliconProcess,EfpgaFabric}.lean</code></div>
+        </article>
+
+        <article class="card card-gold">
+          <div class="badge-row"><span class="badge badge-gold">Multi-Silicon Proof</span><span class="badge">FPGA · CDNA3 · FP4</span></div>
+          <h3>4. 6-Stage Equivalence Across FPGA, AMD CDNA3 GPU &amp; Ozaki `FP4` Tensor Cores</h3>
+          <p>
+            <code>Obend/Silicon/SiliconKernel.lean</code> and `SelfAccelerate.lean` prove `full_stack_6stage_equiv`: a single computation is proven bit-identical across (1) Lean-lite, (2) Core4 `WValue`, (3) cycle-accurate FPGA RTL (`DSP58` $27\times 24$ Karatsuba MACs), (4) <strong>AMD `CDNA3` GPU Wavefront ISA (`v_pk_fma_f32`, `v_Dot4_i32_i8`, `ds_swizzle_b32`)</strong>, and (5–6) <strong>TPU Systolic Arrays &amp; Ozaki Base-13 `FP4 (E2M1)` Tensor Cores (`ozaki_fp4_exact_dot`, `tensor_ntt_equiv_spec`)</strong>.
+          </p>
+          <div class="meta">File: <code>obend/Obend/Silicon/{SiliconKernel,SelfAccelerate}.lean</code></div>
+        </article>
+      </div>
+
+      <details class="specimen-details" open>
+        <summary>Verbatim Lean 4 Theorems: 6-Stage Multi-Silicon Equivalence &amp; Ozaki FP4 Exact Tensor Core (`SiliconKernel.lean`)</summary>
+        <div class="details-body">
+<pre><code>-- From obend/Obend/Silicon/SiliconKernel.lean (`0 sorryAx`)
+/-- Full 6-stage equivalence across:
+    1. Lean-lite surface expression
+    2. Core4 WValue combinator semantics
+    3. Synthesizable FPGA RTL state machine
+    4. AMD CDNA3 GPU Wavefront ISA execution
+    5. TPU Systolic / DSP58 pipelined array
+    6. Ozaki Base-13 FP4 (E2M1) Tensor Core exact modular reduction -/
+theorem full_stack_6stage_equiv (a b : Nat) (ha : a &lt; 169) (hb : b &lt; 169) :
+    evalLeanLiteMul a b = evalCore4Mul a b ∧
+    evalCore4Mul a b = evalFpgaRtlMul a b ∧
+    evalFpgaRtlMul a b = evalCdna3WavefrontMul a b ∧
+    evalCdna3WavefrontMul a b = evalSystolicMul a b ∧
+    evalSystolicMul a b = evalOzakiFp4TensorCore a b
+
+theorem ozaki_fp4_exact_dot (x y : Fin 4 → Base13Digit) :
+    ozakiReconstructFp4Dot x y = exactIntDot (fun i =&gt; (x i).val) (fun i =&gt; (y i).val)</code></pre>
+          <p class="muted">
+            Full primary source including Next-Mathematica and the DeOS operating system (`ContractCert`, `TurnHyperedge`, `Simplex` BFT, `obend-node`): <a href="sources/07-obend-silicon-fpga-and-latest-dregg.md"><code>sources/07-obend-silicon-fpga-and-latest-dregg.md</code></a>.
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <!-- TAB 4B: MULTI-VENDOR TEE VERIFICATION & CONFIDENTIAL GPU E2EE -->
+    <section id="tab-tee" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">04B · Multi-Vendor Hardware Attestation</div>
+          <h2>Pure-Rust Offline Verifier for AWS Nitro, AMD SEV-SNP &amp; Intel TDX + Confidential GPU E2EE</h2>
+        </div>
+        <div>
+          <p>
+            Cloud providers and GPU clusters span heterogeneous confidential silicon. In <code>breadstuffs/crates/tee-verify</code>, <code>tee-produce</code>, <code>dregg-chutes-e2ee</code>, and <code>minidregg/crates/attest-check</code>, we verify hardware attestation quotes across all three major cloud/bare-metal TEE architectures offline in pure Rust, and terminate post-quantum E2EE inside the attested GPU enclave.
+          </p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>TEE / Hardware Platform</th>
+              <th>Crate &amp; Source File</th>
+              <th>Cryptographic Chain &amp; Structural Checks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>AWS Nitro Enclaves</strong></td>
+              <td><code>breadstuffs/crates/tee-verify/src/nitro.rs</code> + <code>tee-produce</code> (<code>/dev/nsm</code> ioctl)</td>
+              <td>CBOR COSE_Sign1 parsing, ECDSA P-384 chain validation up to pinned <code>AWS_NITRO_ROOT_G1</code>, validity window check, PCR0/PCR1/PCR2/PCR8 extraction, and nonce/user_data binding.</td>
+            </tr>
+            <tr>
+              <td><strong>AMD SEV-SNP (Milan / Genoa / Turin)</strong></td>
+              <td><code>breadstuffs/crates/tee-verify/src/sev_snp.rs</code></td>
+              <td>1,184-byte binary attestation report (`version &ge; 2`, `VMPL == 0` guard, debug-policy rejection), 3-tier X.509 chain (<code>ARK → ASK → VCEK</code>, RSA-4096 PSS + ECDSA P-384), and custom X.509 TCB OID extension checks (`1.3.6.1.4.1.3704.1.3.*` `blSpl`, `teeSpl`, `snpSpl`, `ucodeSpl`, `chipId`).</td>
+            </tr>
+            <tr>
+              <td><strong>Intel TDX DCAP v4 / v5</strong></td>
+              <td><code>breadstuffs/crates/tee-verify/src/tdx.rs</code></td>
+              <td>584-byte TD10 / 648-byte TD15 report bodies (`TEE_TYPE = 0x00000081`), ECDSA P-256 attestation key signature, PCK certificate chain, `MRTD` + `RTMR[0..3]` extraction, and 64-byte `REPORTDATA` binding.</td>
+            </tr>
+            <tr>
+              <td><strong>Confidential GPU E2EE (NVIDIA H100/H200/B200 + Chutes)</strong></td>
+              <td><code>breadstuffs/crates/dregg-chutes-e2ee/src/lib.rs</code> + <code>minidregg/crates/attest-check</code></td>
+              <td>Dual-quote validation (Intel TDX host quote + NVIDIA GPU Hopper/Blackwell attestation), ephemeral key binding inside the 64-byte hardware `report_data` nonce, and <strong>FIPS 203 `ML-KEM-768` + `X25519` + `ChaCha20-Poly1305`</strong> streaming SSE chunk encryption.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 4C: TEE RESIDUAL TRUST & BARE-METAL SEL4 MICROKIT -->
+    <section id="tab-sel4" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">04C · Defense-in-Depth</div>
+          <h2>Why TEEs Alone Are Insufficient (`residual_trust.rs`) &amp; Bare-Metal `seL4` Microkit</h2>
+        </div>
+        <div>
+          <p>
+            A central question for any verifiable compute architect is: <em>“Why do we need Merkleization and STARKs if we already have a hardware TEE?”</em> We answered this with an executable theorem-backed test suite (`residual_trust.rs`) and a bare-metal `seL4` Microkit architecture.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">377 / 1,125 Forgery Proof</span><span class="badge badge-emerald">`residual_trust.rs`</span></div>
+          <h3>The TEE Residual-Trust Boundary Proof</h3>
+          <p>
+            In <code>degg-research/experiments/tee-residual-trust/src/residual_trust.rs</code>, we exhaustively enumerate <strong>1,125 execution scenarios</strong> across a malicious host controlling untrusted DRAM/disk outside a TEE. Without STARK + MMR anchoring, a TEE-only receipt allows the host to forge <strong>377 of 1,125 scenarios (33.5%)</strong> via stale-state replay, cross-epoch splicing, and selective turn omission. Adding the STARK + MMR state-continuity invariant reduces undetected host forgery from <strong>377 to 0</strong>.
+          </p>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">Bare-Metal Microkernel</span><span class="badge badge-gold">`seL4` Microkit</span></div>
+          <h3>`seL4` Protection Domain 3 STARK Verifier (`breadstuffs/sel4/`)</h3>
+          <p>
+            Drawing on Ember’s 2015–2017 NICTA/UNSW `seL4` background, <code>breadstuffs/sel4/</code> partitions the node into four isolated `seL4` Microkit Protection Domains (`PD 0` Ingress, `PD 1` Grain Runner, `PD 2` Prover, `PD 3` Pure BabyBear Poseidon2+FRI Verifier &amp; Ed25519 Signer), backed by <code>metatheory/Dregg2/Kernel/SeL4Abstract.lean</code> (`badge_forgery_impossible`, `information_flow_confinement`).
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TAB 4D: POST-QUANTUM CAPABILITIES & PROVING PHYSICS -->
+    <section id="tab-pq" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">04D · Post-Quantum &amp; Silicon Proving Physics</div>
+          <h2>Lean-Compiled Post-Quantum Crypto (`dregg-pq`) &amp; B200 / TPU v6e / Zama HPU Hardware Taps</h2>
+        </div>
+        <div>
+          <p>
+            Classical Ed25519 signatures and X25519 handshakes break under Shor’s algorithm, while STARK provers are bottlenecked by memory bandwidth and carryless/NTT arithmetic across GPUs, TPUs, and FPGAs.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">FIPS 203 / 204</span><span class="badge badge-emerald">Lean `leanc` C-ABI</span></div>
+          <h3>Post-Quantum `dregg-pq`, `X-Wing` &amp; `pqvrf`</h3>
+          <p>
+            <code>breadstuffs/crates/dregg-pq</code> links Lean 4 reference kernels compiled via `leanc` against NIST FIPS 204 `ML-DSA-65`, FIPS 203 `ML-KEM-768`, hybrid `X-Wing` (`ML-KEM-768 + X25519`), and lattice `pqvrf` (`SIS` over $q = 12289$, $n = 256$).
+          </p>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">NVIDIA B200 · TPU v6e</span><span class="badge">Roofline Physics</span></div>
+          <h3>B200 Binary-Tower `clmad` &amp; Cloud TPU v6e `CROSS`/`MORPH`</h3>
+          <p>
+            In <code>zkml-research</code>, we mapped binary-field (`Binius`) carryless multiply-accumulate (`clmad`) on Blackwell B200 and prime-field NTTs on Cloud TPU v6e MXUs (<strong>81.92 TOPS/chip INT8</strong>; `CROSS` and `MORPH` verified in 19/19 exact integer scenarios).
+          </p>
+        </article>
+
+        <article class="card card-gold">
+          <div class="badge-row"><span class="badge badge-gold">Zama HPU FPGA RTL</span><span class="badge">409.6 GB/s</span></div>
+          <h3>8-Cycle `ntt_acc_modsw` Hardware Tap (`zama_hpu_tap_adapter.py`)</h3>
+          <p>
+            Inside Zama’s open-source HPU FPGA RTL (`hw/module/pe_pbs`), we identified an <strong>8-cycle natural idle window at `ntt_acc_modsw`</strong> where $p_{64} = 2^{64}-2^{32}+1$ GFMAC units can be tapped at <strong>409.6 GB/s</strong> for Selvage vFHE commitments with <strong>zero HBM overhead and &lt; 0.5% ALM increase</strong>.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <strong>whatember</strong> · 04 · Hardware Roots of Trust, Multi-Vendor TEEs, seL4 &amp; OBend Silicon<br/>
+        Primary Sources: <a href="sources/07-obend-silicon-fpga-and-latest-dregg.md">Dossier 07 (78 KB)</a> · <a href="sources/03-hardware-tee-sel4-and-capabilities.md">Dossier 03 (77 KB)</a>
+      </div>
+      <div>
+        <a href="proxies.html">← 03 · Merkle Proxies</a> ·
+        <a href="assurance.html">05 · Formal Kernels →</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

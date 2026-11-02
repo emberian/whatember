@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>03 · Merkleized Agent Proxies, Capabilities &amp; Verified Dataplanes — whatember</title>
+  <meta name="description" content="Four-layer Merkleized agent proxy stack: attenuated tool-call gateways, keyless BYOK proxies, BLAKE3 MMR &amp; Poseidon2 heap/forest Merkleization, zkOracle MPC-TLS, and the verified Orb HTTP dataplane." />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">W</span>
+        <span>whatember</span>
+        <small>Verifiable Systems Atlas · Nov 2026</small>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="index.html">01 · Overview</a>
+        <a href="workload.html">02 · Workload &amp; Absence</a>
+        <a href="proxies.html" aria-current="page">03 · Merkle Proxies</a>
+        <a href="hardware.html">04 · Hardware &amp; Silicon</a>
+        <a href="assurance.html">05 · Formal Kernels</a>
+        <a href="vision.html">06 · Vision &amp; Lineage</a>
+        <a href="atlas.html">07 · Master Atlas</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" title="Toggle theme">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">03 · Merkleized Agent Proxies · Capability Gateways · Verified Dataplanes</div>
+          <h1>Every agent turn, tool call &amp; key lease is a <em>Merkle leaf</em>.</h1>
+          <p class="hero-lead">
+            Directly addressing Quinn Dougherty’s skunkworks focus (<em>“this proxy server with merkleization for agents”</em>), our stack implements a <strong>4-layer Merkleized agent proxy architecture</strong>: from attenuated capability tool gateways and <code>SO_PEERCRED</code> keyless BYOK proxies, through four distinct Merkleization engines (BLAKE3 MMR, <code>grain-turn</code> Wasm history/heap roots, 4-ary Sparse Merkle Trees, and capability forests), down to <strong>Orb</strong>—a Lean 4 + HOL4/CakeML/Pancake HTTP proxy dataplane compiled to a verified 1,868-byte x86-64 machine loop.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#tab-engines">The 4 Merkleization Engines →</a>
+            <a class="btn btn-ghost" href="#tab-gateways">Tool Gateways &amp; Keyless BYOK →</a>
+            <a class="btn btn-ghost" href="#tab-zkoracle">zkOracle Outbound HTTPS Proxy →</a>
+            <a class="btn btn-ghost" href="sources/02-merkle-agent-proxies-and-dataplanes.md">Dossier 02 (82 KB) →</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <span class="eyebrow">Proxy &amp; Merkle Telemetry</span>
+          <div class="stat-row">
+            <div class="stat-val">Slots 3 &amp; 6</div>
+            <div class="stat-desc">Hardware-wired Wasm <code>grain-turn</code> slots: <code>HISTORY_ROOT_SLOT=3</code> (MMR) &amp; <code>HEAP_ROOT_SLOT=6</code> (Poseidon2).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">120 felts</div>
+            <div class="stat-desc">Full capability forest authentication witness (`FullForestAuth.lean`, depth 12, zero `sorry`).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">~890 ms</div>
+            <div class="stat-desc">End-to-end STARK turn proof generation (355 KB receipt, <strong>1.24 ms verification</strong>).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">1,868 B</div>
+            <div class="stat-desc">Verified x86-64 machine-code loop for the <code>Orb</code> HTTP proxy dataplane (`ServeExportServes.lean`).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">0 keys</div>
+            <div class="stat-desc">Upstream API keys held inside agent Wasm memory (`NoKeyMaterialInGrainMemory` via `mini-keys`).</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="subtabs-wrap">
+    <div class="wrap subtabs" role="tablist" aria-label="Proxy sections">
+      <button class="subtab-btn" role="tab" aria-selected="true" data-tab-target="tab-engines">3A · The 4 Merkleization Engines</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-gateways">3B · Tool-Call, ACP &amp; Keyless BYOK Proxies</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-zkoracle">3C · zkOracle Outbound HTTPS Proxy (MPC-TLS + STARK)</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-orb">3D · Verified HTTP Dataplane (`Orb` + HOL4/CakeML)</button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- TAB 3A: THE 4 MERKLEIZATION ENGINES -->
+    <section id="tab-engines" class="tab-panel active" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">03A · Merkleization Architecture</div>
+          <h2>Four Complementary Merkleization Engines for Agent Proxies</h2>
+        </div>
+        <div>
+          <p>
+            A production agent proxy cannot use a single naive Merkle tree for everything: append-only turn transcripts, mutable key-value sandbox heaps, sparse revocation sets, and multi-agent fork trees have fundamentally different update and proof patterns. Our stack separates them into four specialized engines that weld into a single turn receipt.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">Engine 1 · Availability &amp; Equivocation</span><span class="badge badge-emerald">Zero-Dep Rust</span></div>
+          <h3>1. Append-Only BLAKE3 MMR Proxy (`inclusion-availability`)</h3>
+          <p>
+            In <code>degg-research/experiments/inclusion-availability/src/{mmr.rs,log.rs,equivocation.rs}</code>, every admitted agent turn emits an <code>InclusionReceipt</code> over a BLAKE3 Merkle Mountain Range with domain-separated leaf (`0x00`), parent (`0x01`), and right-to-left peak bagging (`0x02`) hashes.
+          </p>
+          <p>
+            Crucially, <code>verify_receipt</code> <strong>derives the leaf’s 0-based position purely from the left/right bit-geometry of the sibling path</strong>—preventing an operator from lying about turn ordering—while <code>verify_equivocation</code> proves split-view proxy forks whenever two receipts at the same size disagree or violate prefix consistency.
+          </p>
+          <div class="meta">Path: <code>degg-research/experiments/inclusion-availability/</code></div>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">Engine 2 · Turn Transcript MMR</span><span class="badge">Slot 3 · Lean 4</span></div>
+          <h3>2. Wasm `grain-turn` History MMR (`HISTORY_ROOT_SLOT = 3`)</h3>
+          <p>
+            In <code>breadstuffs/grain-turn/src/lib.rs</code>, every Wasm agent turn commits the prefix of all prior turn digests $0 \dots N-1$ into <code>HISTORY_ROOT_SLOT = 3</code> (breaking the circularity of hashing turn $N$’s own STARK receipt inside turn $N$).
+          </p>
+          <p>
+            Paired with <code>breadstuffs/crates/dregg-query</code> and <code>metatheory/HistoryIndex.lean</code> (<code>server_cannot_omit</code>), any counterparty can request a range of agent turns $[lo, hi]$ and verify via a <code>RangeCertificate</code> that the proxy did not drop a single intermediate tool call or refusal.
+          </p>
+          <div class="meta">Path: <code>breadstuffs/grain-turn/src/lib.rs</code> · <code>metatheory/HistoryIndex.lean</code></div>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">Engine 3 · Mutable Sandbox State</span><span class="badge badge-gold">Slot 6 · $O(1)$ Forking</span></div>
+          <h3>3. Sorted Poseidon2 Key-Value Heap &amp; $O(1)$ Multi-Agent Forking (`HEAP_ROOT_SLOT = 6`)</h3>
+          <p>
+            In <code>breadstuffs/cell/src/lib.rs</code> and <code>metatheory/Dregg2/Substrate/Heap.lean</code>, the agent’s persistent memory is a sorted key-value store committed into a Poseidon2 Merkle root in <code>HEAP_ROOT_SLOT = 6</code>. Non-existence of a key is proven via adjacent-key gap witnesses (<code>get_none_of_gap</code>).
+          </p>
+          <p>
+            Because the entire agent state is captured by `(HEAP_ROOT_SLOT, HISTORY_ROOT_SLOT)`, <code>breadstuffs/grain-fork/src/lib.rs</code> implements <strong>$O(1)$ copy-on-write agent branching (`fork`), deterministic time-travel (`rewind`), and verified child-turn stitching (`absorb` / `stitch_child`)</strong>, while <code>confined-swarm</code> proves non-collusion across parallel subagents.
+          </p>
+          <div class="meta">Path: <code>breadstuffs/grain-fork/src/lib.rs</code> · <code>metatheory/Dregg2/Substrate/Heap.lean</code></div>
+        </article>
+
+        <article class="card card-gold">
+          <div class="badge-row"><span class="badge badge-gold">Engine 4 · Policy &amp; Revocation</span><span class="badge">Depth-16 4-Ary SMT</span></div>
+          <h3>4. 4-Ary Sparse Merkle FactSet &amp; 120-Felt Capability Forest (`commit` + `FullForestAuth.lean`)</h3>
+          <p>
+            In <code>breadstuffs/commit/src/</code>, policy facts and revocation lists are stored in a depth-16 4-ary Poseidon2 Sparse Merkle Tree (`FactSet`) supporting compact membership and non-membership proofs (`BudgetProof`, `LastUseProof`).
+          </p>
+          <p>
+            In <code>metatheory/Dregg2/Exec/FullForestAuth.lean</code>, multi-hop capability delegation chains are authenticated inside the STARK circuit as a <strong>120-felt witness bundle</strong> (depth-12 forest), with <code>gateOK_revoked_fails</code> and <code>minidregg/Theory/AcceptedCellEffectWitness.lean:no_accepted_of_stalePreRoot</code> proving that revoked capabilities or stale pre-state roots cannot produce an accepted turn.
+          </p>
+          <div class="meta">Path: <code>breadstuffs/commit/</code> · <code>metatheory/Dregg2/Exec/FullForestAuth.lean</code></div>
+        </article>
+      </div>
+
+      <details class="specimen-details" open>
+        <summary>Code Specimen: Position-Deriving MMR Receipt Verification &amp; Split-View Equivocation (`degg-research`)</summary>
+        <div class="details-body">
+<pre><code>// From degg-research/experiments/inclusion-availability/src/log.rs &amp; equivocation.rs
+pub fn verify_receipt(
+    receipt: &amp;InclusionReceipt,
+    record: &amp;AdmissionRecord,
+    trusted_verifying_key: &amp;[u8; 32],
+) -&gt; Result&lt;(), VerifyError&gt; {
+    // 1. Recompute canonical AdmissionRecord digest &amp; verify Ed25519 checkpoint signature
+    // 2. Walk MMR sibling steps; derive 0-based leaf position purely from path geometry
+    // 3. Bag peaks right-to-left (0x02 || right_acc || left_peak) and check root equality
+}
+
+pub fn verify_equivocation(
+    r1: &amp;InclusionReceipt,
+    r2: &amp;InclusionReceipt,
+    consistency_proof: Option&lt;&amp;ConsistencyProof&gt;,
+    trusted_key: &amp;[u8; 32],
+) -&gt; EquivocationVerdict {
+    // Catches split-view proxy attacks:
+    // - Same tree_size but distinct MMR roots signed by the proxy
+    // - Smaller tree_size is not a cryptographic prefix of larger tree_size
+}</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- TAB 3B: TOOL-CALL, ACP & KEYLESS BYOK PROXIES -->
+    <section id="tab-gateways" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">03B · Capability &amp; Keyless Gateways</div>
+          <h2>Intercepting Tool Gateways, ACP Confinement &amp; Keyless BYOK Proxies</h2>
+        </div>
+        <div>
+          <p>
+            When an autonomous agent calls external tools or upstream LLM APIs (Anthropic, OpenAI, AWS Bedrock), the proxy must enforce two invariants: (1) the agent can only invoke tools authorized by an attenuated capability chain, and (2) <strong>the agent never holds raw API keys in its own memory space</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">C-ABI Lean Gate</span><span class="badge badge-emerald">`DelegAdmit.lean`</span></div>
+          <h3>`sdk::tool_gateway` &amp; `dregg_deleg_admit`</h3>
+          <p>
+            In <code>breadstuffs/sdk/src/tool_gateway.rs</code>, every tool call (`invoke` or non-blocking routed promise `enqueue`/`resolve`) passes through <code>@[export dregg_deleg_admit]</code> compiled directly from <code>metatheory/Dregg2/Apps/DelegAdmit.lean</code>—replacing handwritten Rust boolean checks with a Lean-verified 6-way capability attenuation check and monotonic call counter (`CALLS_MADE_SLOT`).
+          </p>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">ACP Proxy</span><span class="badge">`deos-hermes`</span></div>
+          <h3>`deos-hermes` &amp; `dreggnet-hermes` ACP Gateway</h3>
+          <p>
+            Intercepts Agent Communication Protocol (`ACP`) tool calls (`ToolKind`, `ToolCallRequest`), binding every permission outcome (`PermissionOutcome`) to an 8-lane Poseidon2 `attestation_commitment` over the `ZkOracleAttestation` and hardware `TeeFactVerifier`.
+          </p>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">Keyless BYOK</span><span class="badge badge-gold">`SO_PEERCRED`</span></div>
+          <h3>`mini-keys`, `oracle-llm-proxy` &amp; `keyless-grain-proxy.py`</h3>
+          <p>
+            In <code>minidregg/native/mini-keys/src/</code>, the proxy authenticates local agent processes via kernel `SO_PEERCRED` / `getpeereid` (`peer.rs`), checks `POLLIN` lease liveness (`caller_gone`), and injects encrypted BYOK credentials only inside the outbound TLS socket—proving `NoKeyMaterialInGrainMemory`.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TAB 3C: ZKORACLE OUTBOUND HTTPS PROXY -->
+    <section id="tab-zkoracle" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">03C · Verifiable External I/O</div>
+          <h2>`zkoracle-live`: TLSNotary MPC-TLS Welded to Dyck JSON &amp; DFA STARKs</h2>
+        </div>
+        <div>
+          <p>
+            What happens when an agent proxies an outbound HTTPS call to an external API (`api.anthropic.com`, `bedrock-runtime`, or a financial data feed) and needs to prove to a downstream counterparty that the response came from that exact TLS origin and satisfied a structural JSON policy—without revealing the API key or redacted fields?
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">MPC-TLS + STARK</span><span class="badge badge-emerald">`zkoracle-live`</span></div>
+          <h3>2-PC Garbled-Circuit AES-GCM + Selective Redaction</h3>
+          <p>
+            In <code>breadstuffs/crates/zkoracle-live</code>, the proxy runs a 2-party TLSNotary session where the verifier holds a garbled-circuit share of the TLS 1.3 AES-GCM session key. The HTTP Authorization header is zeroed in the committed transcript while the response body is committed into an 8-lane Poseidon2 sponge.
+          </p>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">Welded Automaton</span><span class="badge badge-gold">`AttestedAutomatonWeld8.lean`</span></div>
+          <h3>Zero-Extra-Column JSON &amp; Policy Welding</h3>
+          <p>
+            Rather than hashing the TLS transcript in one circuit and re-parsing JSON in another, <code>AttestedAutomatonWeld8.lean</code> welds the Dyck JSON / DFA state transition directly into the rate-8 Poseidon2 absorption row—binding the TLS notary signature, the Poseidon2 transcript digest, and the JSON schema/policy verdict into a single `ATTESTATION_SLOT = 8` commitment.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TAB 3D: VERIFIED HTTP DATAPLANE (ORB) -->
+    <section id="tab-orb" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">03D · Verified Proxy Dataplane</div>
+          <h2>`Orb`: 312-Module Lean 4 HTTP Proxy Lowered via HOL4/CakeML to 1,868 Bytes of x86-64</h2>
+        </div>
+        <div>
+          <p>
+            Even the strongest cryptographic receipt can be undermined if the HTTP proxy dataplane parsing the wire bytes suffers from buffer overflows, request smuggling, or circuit-breaker state bugs. We built and verified the proxy dataplane itself (`Orb`) across Lean 4 and HOL4/CakeML/Pancake.
+          </p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Dataplane Layer</th>
+              <th>Module / File Path</th>
+              <th>Formal Guarantee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Forward &amp; Access-Control Proxy Logic</strong></td>
+              <td><code>breadstuffs/orb/{ForwardProxy,AccessControlProxy,ForwardProxyCorrect}.lean</code></td>
+              <td><code>admit_refines_spec</code> &amp; <code>admit_iff_admissible</code>: total, panic-free HTTP request parsing, header sanitization, and capability admission.</td>
+            </tr>
+            <tr>
+              <td><strong>Verified Circuit Breaker &amp; Health State Machine</strong></td>
+              <td><code>breadstuffs/orb/{ProxyBreakerCorrect,ProxyHealthCorrect}.lean</code></td>
+              <td><code>breaker_admits_refines_spec</code> &amp; <code>broken_admits_while_open_fails</code>: proves the proxy never forwards traffic to an open-circuit upstream.</td>
+            </tr>
+            <tr>
+              <td><strong>End-to-End HTTP Wire Specification</strong></td>
+              <td><code>breadstuffs/dregg-serve-spec/ServeSpec.lean</code></td>
+              <td><code>serveOne_Sound</code>: wire-level byte refinement for HTTP request/response framing.</td>
+            </tr>
+            <tr>
+              <td><strong>HOL4 / CakeML / Pancake x86-64 Machine Lowering</strong></td>
+              <td><code>breadstuffs/orb-compiler/Pancake/ServeExportServes.lean</code> + <code>dreggnetArenaScript.sml</code></td>
+              <td><code>serveExport_serves_get_real</code>, <code>serveExport_serves_405_real</code>, and HOL4 <code>wf_parsed_values_total</code> over a verified <strong>1,868-byte x86-64 machine loop</strong>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <strong>whatember</strong> · 03 · Merkleized Agent Proxies, Capabilities &amp; Verified Dataplanes<br/>
+        Primary Source: <a href="sources/02-merkle-agent-proxies-and-dataplanes.md">Dossier 02 (82 KB)</a>
+      </div>
+      <div>
+        <a href="workload.html">← 02 · Workload &amp; Absence</a> ·
+        <a href="hardware.html">04 · Hardware &amp; Silicon →</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

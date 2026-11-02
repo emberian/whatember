@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>07 · Searchable Master Atlas: 38+ Repos, 19 Microsites, 65+ Posters &amp; Papers — whatember</title>
+  <meta name="description" content="Complete searchable index of Ember's 38+ open repositories, 19 interactive visual essays (dregg-microsites), 65+ claim-checked technical posters (dregg-posters), regulatory filings, and 8 primary-source dossiers." />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">W</span>
+        <span>whatember</span>
+        <small>Verifiable Systems Atlas · Nov 2026</small>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="index.html">01 · Overview</a>
+        <a href="workload.html">02 · Workload &amp; Absence</a>
+        <a href="proxies.html">03 · Merkle Proxies</a>
+        <a href="hardware.html">04 · Hardware &amp; Silicon</a>
+        <a href="assurance.html">05 · Formal Kernels</a>
+        <a href="vision.html">06 · Vision &amp; Lineage</a>
+        <a href="atlas.html" aria-current="page">07 · Master Atlas</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" title="Toggle theme">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">07 · Searchable Master Atlas · Repositories · Microsites · Posters · Dossiers</div>
+          <h1>Every repository, theorem, microsite &amp; poster in <em>one index</em>.</h1>
+          <p class="hero-lead">
+            Search and filter across <strong>38+ repositories</strong> in <code>~/dev</code> and <code>~/src</code>, <strong>19 live interactive microsites</strong> at <a href="https://emberian.github.io/dregg-microsites/"><code>emberian.github.io/dregg-microsites</code></a>, <strong>65+ claim-checked technical posters</strong> in <code>dregg-posters</code>, and all <strong>8 primary-source dossiers</strong> (~619 KB).
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#tab-repos">38+ Repositories →</a>
+            <a class="btn btn-ghost" href="#tab-microsites">19 Live Microsites →</a>
+            <a class="btn btn-ghost" href="#tab-posters">65+ Technical Posters →</a>
+            <a class="btn btn-ghost" href="#tab-papers">Papers, Filings &amp; Dossiers →</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <span class="eyebrow">Master Atlas Totals</span>
+          <div class="stat-row">
+            <div class="stat-val">38+ Repos</div>
+            <div class="stat-desc">Core Dregg, Workload/zkML, Silicon/FPGA, Formal Substrates (Lean/HOL4/ACL2/Isabelle), and Swarm Tooling.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">19 Essays</div>
+            <div class="stat-desc">Interactive HTML visual essays live at <code>emberian.github.io/dregg-microsites/</code>, each with a <code>CLAIMS-*.md</code> ledger.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">65+ Posters</div>
+            <div class="stat-desc">Dated bilingual (EN/ZH) Typst PDFs, HTML visual broadsides, and 49 ASCII architectural posters in <code>dregg-posters</code>.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">619 KB</div>
+            <div class="stat-desc">8 primary-source markdown dossiers in <code>sources/01..08-*.md</code> with verbatim theorems and commit hashes.</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="subtabs-wrap">
+    <div class="wrap subtabs" role="tablist" aria-label="Master Atlas sections">
+      <button class="subtab-btn" role="tab" aria-selected="true" data-tab-target="tab-repos">7A · 38+ Repositories (`~/dev` &amp; `~/src`)</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-microsites">7B · 19 Live Interactive Microsites (`dregg-microsites`)</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-posters">7C · 65+ Claim-Checked Posters (`dregg-posters`)</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-papers">7D · Papers, Filings &amp; 8 Source Dossiers</button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- TAB 7A: 38+ REPOSITORIES -->
+    <section id="tab-repos" class="tab-panel active" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">07A · Repository Inventory</div>
+          <h2>Searchable Index of 38+ Repositories</h2>
+        </div>
+        <div>
+          <p>
+            Filter by keyword or category across the Dregg/OBend core stack, workload verification &amp; zkML, formal verification substrates, and swarm engineering repositories.
+          </p>
+        </div>
+      </div>
+
+      <div data-filter-container>
+        <div class="filter-bar">
+          <input class="filter-input" type="search" data-filter-input placeholder="Filter repositories by name, language, theorem, or capability..." />
+          <select class="filter-select" data-filter-select aria-label="Filter repositories by category">
+            <option value="all">All Categories</option>
+            <option value="dregg">Dregg / Mini / Nano / OBend Core</option>
+            <option value="zkml">Workload Verification, zkML &amp; Research</option>
+            <option value="formal">Formal Substrates (Lean / HOL4 / ACL2 / Isabelle)</option>
+            <option value="silicon">Hardware, TEE, Silicon &amp; Networking</option>
+            <option value="swarm">Swarm Engineering, Microsites &amp; Audits</option>
+          </select>
+          <span class="eyebrow" data-filter-count></span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Repository</th>
+                <th>Stack / Scale</th>
+                <th>Core Capabilities &amp; Key Artifacts</th>
+                <th>Remote / Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-filter-item data-category="dregg silicon formal">
+                <td><strong><code>breadstuffs</code> (`dregg`)</strong></td>
+                <td>Rust (16+ crates) · Lean 4 (383 files) · HOL4/CakeML · 108+ commits</td>
+                <td>Flagship verifiable agent &amp; compute monorepo: `grain-turn` MMR/heap roots, `dregg-query` range proofs (`server_cannot_omit_position`), 3,522-LOC regex-complement DFAs (`Dregg2/Crypto/Deriv/*`), `Cfg.lean` + `AttestedAutomatonWeld8.lean`, `tee-verify` (Nitro/SEV-SNP/TDX), `dregg-chutes-e2ee`, `zkoracle-live`, `Orb` HTTP proxy, `seL4` Microkit.</td>
+                <td><a href="https://github.com/emberian/breadstuffs">github.com/emberian/breadstuffs</a></td>
+              </tr>
+              <tr data-filter-item data-category="dregg formal">
+                <td><strong><code>minidregg</code> (`mini`)</strong></td>
+                <td>Lean 4 (98 files, ~128K LOC, `0 sorry`) · Rust (6 crates) · 62 commits</td>
+                <td>Distilled verifiable appliance: Farkas `SysCert` (`lawSat_never_unknown`), `mini-keys` `SO_PEERCRED` keyless BYOK proxy, `oracle-llm-proxy`, `attest-check`, `LT4` `PrototypeProvenance.lean`, `AcceptedCellEffectWitness.lean`.</td>
+                <td><a href="https://github.com/emberian/minidregg">github.com/emberian/minidregg</a></td>
+              </tr>
+              <tr data-filter-item data-category="dregg formal">
+                <td><strong><code>nanodregg</code></strong></td>
+                <td>Lean 4 (82 files) · Rust (6 crates) · commit `d28b51d`</td>
+                <td>Minimalist `NanoKernel`: Clairvoyant call-by-need evaluation (`Clairvoyant.lean`), 2-phase `Simplex` BFT consensus, `ContractCert` verifiable SLAs, `Turn` hypergraph receipts.</td>
+                <td><code>~/dev/nanodregg</code></td>
+              </tr>
+              <tr data-filter-item data-category="dregg silicon formal">
+                <td><strong><code>obend</code></strong></td>
+                <td>Lean 4 (452 files, 62,167 constants, `0 sorryAx`) · Rust (`obend-node`) · SystemVerilog</td>
+                <td>Silicon Elaborator (`ExprCAM.lean` 64-bit hardware CAM, `Futamura.lean`, 2D XY Wormhole NoC, 3-phase `ICAP` DPR with 17.89× Verilator speedup), 5-layer Sky130 PDK DRC proof (`HardwareVerify.lean`), 6-stage equivalence across FPGA RTL, AMD `CDNA3` GPU ISA, and Ozaki Base-13 `FP4` Tensor Cores, Next-Mathematica, and DeOS.</td>
+                <td><code>~/dev/obend</code></td>
+              </tr>
+              <tr data-filter-item data-category="zkml formal silicon">
+                <td><strong><code>zkml-research</code></strong></td>
+                <td>Lean 4 (`Selvage`, `0 sorry`) · Rust · Python · 49 commits</td>
+                <td>Selvage commit-then-audit (`AuditSampling.lean`, 78×–308× boundary exchange savings), 1.56 TB Merkle model weight registry (`registry_tool.py`), exact $\le 13$-bit `MXFP4` block-32 dot products, `gpt-oss-20b` 124.4M scale-byte census, 0.72%-overhead MoE router binding, $p_{61}$ vFHE prime (`CyclotomicInertia.lean`), 3,200+ continual learning STARKs, `DARK-TRAINING.md`, Zama HPU 409.6 GB/s RTL tap.</td>
+                <td><a href="https://github.com/emberian/zkml-research">github.com/emberian/zkml-research</a></td>
+              </tr>
+              <tr data-filter-item data-category="zkml dregg silicon">
+                <td><strong><code>degg-research</code></strong></td>
+                <td>Rust (8 experiment suites) · Lean 4 · 5 commits</td>
+                <td>`inclusion-availability` zero-dep BLAKE3 MMR proxy (`verify_receipt` derives leaf position from sibling geometry + `equivocation.rs`), `tee-residual-trust` (377/1,125 TEE-only forgery proof), `leakage-lab`, `OPERATORLESS_AGENTS.md`.</td>
+                <td><a href="https://github.com/emberian/degg-research">github.com/emberian/degg-research</a></td>
+              </tr>
+              <tr data-filter-item data-category="formal">
+                <td><strong><code>svenvs</code> &amp; <code>hol-reflection</code></strong></td>
+                <td>HOL4 · CakeML · Candle · x86-64 ELF (`cake-selfupgrade`)</td>
+                <td>Reflective self-improving HOL prover and verified compiler discharging Löb’s obstruction via a frozen reference kernel (`loebReductionScript.sml`, `prover_self_improvement_watchdog_concrete`) and self-upgrading its own 1.19 GB x64 binary in place.</td>
+                <td><code>~/dev/svenvs</code> · <code>~/dev/hol-reflection</code></td>
+              </tr>
+              <tr data-filter-item data-category="formal">
+                <td><strong><code>verifereum</code></strong></td>
+                <td>HOL4 · CakeML · EVM Bytecode</td>
+                <td>Verified Ethereum Virtual Machine (EVM) semantics and smart-contract bytecode verification in HOL4.</td>
+                <td><a href="https://github.com/verifereum/verifereum">github.com/verifereum/verifereum</a></td>
+              </tr>
+              <tr data-filter-item data-category="formal">
+                <td><strong><code>fn</code> &amp; <code>fn2</code> (`LeanACL2`)</strong></td>
+                <td>ACL2 8.6 (647K LOC books) · Lean 4 (86,748 LOC, 36 modules, `0 sorry`)</td>
+                <td>Verified reasoning substrate (`fn`) and mechanical embedding of 2,705 ACL2 functions in Lean 4 (`fn2`) with `s_measure` termination and `s_equal` congruence automation.</td>
+                <td><a href="https://github.com/emberian/fn">github.com/emberian/fn</a> · <code>~/dev/fn2</code></td>
+              </tr>
+              <tr data-filter-item data-category="formal">
+                <td><strong><code>o7vn</code> (`veri7vn`)</strong></td>
+                <td>Isabelle/HOL (34 theories, 32.6K LOC) · SML/MLton (19 native binaries)</td>
+                <td>Verified compliance &amp; normative decision engine exported from Isabelle/HOL to native MLton binaries with 0.1 ms latency and 16,284/0 wrong across compliance suites.</td>
+                <td><code>~/dev/o7vn</code></td>
+              </tr>
+              <tr data-filter-item data-category="formal dregg">
+                <td><strong><code>verekos</code> &amp; <code>EKOS</code></strong></td>
+                <td>Lean 4 (~190 theorems) · Rust · TypeScript</td>
+                <td>Enterprise Knowledge Compiler and ontology-to-grain compiler backed by a 190-theorem Lean 4 proof spine over `minidregg`.</td>
+                <td><code>~/dev/verekos</code> · <code>~/dev/EKOS</code></td>
+              </tr>
+              <tr data-filter-item data-category="formal swarm">
+                <td><strong><code>plonky3-recursion</code></strong></td>
+                <td>Rust (Plonky3 fork) · Lean 4 (`TwoRegimeQueryBudget.lean`)</td>
+                <td>Adversarial red-team discovery and theorem-backed fix (`52e1fab`) of the recursive FRI query-index deduplication soundness collapse.</td>
+                <td><a href="https://github.com/emberian/plonky3-recursion">github.com/emberian/plonky3-recursion</a></td>
+              </tr>
+              <tr data-filter-item data-category="formal">
+                <td><strong><code>mina</code> (`feat/lean-consensus-Verify`)</strong></td>
+                <td>Lean 4 (36 files) · OCaml · Rust (`leanc` FFI)</td>
+                <td>April 2026 Lean 4 formalization of Mina consensus verifying live devnet block `543252` via `leanc` C-ABI.</td>
+                <td><a href="https://github.com/MinaProtocol/mina">github.com/MinaProtocol/mina</a> (fork)</td>
+              </tr>
+              <tr data-filter-item data-category="swarm">
+                <td><strong><code>redregg</code></strong></td>
+                <td>Markdown · Python · Shell · 57 commits</td>
+                <td>Swarm-engineering handbook, organizational charters, 5 CFTC/SEC regulatory filings, and cross-vendor review ledgers.</td>
+                <td><a href="https://github.com/emberian/redregg">github.com/emberian/redregg</a></td>
+              </tr>
+              <tr data-filter-item data-category="swarm">
+                <td><strong><code>dregg-microsites</code></strong></td>
+                <td>HTML/CSS/JS (19 interactive microsites) · `CLAIMS-*.md`</td>
+                <td>Public technical visual essays (`field-guide`, `prove-the-turn`, `which-model`, `green-is-not-true`, `the-fix-is-a-theorem`, `keep-learning-keep-a-secret`, etc.).</td>
+                <td><a href="https://emberian.github.io/dregg-microsites/">emberian.github.io/dregg-microsites/</a></td>
+              </tr>
+              <tr data-filter-item data-category="swarm">
+                <td><strong><code>dregg-posters</code></strong></td>
+                <td>Typst (EN/ZH PDFs) · HTML · 49 ASCII Posters · `CLAIMS-*.md`</td>
+                <td>65+ claim-verified technical posters and architectural broadsides (`2026-08-09-loom`, `2026-09-29` EN/ZH series).</td>
+                <td><a href="https://github.com/emberian/dregg-posters">github.com/emberian/dregg-posters</a></td>
+              </tr>
+              <tr data-filter-item data-category="swarm formal">
+                <td><strong><code>forensics</code>, <code>cv-distill-loss</code>, <code>negstab</code>, <code>formal-organisms</code>, <code>acl2aiguide</code>, <code>automatafl</code></strong></td>
+                <td>Lean 4 · Rust · Python</td>
+                <td>Git-DAG &amp; proof-vacuity forensics (`forensics`), multi-hop context distillation benchmark (`cv-distill-loss`, 21.5/24 recall), representation collapse under RL (`negstab`), evolutionary formal dynamics (`formal-organisms`), ACL2 neural guide (`acl2aiguide`), zero-twin Lean 4 automata learning (`automatafl`).</td>
+                <td><code>~/dev/{forensics,cv-distill-loss,negstab,formal-organisms,acl2aiguide,automatafl}</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7B: 19 LIVE INTERACTIVE MICROSITES -->
+    <section id="tab-microsites" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">07B · Live Visual Essays</div>
+          <h2>19 Interactive Microsites (`emberian.github.io/dregg-microsites`)</h2>
+        </div>
+        <div>
+          <p>
+            Every microsite in <code>/Users/ember/src/dregg-microsites</code> is deployed live on GitHub Pages and backed by an audited <code>CLAIMS-*.md</code> verification ledger.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">01 · Overview</span></div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/field-guide/">The Dregg Field Guide</a></h3>
+          <p>Interactive architectural tour of the 16-crate Rust + 383-file Lean 4 stack, turn receipts, and Wasm grains.</p>
+        </article>
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">02 · Agent Proxy + MMR</span></div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/prove-the-turn/">Prove the Turn</a></h3>
+          <p>How an agent turn is Merkleized (`HISTORY_ROOT_SLOT`, `HEAP_ROOT_SLOT`) and proven in ~890 ms.</p>
+        </article>
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">03 · Verifiable Inference</span></div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/which-model/">Which Model Answered You?</a></h3>
+          <p>Selvage commit-then-audit, 1.56 TB model weight registries, native MXFP4, and 0.72% MoE router binding.</p>
+        </article>
+        <article class="card card-gold">
+          <div class="badge-row"><span class="badge badge-gold">04 · Anti-Vacuity</span></div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/green-is-not-true/">Green Is Not True</a></h3>
+          <p>Why passing tests and vacuous theorems fail, and how `CarrierCensus.lean` enforces non-vacuous proofs.</p>
+        </article>
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">05 · STARK Red-Teaming</span></div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/the-fix-is-a-theorem/">The Fix Is a Theorem</a></h3>
+          <p>Postmortem of the `plonky3-recursion` (`52e1fab`) query-dedup soundness bug and its Lean 4 fix.</p>
+        </article>
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">06 · Private Fine-Tuning</span></div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/keep-learning-keep-a-secret/">Keep Learning, Keep a Secret</a></h3>
+          <p>Encrypted continual learning and private LoRA adaptation over our $p_{61}$ vFHE prime.</p>
+        </article>
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">07 · Continual Learning</span></div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/keep-the-next-example/">Keep the Next Example</a></h3>
+          <p>Sleep-consolidation and verifiable online weight updates across 3,200+ STARK proofs.</p>
+        </article>
+        <article class="card card-gold">
+          <div class="badge-row"><span class="badge badge-gold">08 · Computable Contracts</span></div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/a-promise-that-survives/">A Promise That Survives</a></h3>
+          <p>How `ContractCert`, capability attenuation, and MMR inclusion receipts make multi-party compute agreements checkable.</p>
+        </article>
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">09–19 · Full Collection</span></div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/">View All 19 Microsites →</a></h3>
+          <p>Includes `no-unknowns-left` (Farkas `SysCert`), `the-key-never-enters` (`mini-keys`), `the-grammar-is-the-gate` (`Cfg.lean`), and more.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TAB 7C: 65+ CLAIM-CHECKED POSTERS -->
+    <section id="tab-posters" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">07C · `~/src/dregg-posters`</div>
+          <h2>65+ Claim-Checked Technical Posters (Typst EN/ZH, HTML Broadsides &amp; 49 ASCII Posters)</h2>
+        </div>
+        <div>
+          <p>
+            Located in <code>/Users/ember/src/dregg-posters</code> (<a href="https://github.com/emberian/dregg-posters">github.com/emberian/dregg-posters</a>), our poster archive pairs dense visual broadsides with machine-checked `CLAIMS-*.md` ledgers.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">HTML Broadside</span><span class="badge badge-emerald">`2026-08-09-loom`</span></div>
+          <h3>The Dregg Loom (`2026-08-09-loom/index.html`)</h3>
+          <p>
+            Full-bleed architectural broadside mapping how the 8-lane Poseidon2 sponge, DFA/CFG transition tables, Wasm `grain-turn` slots, and recursive Plonky3 FRI verifier interlock into a single verifiable turn receipt.
+          </p>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">Bilingual Typst Series</span><span class="badge badge-gold">EN + ZH PDFs</span></div>
+          <h3>Dated Typst Technical Poster Series &amp; 49 ASCII Architecture Posters</h3>
+          <p>
+            Includes the <code>2026-08-03</code>, <code>2026-08-19</code>, and <code>2026-09-29</code> bilingual (English &amp; Chinese) Typst poster suites plus <strong>49 terminal-ready ASCII technical posters</strong> covering MMR range proofs, TEE attestation chains, Selvage martingales, and `seL4` protection domains.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TAB 7D: PAPERS, FILINGS & 8 SOURCE DOSSIERS -->
+    <section id="tab-papers" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">07D · Primary-Source Dossiers &amp; Papers</div>
+          <h2>The 8 Primary-Source Dossiers (`sources/01..08`) &amp; Regulatory Filings</h2>
+        </div>
+        <div>
+          <p>
+            Click any dossier below to open it in the built-in reader or view the raw Markdown file directly in the repository.
+          </p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Dossier / Document</th>
+              <th>Size</th>
+              <th>Primary Coverage</th>
+              <th>Links</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><code>01-parsing-query-aggregation-absence.md</code></strong></td>
+              <td>74 KB</td>
+              <td>Chomsky-hierarchy parsing certificates, 3,522-LOC Lean 4 Brzozowski regex-complement DFAs, `dregg-query` MMR range proofs (`server_cannot_omit_position`), certified BPE, and training-set absence proofs.</td>
+              <td><a href="sources/01-parsing-query-aggregation-absence.md">Open Dossier →</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>02-merkle-agent-proxies-and-dataplanes.md</code></strong></td>
+              <td>82 KB</td>
+              <td>4-layer Merkleized agent proxy stack (`sdk::tool_gateway`, `deos-hermes`, `mini-keys`, `inclusion-availability` MMR, `grain-turn` slots 3 &amp; 6, 4-ary SMT, `zkoracle-live`, and verified `Orb` HTTP dataplane).</td>
+              <td><a href="sources/02-merkle-agent-proxies-and-dataplanes.md">Open Dossier →</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>03-hardware-tee-sel4-and-capabilities.md</code></strong></td>
+              <td>77 KB</td>
+              <td>Pure-Rust `tee-verify` (AWS Nitro, AMD SEV-SNP Milan/Genoa/Turin, Intel TDX DCAP v4/v5), ML-KEM-768 GPU E2EE, 377/1,125 TEE residual-trust forgery proof, bare-metal `seL4` Microkit, and post-quantum capabilities.</td>
+              <td><a href="sources/03-hardware-tee-sel4-and-capabilities.md">Open Dossier →</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>04-workload-verification-zkml-vfhe-selvage.md</code></strong></td>
+              <td>70 KB</td>
+              <td>`Selvage/AuditSampling.lean` (`0 sorry`), 1.56 TB model weight registry, exact $\le 13$-bit `MXFP4` block-32 dot products, 0.72%-overhead MoE router binding, $p_{61}$ vFHE prime, and 3,200+ continual learning STARKs.</td>
+              <td><a href="sources/04-workload-verification-zkml-vfhe-selvage.md">Open Dossier →</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>05-formal-assurance-kernels-and-redteaming.md</code></strong></td>
+              <td>77 KB</td>
+              <td>5 formal prover substrates, kernel evolution (`breadstuffs` → `minidregg` → `nanodregg`), Farkas `SysCert`, `CarrierCensus.lean` anti-vacuity gates, `plonky3-recursion` (`52e1fab`) red-team, and computable law.</td>
+              <td><a href="sources/05-formal-assurance-kernels-and-redteaming.md">Open Dossier →</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>06-vision-origins-and-complete-project-atlas.md</code></strong></td>
+              <td>89 KB</td>
+              <td>Decade-long lineage (2013–2026: pre-1.0 Rust → UNSW `seL4` → O(1) Labs `Mina` → Elide → Dregg/OBend), `redregg` swarm methodology, and complete master atlas.</td>
+              <td><a href="sources/06-vision-origins-and-complete-project-atlas.md">Open Dossier →</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>07-obend-silicon-fpga-and-latest-dregg.md</code></strong></td>
+              <td>78 KB</td>
+              <td>`~/dev/obend` (452 Lean 4 modules, `0 sorryAx`): 64-bit `ExprCAM`, Futamura projections, 2D XY Wormhole NoC &amp; 3-phase `ICAP` DPR (17.89× speedup), Sky130 PDK DRC proof, and 6-stage equivalence across FPGA RTL, AMD `CDNA3` GPU ISA, and Ozaki `FP4` Tensor Cores.</td>
+              <td><a href="sources/07-obend-silicon-fpga-and-latest-dregg.md">Open Dossier →</a></td>
+            </tr>
+            <tr>
+              <td><strong><code>08-october-november-2026-stratum.md</code></strong></td>
+              <td>72 KB</td>
+              <td>Late Oct–Nov 2026 stratum: `svenvs` &amp; `hol-reflection` (self-upgrading 1.19 GB x64 CakeML/Candle prover discharging Löb’s obstruction), `verekos`, `o7vn` (0.1 ms Isabelle/MLton binaries), `fn2`, `negstab`, and `forensics`.</td>
+              <td><a href="sources/08-october-november-2026-stratum.md">Open Dossier →</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <strong>whatember</strong> · 07 · Searchable Master Atlas<br/>
+        Repository: <a href="https://github.com/emberian/whatember">github.com/emberian/whatember</a>
+      </div>
+      <div>
+        <a href="vision.html">← 06 · Vision &amp; Lineage</a> ·
+        <a href="index.html">01 · Overview →</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

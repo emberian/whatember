@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>02 · Workload Verification, Training-Set Absence Proofs, zkML &amp; vFHE — whatember</title>
+  <meta name="description" content="How parsing certificates, Brzozowski regex-complement DFAs, attested MMR range queries, Selvage commit-then-audit, native MXFP4, and MoE router binding verify AI workloads and prove training-set absence." />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">W</span>
+        <span>whatember</span>
+        <small>Verifiable Systems Atlas · Nov 2026</small>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="index.html">01 · Overview</a>
+        <a href="workload.html" aria-current="page">02 · Workload &amp; Absence</a>
+        <a href="proxies.html">03 · Merkle Proxies</a>
+        <a href="hardware.html">04 · Hardware &amp; Silicon</a>
+        <a href="assurance.html">05 · Formal Kernels</a>
+        <a href="vision.html">06 · Vision &amp; Lineage</a>
+        <a href="atlas.html">07 · Master Atlas</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" title="Toggle theme">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">02 · Workload Verification · Training-Set Absence · zkML · vFHE</div>
+          <h1>Prove what ran—and prove what was <em>never in the corpus</em>.</h1>
+          <p class="hero-lead">
+            Workload verification has two halves: proving <strong>data provenance &amp; absence</strong> (that a committed training corpus, RAG index, or inference transcript contains zero instances of a benchmark, PII pattern, or forbidden span, without revealing the corpus) and proving <strong>model execution integrity</strong> (that the exact committed 1.56 TB frontier weights and MoE routing gates executed).
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#tab-absence">Training-Set Absence Protocol →</a>
+            <a class="btn btn-ghost" href="#tab-selvage">Selvage Commit-Then-Audit →</a>
+            <a class="btn btn-ghost" href="#tab-mxfp4">MXFP4 &amp; MoE Router Binding →</a>
+            <a class="btn btn-ghost" href="sources/01-parsing-query-aggregation-absence.md">Dossier 01 (74 KB) →</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <span class="eyebrow">Workload Verification Metrics</span>
+          <div class="stat-row">
+            <div class="stat-val">4M tok / 40ms</div>
+            <div class="stat-desc">Welded 8-lane Poseidon2 + DFA/CFG parsing certificate generation (<code>AttestedAutomatonWeld8.lean</code>).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">3,522 LOC</div>
+            <div class="stat-desc">Lean 4 ACI-normalized symbolic Brzozowski derivative &amp; regex-complement formalization (<code>Dregg2/Crypto/Deriv/*</code>).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">78×–308×</div>
+            <div class="stat-desc">Selvage boundary-exchange cost reduction vs. full per-token zkML (<code>AuditSampling.lean</code>, <code>0 sorry</code>).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">≤ 13-bit exact</div>
+            <div class="stat-desc">Exact integer dot product for <code>MXFP4 (E2M1)</code> block-32 weights in BabyBear ($p = 2013265921$) with zero float rounding.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">$p_{61}$ vFHE</div>
+            <div class="stat-desc">$p_{61} = 2^{61} - 2^{26} + 1$ cyclotomic inertia degree 64 (4× Goldilocks), 10–40% FHE speedup, 3,200+ STARKs.</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="subtabs-wrap">
+    <div class="wrap subtabs" role="tablist" aria-label="Workload verification sections">
+      <button class="subtab-btn" role="tab" aria-selected="true" data-tab-target="tab-absence">2A · Proving Training-Set &amp; Corpus Absence</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-selvage">2B · Selvage &amp; Commit-Then-Audit (`AuditSampling.lean`)</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-mxfp4">2C · Model Identity, Native MXFP4 &amp; MoE Routers</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-vfhe">2D · Verifiable FHE ($p_{61}$) &amp; Continual Learning</button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- TAB 2A: PROVING TRAINING-SET & CORPUS ABSENCE -->
+    <section id="tab-absence" class="tab-panel active" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">02A · Corpus &amp; Training-Set Absence</div>
+          <h2>Cryptographic Proofs of Absence Without Revealing the Dataset</h2>
+        </div>
+        <div>
+          <p>
+            Safety evaluators, regulators, and enterprise counterparties frequently need to verify a negative claim: <em>“Prove that this confidential training corpus (or fine-tuning batch, or RAG store) contains <strong>zero occurrences</strong> of MMLU/GPQA benchmark test prompts, zero SSNs/API keys, or zero spans from a copyrighted repository—and prove you did not omit a single shard while checking.”</em>
+          </p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Why Naive Hashing Fails Absence Proofs</div>
+        <p>
+          A standard Merkle inclusion proof can only show that a document <em>is</em> present at leaf $i$. Proving that a pattern $P$ is <strong>absent across an entire corpus</strong> $[0, N)$ requires preventing three distinct attacks simultaneously: (1) <strong>selective shard omission</strong> during the scan, (2) <strong>tokenization boundary evasion</strong> (splitting a forbidden string across BPE tokens), and (3) <strong>dishonest regex/CFG evaluation</strong> over the committed bytes. Our stack closes all three with machine-checked Lean 4 theorems and Plonky3 STARKs.
+        </p>
+      </div>
+
+      <h3>The 6-Phase End-to-End Absence Proof Protocol</h3>
+      <div class="pipeline">
+        <div class="step-box">
+          <div class="step-num">01</div>
+          <div>
+            <h4>Corpus Commitment &amp; Contiguous MMR Indexing (<code>dregg-doc</code> + <code>dregg-query</code>)</h4>
+            <p>
+              Training shards, documents, or agent turns are packed into 8-felt Poseidon2 Merkle trees (<code>dregg-doc/src/commit.rs:DocTree</code>, domain tags <code>0x444f4330</code> / <code>0x444f4331</code>) and appended to a <code>Blake3Mmr</code> or Poseidon2 MMR (<code>dregg-query/src/lib.rs</code>) where every entry’s 0-based position $i \in [0, N)$ is cryptographically bound into its leaf hash <code>H(0x00 || u64_le(pos) || item_hash)</code>.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">02</div>
+          <div>
+            <h4>Non-Omission Range Certificate (<code>MMR.lean:server_cannot_omit_position</code>)</h4>
+            <p>
+              To prove that <em>every</em> shard in $[lo, hi]$ was scanned with zero gaps, <code>Blake3Mmr::prove_range(lo, hi)</code> emits a <code>RangeCertificate</code> containing only the $O(\log N)$ left-boundary and right-boundary sibling hashes. The verifier reconstructs all internal MMR subtrees from the contiguous slice and folds them against the bagged MMR root.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">03</div>
+          <div>
+            <h4>Certified Maximal-Munch BPE Tokenization (<code>breadstuffs/crates/tokenizer</code>)</h4>
+            <p>
+              A dishonest provider could hide a forbidden benchmark question by tokenizing it with non-standard subword splits. Our <code>tokenizer/src/bpe.rs</code> (<code>prove_bpe_correctness</code>) generates a STARK proof over the priority-ranked merge table proving that every adjacent token pair $(t_i, t_{i+1})$ has merge priority strictly worse than the merges that formed $t_i$ and $t_{i+1}$—enforcing canonical tokenization.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">04</div>
+          <div>
+            <h4>Lean-Verified Brzozowski Regex-Complement DFAs (<code>Dregg2/Crypto/Deriv/*</code> &amp; <code>dregg-dfa</code>)</h4>
+            <p>
+              Given a forbidden pattern $R$ (e.g., an eval benchmark regex, PII class, or secret format), we compile its complement language $\Sigma^* \setminus \mathcal{L}(R)$ via <code>Re::not()</code> in <code>breadstuffs/crates/dregg-dfa/src/regex.rs</code>. Because standard NFA Thompson construction cannot be soundly complemented by flipping accepting states, we formalized a <strong>3,522-line Lean 4 symbolic Brzozowski derivative engine</strong> with ACI normalization (<code>metatheory/Dregg2/Crypto/Deriv/{Pred,RE,Deriv,Smart,Norm,Finiteness,DFA}.lean</code>) proving language equivalence (<code>correctness</code>), state-space finiteness (<code>der_finite</code>), and exact complement disjointness (<code>predRE_complement_disjoint</code>).
+            </p>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">05</div>
+          <div>
+            <h4>Chomsky-Hierarchy Parsing Certificates &amp; 8-Lane Poseidon2 Welding (<code>Cfg.lean</code> + <code>AttestedAutomatonWeld8.lean</code>)</h4>
+            <p>
+              For structured data (JSON schemas, tool call ASTs, code grammars), our hierarchy spans Type-3 DFAs (<code>dfa-air</code>, 7 columns), compact deterministic LL(1)/Dyck pushdown automata (<code>CfgCompact.lean</code>, <code>DyckStackEmit.lean</code>, 12 columns), and full Chomsky Normal Form CYK tables (<code>Cfg.lean</code>). <code>AttestedAutomatonWeld8.lean</code> welds the 8-byte DFA transition directly into the rate-8 Poseidon2 sponge absorption row—achieving <strong>100% column savings on the automaton trace</strong> and proving <strong>4M tokens in ~40 ms</strong> on a single thread.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">06</div>
+          <div>
+            <h4>Zero-Count Audit Receipt &amp; 3-Level Recursive STARK Rollup (<code>audit</code> + <code>turn-prover</code> + <code>DARK-TRAINING.md</code>)</h4>
+            <p>
+              In <code>breadstuffs/crates/audit/src/{count.rs,budget.rs}</code>, setting <code>limit = 0</code> in <code>BudgetProof::prove</code> forces the running match accumulator to remain identically <code>0</code> across every committed shard (`CountProof` with `match_count == 0`). `turn-prover` folds per-shard receipts through a 3-level Plonky3 recursive STARK tree (`RecursiveAggregation.lean:light_client_verifies_anchored_history`), and `zkml-research/docs/DARK-TRAINING.md` binds the resulting corpus root directly to the training run’s gradient updates inside the enclave.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <details class="specimen-details" open>
+        <summary>Verbatim Lean 4 Theorems: Non-Omission &amp; Regex-Complement Soundness (`MMR.lean` &amp; `Dregg2/Crypto/Deriv/DFA.lean`)</summary>
+        <div class="details-body">
+<pre><code>-- From breadstuffs/metatheory/MMR.lean (lines 201–216)
+/-- No-omission theorem: a server cannot silently omit or substitute the leaf
+    at `pos` while still producing a valid MMR inclusion proof against the
+    committed root. -/
+theorem server_cannot_omit_position
+    (H : HashSpec) (peaks : List Nat) (pos : Nat)
+    (authentic_leaf forged_leaf : Nat)
+    (h_neq : authentic_leaf ≠ forged_leaf)
+    (path1 path2 : List SiblingStep)
+    (h_len : path1.length = path2.length)
+    (h_geom : ∀ i (hi1 : i &lt; path1.length) (hi2 : i &lt; path2.length),
+      (path1.get ⟨i, hi1⟩).isRight = (path2.get ⟨i, hi2⟩).isRight)
+    (h_valid1 : verifyMmrInclusion H peaks pos authentic_leaf path1 = true)
+    (h_peak_idx : (foldPath H (leafCommit H pos authentic_leaf) path1).2 =
+                  (foldPath H (leafCommit H pos forged_leaf) path2).2) :
+    verifyMmrInclusion H peaks pos forged_leaf path2 = false
+
+-- From breadstuffs/metatheory/Dregg2/Crypto/Deriv/DFA.lean &amp; Pred.lean
+theorem correctness {α σ : Type} [BooleanAlgebra α] [DecidableEq α]
+    (denote : α → σ → Bool) (r : RE α) (w : List σ) :
+    matches_re denote ( nullable (foldl (der denote) r w) ) ↔ denoteRE denote r w
+
+theorem predRE_complement_disjoint (r : RE (Pred UInt8)) (w : List UInt8) :
+    denoteRE evalPred (RE.not r) w = ! (denoteRE evalPred r w)</code></pre>
+          <p class="muted">
+            Full primary source with all 7 Chomsky-hierarchy AIRs and code specimens: <a href="sources/01-parsing-query-aggregation-absence.md"><code>sources/01-parsing-query-aggregation-absence.md</code></a>.
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <!-- TAB 2B: SELVAGE & COMMIT-THEN-AUDIT -->
+    <section id="tab-selvage" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">02B · Selvage Architecture</div>
+          <h2>Selvage: Commit-Then-Audit Workload Verification (`AuditSampling.lean`)</h2>
+        </div>
+        <div>
+          <p>
+            In weaving, a <strong>selvage</strong> is the self-finished edge of fabric that keeps the weave from unraveling without adding bulk to the cloth. In <code>~/dev/zkml-research</code>, <strong>Selvage</strong> replaces per-token full-circuit zkML with a cryptographically binding commit-on-the-hot-path + VRF-sampled STARK audit protocol proven sound in Lean 4.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">Hot Path · Synchronous</span><span class="badge badge-emerald">Line Rate</span></div>
+          <h3>Phase 1: Synchronous Boundary Commitment</h3>
+          <p>
+            During live inference, the provider commits to the input/output activation vectors and MoE routing gates of each chunk $i \in [1, N]$ in a Poseidon2 Merkle tree anchored to the model weight registry root $W_{\text{root}}$ and hardware TEE quote—before the random audit challenge seed is revealed.
+          </p>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">Audit Path · Asynchronous</span><span class="badge badge-navy">78×–308× Reduction</span></div>
+          <h3>Phase 2: VRF-Derived STARK Spot-Checks</h3>
+          <p>
+            After commitment, a VRF/Fiat-Shamir challenge selects each chunk independently with probability $q$ (or samples $k$ chunks without replacement). Any single cheated chunk is caught with probability $\ge 1 - (1 - q)^c$, while an adaptive adversary’s expected escape duration is bounded by $\mathbb{E}[C_\tau] \le 1/q$ via Doob’s Optional Stopping Theorem.
+          </p>
+        </article>
+      </div>
+
+      <details class="specimen-details" open>
+        <summary>Verbatim Lean 4 Theorems from `zkml-research/lean/Selvage/AuditSampling.lean` (`0 sorry`)</summary>
+        <div class="details-body">
+<pre><code>-- 1. Commit-Then-Audit Soundness (AuditSampling.lean:106-119)
+theorem commit_then_audit_soundness (q : ℝ) (c : ℕ) (hq0 : 0 ≤ q) (hq1 : q ≤ 1) :
+    1 - (1 - q) ^ c ≥ 1 - Real.exp (-q * c) := by
+  have h1 : 1 - q ≤ Real.exp (-q) := by linarith [Real.add_one_le_exp (-q)]
+  have h2 : (1 - q) ^ c ≤ (Real.exp (-q)) ^ c := pow_le_pow_left₀ (by linarith) h1 c
+  rw [← Real.exp_nat_mul] at h2
+  have h3 : (c : ℝ) * -q = -q * c := by ring
+  rw [h3] at h2
+  linarith
+
+-- 2. Supermartingale Expected Verified Chunks Bound (AuditSampling.lean:457-468)
+theorem expected_verified_chunks_bounded (q : ℝ) (hq : 0 &lt; q)
+    (E_C_tau E_D_tau : ℝ)
+    (h_supermartingale : E_D_tau - q * E_C_tau ≥ 0)
+    (h_one_catch : E_D_tau ≤ 1) :
+    E_C_tau ≤ 1 / q := by
+  have h1 : q * E_C_tau ≤ 1 := by linarith
+  exact (le_div_iff₀ hq).mpr (by linarith)
+
+-- 3. Fail-Open Has Zero Legs (AuditSampling.lean:511-518)
+theorem failOpen_no_legs (s : SystemAssurance)
+    (h_open : s.disp = AuditDisposition.failOpen) :
+    effectiveAssurance s = 0 := by
+  unfold effectiveAssurance
+  simp [h_open]</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- TAB 2C: MODEL IDENTITY, NATIVE MXFP4 & MOE ROUTERS -->
+    <section id="tab-mxfp4" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">02C · Frontier Weight &amp; Router Binding</div>
+          <h2>1.56 TB Model Registry, Native `MXFP4` Dot Products &amp; 0.72% MoE Router Binding</h2>
+        </div>
+        <div>
+          <p>
+            Frontier inference in 2026 runs on block-scaled microscaling formats (OCP <code>MXFP4 E2M1</code> on NVIDIA Blackwell B200/B300 and AMD MI355X) and sparse Mixture-of-Experts architectures (`gpt-oss-20b`, `DeepSeek-R1`, `Kimi-K3`). Our stack verifies the exact deployed weights and routing gates without floating-point circuit blowup.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">1.56 TB Registry</span><span class="badge badge-emerald">Zamir Thm 1</span></div>
+          <h3>Merkle Weight Registry (`registry_tool.py`)</h3>
+          <p>
+            Streams multi-terabyte HuggingFace safetensors shards into a canonical Merkle tree up to <strong>1.56 TB (`Kimi-K3`, 619,593 leaves)</strong>. By Zamir’s Theorem 1 (2026), black-box input/output queries require $\Omega(\text{params})$ queries to detect a single-row weight backdoor; committing $W_{\text{root}}$ reduces detection to $O(1)$ Merkle opening per audited chunk.
+          </p>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">Exact Integer AIR</span><span class="badge">≤ 13 Bits</span></div>
+          <h3>Native `MXFP4` Block-32 Dot Products</h3>
+          <p>
+            Instead of emulating IEEE-754 floats inside a field, we exploit the structure of OCP <code>MXFP4 (E2M1)</code>: every 32-element block shares one `E8M0` scale byte, and the 16 E2M1 values times $2$ map to exact integers $\{0, \pm 1, \pm 2, \pm 3, \pm 4, \pm 6, \pm 8, \pm 12\}$. A 32-wide inner product fits in <strong>$\le 13$ bits</strong>—computed <em>exactly</em> in a single BabyBear ($p = 2013265921$) field word with zero rounding error!
+          </p>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">0.72% Overhead</span><span class="badge badge-gold">19× Hybrid Speedup</span></div>
+          <h3>MoE Router Binding &amp; Hybrid Audit Inversion</h3>
+          <p>
+            In sparse MoE models (`gpt-oss-20b`: 24 layers, 32 experts, top-4 active), the router projection + top-<em>k</em> gate selection accounts for only <strong>0.72% of active parameters</strong>. We prove router + attention (3.8% of params) in ZK and spot-audit linear FFN experts inside the TEE—delivering a <strong>19× net verification speedup</strong> while preventing silent expert-dropping attacks.
+          </p>
+        </article>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Model / Benchmark</th>
+              <th>Weight Format &amp; Scale Census</th>
+              <th>Registry Size / Leaves</th>
+              <th>Verification Mechanism</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><code>openai/gpt-oss-20b</code></strong></td>
+              <td>Native OCP <code>MXFP4</code> (32 experts/layer, top-4); <strong>124,366,848 E8M0 scale bytes</strong> across 768 expert tensors (100% in $[113, 131]$, zero NaNs)</td>
+              <td>20.9B params · 768 expert blocks</td>
+              <td>Exact integer block-32 BabyBear dot product + 0.72%-overhead top-4 router gate proof</td>
+            </tr>
+            <tr>
+              <td><strong><code>DeepSeek-R1</code> (671B MoE)</strong></td>
+              <td>FP8 / MXFP4 MoE (256 routed experts/layer, top-8 active)</td>
+              <td>~671 GB · 266,628 Merkle leaves</td>
+              <td>Selvage commit-then-audit (<strong>78×–308×</strong> boundary exchange savings) + router binding</td>
+            </tr>
+            <tr>
+              <td><strong><code>Kimi-K3</code> (1.56 TB Frontier MoE)</strong></td>
+              <td>Multi-shard safetensors registry commitment</td>
+              <td>1.56 TB · <strong>619,593 Merkle leaves</strong></td>
+              <td>Streaming `registry_tool.py` Merkle root anchored into AI Passport receipt</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 2D: VERIFIABLE FHE & CONTINUAL LEARNING -->
+    <section id="tab-vfhe" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">02D · Private Fine-Tuning &amp; vFHE</div>
+          <h2>Verifiable FHE over $p_{61}$ &amp; Encrypted Continual Learners</h2>
+        </div>
+        <div>
+          <p>
+            When an enterprise fine-tunes a model or runs continual learning on proprietary data (Lucid’s <strong>Private Fine-Tuning</strong> pillar), it needs both confidentiality (the host never sees the cleartext training example or LoRA adapter update) and verifiability (a STARK proving the update rule was followed honestly).
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-gold">
+          <div class="badge-row"><span class="badge badge-gold">Algebraic Number Theory</span><span class="badge">Lean 4 `0 sorry`</span></div>
+          <h3>The $p_{61} = 2^{61} - 2^{26} + 1$ vFHE Prime (`CyclotomicInertia.lean`)</h3>
+          <p>
+            In <code>zkml-research/lean/Selvage/CyclotomicInertia.lean</code>, we proved that $2$ has multiplicative order $192 = 3 \cdot 2^6$ modulo $p_{61} = 2^{61} - 2^{26} + 1$ (<code>order_two_mod_p61</code>). In the power-of-two cyclotomic ring $\mathbb{Z}_{p_{61}}[X]/(X^N + 1)$, the polynomial factors into $N/64$ irreducible factors of <strong>algebraic degree $d = 64$</strong>—<strong>4× larger than Goldilocks ($d = 16$)</strong>—yielding a <strong>10–40% FHE throughput speedup</strong> while remaining natively compatible with 64-bit NTT/STARK provers.
+          </p>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">3,200+ Real STARK Proofs</span><span class="badge">Continual Learning</span></div>
+          <h3>Encrypted Continual Learners (`vfhe_2026_09_08`)</h3>
+          <p>
+            Across our September 2026 vFHE campaign (<code>zkml-research/results/vfhe_2026_09_08/</code>), we executed <strong>3,200+ real STARK proofs</strong> over encrypted continual-learning update rules (LoRA, Hopfield,ridge regression, and sleep-consolidation with L2 weight decay), summarized in two interactive microsites: <a href="https://emberian.github.io/dregg-microsites/keep-learning-keep-a-secret/">Keep Learning, Keep a Secret</a> and <a href="https://emberian.github.io/dregg-microsites/keep-the-next-example/">Keep the Next Example</a>.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <strong>whatember</strong> · 02 · Workload Verification, Training-Set Absence Proofs, zkML &amp; vFHE<br/>
+        Primary Sources: <a href="sources/01-parsing-query-aggregation-absence.md">Dossier 01 (74 KB)</a> · <a href="sources/04-workload-verification-zkml-vfhe-selvage.md">Dossier 04 (70 KB)</a>
+      </div>
+      <div>
+        <a href="index.html">← 01 · Overview</a> ·
+        <a href="proxies.html">03 · Merkle Proxies →</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

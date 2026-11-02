@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>06 · The Vision, Decade Lineage (2013–2026) &amp; Swarm Engineering — whatember</title>
+  <meta name="description" content="The 13-year engineering arc from pre-1.0 Rust and NICTA/UNSW seL4 to O(1) Labs Mina, GraalVM/Elide, and the Dregg/OBend ecosystem, plus the redregg swarm-engineering methodology." />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">W</span>
+        <span>whatember</span>
+        <small>Verifiable Systems Atlas · Nov 2026</small>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="index.html">01 · Overview</a>
+        <a href="workload.html">02 · Workload &amp; Absence</a>
+        <a href="proxies.html">03 · Merkle Proxies</a>
+        <a href="hardware.html">04 · Hardware &amp; Silicon</a>
+        <a href="assurance.html">05 · Formal Kernels</a>
+        <a href="vision.html" aria-current="page">06 · Vision &amp; Lineage</a>
+        <a href="atlas.html">07 · Master Atlas</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" title="Toggle theme">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">06 · The Vision · Decade Lineage (2013–2026) · Swarm Engineering</div>
+          <h1>Thirteen years of building <em>machines that cannot lie</em>.</h1>
+          <p class="hero-lead">
+            The systems indexed in <strong>whatember</strong> are the convergence of a 13-year engineering trajectory across memory-safe systems languages (pre-1.0 Rust core team), formally verified microkernels (NICTA/UNSW <code>seL4</code> &amp; Robigalia), recursive zero-knowledge proof systems (O(1) Labs <code>Mina</code> &amp; 2026 Lean Pickles devnet verification), polyglot high-performance runtimes (Elide/GraalVM), workload verification, and autonomous formal-methods swarms (<code>redregg</code>).
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#tab-pillars">The 5 Architectural Pillars →</a>
+            <a class="btn btn-ghost" href="#tab-lineage">Decade Lineage (2013–2026) →</a>
+            <a class="btn btn-ghost" href="#tab-swarm">Swarm Engineering (`redregg` &amp; `cv`) →</a>
+            <a class="btn btn-ghost" href="sources/06-vision-origins-and-complete-project-atlas.md">Dossier 06 (89 KB) →</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <span class="eyebrow">Lineage Milestones</span>
+          <div class="stat-row">
+            <div class="stat-val">2013–2015</div>
+            <div class="stat-desc">Pre-1.0 Rust core team, <code>rustdoc</code> maintainer, <code>libcore</code> stabilization.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">2015–2017</div>
+            <div class="stat-desc">NICTA / UNSW Trustworthy Systems (<code>seL4</code> <code>l4v</code> proofs) &amp; founder of The Robigalia Project.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">2018–2026</div>
+            <div class="stat-desc">O(1) Labs <code>Mina</code> recursive SNARKs → Apr 2026 Lean 4 verified Pickles devnet block <code>543252</code>.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">2024–2026</div>
+            <div class="stat-desc">GraalVM/Elide runtime → workload verification research → Dregg / MiniDregg / NanoDregg / OBend / SVEnvs.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">21.5 / 24</div>
+            <div class="stat-desc"><code>cv distill</code> multi-wave swarm handoff recall score across 100+ session transcripts (<code>cv-distill-loss</code>).</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="subtabs-wrap">
+    <div class="wrap subtabs" role="tablist" aria-label="Vision sections">
+      <button class="subtab-btn" role="tab" aria-selected="true" data-tab-target="tab-pillars">6A · The Five Philosophical &amp; Technical Pillars</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-lineage">6B · The Decade-Long Lineage (2013–2026)</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-swarm">6C · Swarm Engineering &amp; Context Continuity (`redregg` &amp; `cv`)</button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- TAB 6A: THE FIVE PILLARS -->
+    <section id="tab-pillars" class="tab-panel active" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">06A · Architectural Philosophy</div>
+          <h2>The Five Pillars of Verifiable Compute</h2>
+        </div>
+        <div>
+          <p>
+            Across <code>breadstuffs</code>, <code>minidregg</code>, <code>nanodregg</code>, <code>zkml-research</code>, <code>degg-research</code>, and <code>obend</code>, five non-negotiable architectural principles govern every component we build.
+          </p>
+        </div>
+      </div>
+
+      <div class="pipeline">
+        <div class="step-box">
+          <div class="step-num">I</div>
+          <div>
+            <h4>Receipts Are Proof Objects, Not Log Lines</h4>
+            <p>
+              An JSON log entry or a bare signature from an opaque server is an assertion, not a proof. Every external action—whether an LLM inference turn, a proxy tool invocation, or a dataset scan—must emit a self-contained cryptographic certificate binding the pre-state root, the input/output commitment, the policy automaton verdict, and the post-state root.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">II</div>
+          <div>
+            <h4>Delete Unverified Mirrors; Export the Theorem Kernel Directly (`@[export]`)</h4>
+            <p>
+              Whenever a system maintains a Lean 4 specification alongside a handwritten Rust/C “mirror” implementation, divergence is inevitable. We systematically delete handwritten Rust mirrors (`ToolGateway` admission, `Orb` HTTP parsing, post-quantum primitives) and link the `@[export]` C-ABI code generated directly by the Lean 4 or HOL4/CakeML compiler.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">III</div>
+          <div>
+            <h4>Defense-in-Depth Across Hardware TEEs, Merkle History &amp; Algebraic Proofs</h4>
+            <p>
+              As proven by `residual_trust.rs` (377/1,125 host forgery scenarios under TEE-only signatures), hardware enclaves and zero-knowledge proofs are complements, not substitutes. TEEs provide low-latency confidentiality and hardware identity; MMRs prevent host rollback and split-view equivocation; STARKs and Selvage commit-then-audit prove algebraic and policy invariants independent of silicon vendor microcode.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">IV</div>
+          <div>
+            <h4>Structural Anti-Vacuity (`Green Is Not True`)</h4>
+            <p>
+              `0 sorry` is necessary but not sufficient. Every formal specification must pass automated premise-satisfiability and carrier-cardinality censuses (`CarrierCensus.lean`, `ApexPremiseVacuity.lean`), proving that the theorem’s hypotheses are jointly inhabited by real execution traces.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">V</div>
+          <div>
+            <h4>Co-Design Algorithms With Silicon Physics (`MXFP4`, `$p_{61}$`, `ExprCAM`, `ICAP`)</h4>
+            <p>
+              Verification only becomes a “capability of the machine, not a tax on it” when the cryptography matches the physical datapath: exact $\le 13$-bit integer dot products for block-32 `MXFP4` weights, degree-64 cyclotomic inertia over $p_{61}$, 8-lane Poseidon2 sponge welding, 8-cycle idle-window taps in Zama’s HPU RTL, and 64-bit hardware CAMs in `obend`.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6B: THE DECADE-LONG LINEAGE -->
+    <section id="tab-lineage" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">06B · Engineering Provenance (2013–2026)</div>
+          <h2>From Pre-1.0 Rust &amp; `seL4` to `Mina`, `Dregg` &amp; `OBend`</h2>
+        </div>
+        <div>
+          <p>
+            Every layer of the current stack traces back to foundational systems built over the past decade.
+          </p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Era</th>
+              <th>Projects &amp; Institutions</th>
+              <th>Direct Technical Continuity into `whatember`</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>2013–2015</strong></td>
+              <td><strong>Pre-1.0 Rust Core Team &amp; `rustdoc`</strong></td>
+              <td>Authored and maintained `rustdoc`, contributed to `libcore`/`libstd` stabilization, and pioneered literate, zero-cost-abstraction Rust systems engineering.</td>
+            </tr>
+            <tr>
+              <td><strong>2015–2017</strong></td>
+              <td><strong>NICTA / UNSW `seL4` (`l4v`) &amp; The Robigalia Project</strong></td>
+              <td>Worked on the Isabelle/HOL formal verification of the `seL4` microkernel at NICTA/UNSW and founded Robigalia (Rust on `seL4` with capability-based security). Directly powers `breadstuffs/sel4/` (Protection Domain 3 STARK verifier) and `SeL4Abstract.lean`.</td>
+            </tr>
+            <tr>
+              <td><strong>2018–2026</strong></td>
+              <td><strong>O(1) Labs `Mina Protocol` (`coda`) &amp; 2026 Lean 4 Pickles Devnet Verification</strong></td>
+              <td>Early systems/cryptography engineering on Mina’s recursive Pickles/Kimchi SNARK blockchain. Returned in April 2026 (`~/dev/mina`, branch `feat/lean-consensus-Verify`) to build a 36-file Lean 4 formalization verifying real Mina devnet block `543252` via `leanc` FFI.</td>
+            </tr>
+            <tr>
+              <td><strong>2023–2025</strong></td>
+              <td><strong>Elide / GraalVM Polyglot Runtimes &amp; Workload Verification Origins</strong></td>
+              <td>Built high-performance polyglot execution sandboxes (`~/elide`) and worked at Hellas on verifiable compute and workload verification—where the project Ember was leading eventually evolved into the independent **Dregg** research program.</td>
+            </tr>
+            <tr>
+              <td><strong>2026 (Wave 1–3)</strong></td>
+              <td><strong>`breadstuffs` (`dregg`), `zkml-research`, `degg-research`, `plonky3-recursion`</strong></td>
+              <td>Full-stack verifiable agent turns (`grain-turn`), 4-layer Merkleized agent proxies, 3,522-line Lean 4 regex-complement DFAs, attested MMR range queries, Selvage commit-then-audit, multi-vendor `tee-verify`, and `Orb` verified HTTP dataplane.</td>
+            </tr>
+            <tr>
+              <td><strong>2026 (Wave 4–6)</strong></td>
+              <td><strong>`minidregg`, `nanodregg`, `fn` / `fn2`, `o7vn`, `verekos`, `svenvs`, `obend`</strong></td>
+              <td>Farkas `SysCert`, reflective self-upgrading HOL/CakeML compiler (`svenvs`), 647K-LOC ACL2 + Lean bridge (`fn`/`fn2`), 0.1 ms Isabelle/MLton compliance binaries (`o7vn`), and the 452-module `obend` silicon/FPGA/CDNA3/FP4 elaborator &amp; DeOS kernel.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 6C: SWARM ENGINEERING & CONTEXT CONTINUITY -->
+    <section id="tab-swarm" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">06C · `~/dev/redregg` &amp; `cv`</div>
+          <h2>Swarm Engineering: How a Multi-Wave Formal Methods Organization Operates</h2>
+        </div>
+        <div>
+          <p>
+            Shipping 1,200+ zero-`sorry` Lean 4 / HOL4 / ACL2 / Isabelle modules alongside 38+ systems repositories required inventing new organizational and context-continuity primitives, documented in <code>~/dev/redregg</code> and implemented in the <code>cv</code> CLI.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">Context Continuity</span><span class="badge badge-emerald">`cv` &amp; `cv distill`</span></div>
+          <h3>Cross-Vendor Transcript Continuity (`cv-distill-loss`)</h3>
+          <p>
+            The `cv` tool indexes every engineering session across Claude, Codex, and Gemini (`--frozen`), distilling structured handoff states (`GOALS`, `ARTIFACTS`, `NEXT_ACTIONS`). In `~/dev/cv-distill-loss`, we benchmarked multi-hop handoff fidelity, achieving <strong>21.5 / 24 recall</strong> across multi-wave proof campaigns.
+          </p>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">Organizational Law</span><span class="badge">The Veterans Rule</span></div>
+          <h3>The Veterans Rule &amp; Empowered Auditor-Doers</h3>
+          <p>
+            Rather than spawning fresh, context-poor agents that write shallow stubs, waves resume veteran specialists who already hold the module’s invariant map in memory. Every auditor is an <strong>Empowered Auditor-Doer</strong>: when an audit uncovers a vacuous premise or a broken proof, the auditor fixes the theorem in the same turn.
+          </p>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">Cross-Vendor Councils</span><span class="badge badge-gold">Adversarial Review</span></div>
+          <h3>Reason First, Build Once (`CLAIMS-*.md`)</h3>
+          <p>
+            Every microsite in `dregg-microsites` and every poster in `dregg-posters` is paired with a line-by-line `CLAIMS-*.md` ledger where independent cross-vendor reviewers check every number, commit hash, and theorem name against the live repository before publication.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <strong>whatember</strong> · 06 · The Vision, Decade Lineage (2013–2026) &amp; Swarm Engineering<br/>
+        Primary Source: <a href="sources/06-vision-origins-and-complete-project-atlas.md">Dossier 06 (89 KB)</a>
+      </div>
+      <div>
+        <a href="assurance.html">← 05 · Formal Kernels</a> ·
+        <a href="atlas.html">07 · Master Atlas →</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

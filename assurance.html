@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>05 · Formal Assurance Kernels, Anti-Vacuity Gates, Red-Teaming &amp; Computable Law — whatember</title>
+  <meta name="description" content="Five running theorem-proving substrates (Lean 4, HOL4/CakeML/Candle svenvs &amp; verifereum, ACL2 fn/fn2, Isabelle/HOL o7vn, TLA+), anti-vacuity gates, Plonky3 red-teaming, and computable law." />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">W</span>
+        <span>whatember</span>
+        <small>Verifiable Systems Atlas · Nov 2026</small>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="index.html">01 · Overview</a>
+        <a href="workload.html">02 · Workload &amp; Absence</a>
+        <a href="proxies.html">03 · Merkle Proxies</a>
+        <a href="hardware.html">04 · Hardware &amp; Silicon</a>
+        <a href="assurance.html" aria-current="page">05 · Formal Kernels</a>
+        <a href="vision.html">06 · Vision &amp; Lineage</a>
+        <a href="atlas.html">07 · Master Atlas</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" title="Toggle theme">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">05 · Formal Assurance · 5 Prover Substrates · Anti-Vacuity · Red-Teaming</div>
+          <h1>Green is not true. <em>The fix is a theorem.</em></h1>
+          <p class="hero-lead">
+            A passing test suite or even a naive theorem statement can be vacuous if its hypotheses are contradictory or its carrier types are degenerate. We operate across <strong>five live formal verification substrates</strong> (Lean 4, HOL4/CakeML/Candle, ACL2, Isabelle/HOL, and TLA+/Kani/MIR), enforce automated <strong>anti-vacuity gates</strong>, build <strong>self-upgrading verified compilers (`svenvs`)</strong>, and run <strong>adversarial red-teaming</strong> on recursive STARK provers.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#tab-substrates">5 Formal Prover Substrates →</a>
+            <a class="btn btn-ghost" href="#tab-kernels">Kernel Evolution &amp; Farkas SysCert →</a>
+            <a class="btn btn-ghost" href="#tab-redteam">Anti-Vacuity &amp; Plonky3 Red-Team →</a>
+            <a class="btn btn-ghost" href="sources/05-formal-assurance-kernels-and-redteaming.md">Dossier 05 (77 KB) →</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <span class="eyebrow">Formal Assurance Telemetry</span>
+          <div class="stat-row">
+            <div class="stat-val">5 Provers</div>
+            <div class="stat-desc">Lean 4.28–4.29 · HOL4/CakeML/Candle · ACL2 8.6 · Isabelle/HOL (MLton) · TLA+/Kani/MIR.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">1.19 GB x64</div>
+            <div class="stat-desc"><code>svenvs</code> verified CakeML/Candle compiler binary that self-upgrades in place after discharging Löb’s obstruction.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">647K LOC</div>
+            <div class="stat-desc">ACL2 community &amp; custom proof books in <code>~/dev/fn</code> + 2,705 ACL2 functions embedded in Lean 4 (<code>~/dev/fn2</code>).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">0.1 ms</div>
+            <div class="stat-desc">Sub-millisecond decision latency of <code>o7vn</code> Isabelle/HOL codegen binaries compiled via SML/MLton (16,284/0 wrong).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">52e1fab</div>
+            <div class="stat-desc">Commit in <code>plonky3-recursion</code> fixing a silent query-index deduplication soundness collapse via <code>TwoRegimeQueryBudget.lean</code>.</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="subtabs-wrap">
+    <div class="wrap subtabs" role="tablist" aria-label="Formal assurance sections">
+      <button class="subtab-btn" role="tab" aria-selected="true" data-tab-target="tab-substrates">5A · Five Running Formal Substrates</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-kernels">5B · Kernel Evolution (`breadstuffs` → `minidregg` → `nanodregg` → `obend`)</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-redteam">5C · Anti-Vacuity Engineering &amp; Adversarial Red-Teaming</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-law">5D · Computable Law &amp; Operatorless Agents</button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- TAB 5A: FIVE RUNNING FORMAL SUBSTRATES -->
+    <section id="tab-substrates" class="tab-panel active" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">05A · Polyglot Proof Infrastructure</div>
+          <h2>Five Running Formal Verification Substrates</h2>
+        </div>
+        <div>
+          <p>
+            Different layers of a verifiable compute stack demand different logical foundations: dependent type theory (Lean 4) excels at algebraic geometry and circuit metatheory; LCF-style HOL4/CakeML/Candle provides a verified path to bare-metal x86-64 machine code; ACL2 provides industrial bit-vector andJVM/ISA induction; and Isabelle/HOL exports ultra-fast SML/MLton decision binaries.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">Substrate 1 · Lean 4</span><span class="badge badge-emerald">1,200+ Modules</span></div>
+          <h3>1. Lean 4 (`breadstuffs`, `minidregg`, `nanodregg`, `obend`, `verekos`, `zkml-research`)</h3>
+          <p>
+            Our primary dependent-type substrate: 383 `.lean` files in `breadstuffs` (Poseidon2/FRI/DeepALI/Derivatives/CFG/Orb/seL4), 98 zero-`sorry` files in `minidregg` (~128K LOC), 82 files in `nanodregg`, 452 files in `obend` (`0 sorryAx`), and ~190 theorems in `verekos` (Enterprise Knowledge Compiler). Compiled to C/Rust FFI via `@[export]` and `leanc`.
+          </p>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">Substrate 2 · HOL4 / CakeML / Candle</span><span class="badge">`svenvs` &amp; `verifereum`</span></div>
+          <h3>2. HOL4, CakeML &amp; Reflective Self-Upgrading Candle (`svenvs`, `hol-reflection`, `verifereum`)</h3>
+          <p>
+            In <code>~/dev/svenvs</code> and <code>~/dev/hol-reflection</code>, we built a reflective HOL Light / Candle prover inside HOL4/CakeML. To overcome <strong>Löb’s Theorem</strong> (a consistent system $T$ cannot prove $\text{Sound}(T)$ without becoming inconsistent), `loebReductionScript.sml` splits the system into a <strong>frozen verified reference kernel $K_0$</strong> and a dynamic tactic/compiler loop $P_k$, proving `prover_self_improvement_watchdog_concrete` and executing an in-place x86-64 binary self-upgrade (`cake-selfupgrade`, 1.19 GB ELF). In <code>~/dev/verifereum</code>, we verify EVM bytecode and `Orb`’s 1,868-byte x86-64 dataplane in HOL4.
+          </p>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">Substrate 3 · ACL2 + Lean Bridge</span><span class="badge badge-gold">`fn` &amp; `fn2`</span></div>
+          <h3>3. ACL2 (`~/dev/fn`, 647K LOC) &amp; `~/dev/fn2` (2,705 ACL2 Functions in Lean 4)</h3>
+          <p>
+            In <code>~/dev/fn</code>, we built a verified next-generation reasoning substrate over ACL2 8.6 (647K lines of proof books). In <code>~/dev/fn2</code> (`LeanACL2`), we mechanically translated <strong>2,705 ACL2 functions across 36 modules (86,748 LOC of Lean 4)</strong> with an `s_measure` termination hierarchy and `s_equal` congruence automation (`0 sorry`). Related work in `~/dev/acl2aiguide` achieved 0.000 bits/theorem cross-entropy over 66,858 ACL2 theorems.
+          </p>
+        </article>
+
+        <article class="card card-gold">
+          <div class="badge-row"><span class="badge badge-gold">Substrates 4 &amp; 5 · Isabelle/HOL &amp; TLA+</span><span class="badge">`o7vn` &amp; `chronicle-driver`</span></div>
+          <h3>4. Isabelle/HOL (`~/dev/o7vn`, 0.1 ms MLton Binaries) &amp; TLA+/Kani/MIR</h3>
+          <p>
+            In <code>~/dev/o7vn</code> (`veri7vn`), 34 Isabelle/HOL theories (~32.6K LOC) export via `export_code ... in SML` and compile under MLton into <strong>19 native binaries</strong> achieving <strong>0.1 ms decision latency</strong> and <strong>16,284 correct / 0 wrong</strong> on our compliance suites—hosted as `minidregg` oracle grains. In `chronicle-driver`, TLA+ (`MC_Safety.tla`, 51,980 states) and Kani/MIR verify driver concurrency.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TAB 5B: KERNEL EVOLUTION -->
+    <section id="tab-kernels" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">05B · Verified Kernel Lineage</div>
+          <h2>From `breadstuffs` to `minidregg`, `nanodregg` &amp; `obend`</h2>
+        </div>
+        <div>
+          <p>
+            Each generation of the Dregg kernel distilled the trusted computing base (TCB) further while increasing the expressiveness of its runtime certificates.
+          </p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Generation</th>
+              <th>Repository &amp; Scale</th>
+              <th>Signature Kernel Innovations</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Gen 1 · `breadstuffs`</strong></td>
+              <td>16+ Rust crates · 383 Lean 4 files · 108+ commits</td>
+              <td>Full Plonky3 BabyBear STARK stack (`turn-prover`), Wasm `grain-turn`, 3,522-line Brzozowski regex-complement DFAs, `dregg-query` MMR range proofs, `tee-verify` (Nitro/SEV-SNP/TDX), `Orb` dataplane, `seL4` Microkit.</td>
+            </tr>
+            <tr>
+              <td><strong>Gen 2 · `minidregg`</strong></td>
+              <td>98 Lean 4 files (~128K LOC, `0 sorry`) · 6-crate Rust workspace</td>
+              <td><strong>Farkas `SysCert` (`SystemCert.lean:lawSat_never_unknown`)</strong>: every system admission check returns either a satisfying assignment or a linear Farkas infeasibility witness—eliminating `unknown` verdicts. Adds `mini-keys` `SO_PEERCRED` proxy and `LT4` `PrototypeProvenance.lean`.</td>
+            </tr>
+            <tr>
+              <td><strong>Gen 3 · `nanodregg`</strong></td>
+              <td>82 Lean 4 files · 6-crate Rust workspace (`d28b51d`)</td>
+              <td>Ultra-compact `NanoKernel` with <strong>Clairvoyant Call-by-Need evaluation</strong> (`Clairvoyant.lean`), 2-phase `Simplex` BFT consensus (`Simplex.lean`), and `ContractCert` executable service-level agreements.</td>
+            </tr>
+            <tr>
+              <td><strong>Gen 4 · `obend`</strong></td>
+              <td>452 Lean 4 files (62,167 constants, `0 sorryAx`, `23a76513`)</td>
+              <td>Unifies DeOS (`TurnHyperedge`, `ContractCert`, `obend-node`), Next-Mathematica (`Mathematica.lean`), and the Silicon Elaborator (64-bit `ExprCAM`, 3-phase `ICAP` DPR, 6-stage FPGA/CDNA3/FP4 equivalence, Sky130 PDK DRC).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 5C: ANTI-VACUITY & RED-TEAMING -->
+    <section id="tab-redteam" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">05C · Adversarial Verification</div>
+          <h2>Anti-Vacuity Gates (`CarrierCensus.lean`) &amp; Adversarial STARK Red-Teaming (`52e1fab`)</h2>
+        </div>
+        <div>
+          <p>
+            Lucid Computing emphasizes: <em>“We run adversarial programs. The teams trying to break it are never the ones who built it.”</em> In our ecosystem, adversarial red-teaming targets both <strong>formal specifications</strong> (catching vacuous theorems where a bug in definitions makes `False → anything` provable) and <strong>cryptographic provers</strong> (catching soundness bugs in recursive FRI).
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">Anti-Vacuity Gate</span><span class="badge badge-emerald">`CarrierCensus.lean`</span></div>
+          <h3>The `Fin (2^0) → Bool` Cantor Bug &amp; `ApexPremiseVacuity.lean`</h3>
+          <p>
+            During a formal audit of `breadstuffs`, we discovered a subtle vacuity trap: a theorem quantified over `f : Fin (2^0) → Bool` and assumed `Function.Injective f`. Because $|\text{Fin}(1)| = 1$ and $|\text{Bool}| = 2$, that one-element case is inhabited, whereas for `Bool → Fin 1` injectivity is `False` by Cantor’s theorem—making any theorem assuming it vacuously true!
+          </p>
+          <p>
+            We built <code>metatheory/Dregg2/ApexPremiseVacuity.lean</code> and <code>CarrierCensus.lean</code> to enforce <strong>inhabited witness constructors (`Nonempty` / explicit trace witnesses)</strong> for every apex theorem, paired with <code>~/dev/forensics</code> (automated git-DAG and transcript integrity auditing). See the live essay: <a href="https://emberian.github.io/dregg-microsites/green-is-not-true/">Green Is Not True</a>.
+          </p>
+        </article>
+
+        <article class="card card-gold">
+          <div class="badge-row"><span class="badge badge-gold">Plonky3 Red-Team</span><span class="badge">`52e1fab` · Lean 4 Fix</span></div>
+          <h3>The Recursive Plonky3 FRI Query-Index Collapse (`TwoRegimeQueryBudget.lean`)</h3>
+          <p>
+            In <code>~/dev/plonky3-recursion</code> (commit <code>52e1fab</code>), our red-team discovered that sorting and deduplicating sampled FRI query indices inside the recursive verifier circuit silently collapsed effective soundness when birthday collisions reduced the distinct query count below the target security threshold.
+          </p>
+          <p>
+            We formalized the exact collision distribution in <code>TwoRegimeQueryBudget.lean</code>, proved the two-regime query budget required to guarantee 128-bit security without variable-length circuit branching, and shipped the live visual postmortem: <a href="https://emberian.github.io/dregg-microsites/the-fix-is-a-theorem/">The Fix Is a Theorem</a>.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TAB 5D: COMPUTABLE LAW & OPERATORLESS AGENTS -->
+    <section id="tab-law" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">05D · Parties to Compute Agreements</div>
+          <h2>Computable Law, Operatorless Agents &amp; Regulatory Filings</h2>
+        </div>
+        <div>
+          <p>
+            Lucid Computing highlights <strong>“Parties to compute agreements: Because an agreement about AI between companies, institutions, or governments only holds if the other side can check that it was kept…”</strong> Our work formalizes contracts, regulatory safe harbors, and multi-party compute agreements directly as machine-checkable state machines.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">Safe Harbor Architecture</span><span class="badge badge-emerald">`OPERATORLESS_AGENTS.md`</span></div>
+          <h3>Operatorless Agents &amp; Cryptographic Confinement</h3>
+          <p>
+            Defines the 4-condition cryptographic safe harbor for autonomous agents: (1) immutable code &amp; weight root commitment, (2) hardware-enforced key confinement, (3) deterministic DFA/CFG policy gate on every outbound action, and (4) public append-only MMR receipt availability.
+          </p>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">Information Flow</span><span class="badge">`leakage-lab`</span></div>
+          <h3>`leakage-lab`: Quantitative Channel Leakage Bounds</h3>
+          <p>
+            Measures and bounds covert timing, packet-size, and token-length side channels across confidential inference proxies, ensuring that encrypted E2EE streams do not leak prompt categories through SSE chunk cadences.
+          </p>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">CFTC / SEC Filings</span><span class="badge badge-gold">5 Public Letters</span></div>
+          <h3>5 Formal Regulatory Comment Filings (`redregg/writing/`)</h3>
+          <p>
+            Five technical regulatory filings (CFTC AI Advisory, SEC RIN 3235-AN24, Treasury AI RFI) demonstrating how cryptographic turn receipts (`AI Passports`), Farkas `SysCert` compliance witnesses, and commit-then-audit replace post-hoc paper audits in regulated financial &amp; sovereign workloads.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <strong>whatember</strong> · 05 · Formal Assurance Kernels, Anti-Vacuity Gates, Red-Teaming &amp; Computable Law<br/>
+        Primary Sources: <a href="sources/05-formal-assurance-kernels-and-redteaming.md">Dossier 05 (77 KB)</a> · <a href="sources/08-october-november-2026-stratum.md">Dossier 08 (72 KB)</a>
+      </div>
+      <div>
+        <a href="hardware.html">← 04 · Hardware &amp; Silicon</a> ·
+        <a href="vision.html">06 · Vision &amp; Lineage →</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

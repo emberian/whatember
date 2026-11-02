@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>whatember — Verifiable Compute, Merkleized Agent Proxies &amp; Formal Silicon Assurance</title>
+  <meta name="description" content="Primary-source technical atlas and literate architecture index of Ember's verifiable compute, training-set absence proofs, Merkleized agent proxies, multi-vendor TEEs, and Lean/HOL4/ACL2/Isabelle formal silicon systems." />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">W</span>
+        <span>whatember</span>
+        <small>Verifiable Systems Atlas · Nov 2026</small>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="index.html" aria-current="page">01 · Overview</a>
+        <a href="workload.html">02 · Workload &amp; Absence</a>
+        <a href="proxies.html">03 · Merkle Proxies</a>
+        <a href="hardware.html">04 · Hardware &amp; Silicon</a>
+        <a href="assurance.html">05 · Formal Kernels</a>
+        <a href="vision.html">06 · Vision &amp; Lineage</a>
+        <a href="atlas.html">07 · Master Atlas</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" title="Toggle theme">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Literate Technical Index · Primary-Source Archaeology</div>
+          <h1>A receipt is a <em>proof object</em>, not a log line.</h1>
+          <p class="hero-lead">
+            <strong>whatember</strong> indexes a multi-wave systems engineering program spanning <strong>38+ open repositories</strong>, <strong>19 live interactive microsites</strong>, <strong>65+ claim-checked technical posters</strong>, and <strong>five live theorem-proving substrates</strong> (Lean 4, HOL4/CakeML/Candle, ACL2, Isabelle/HOL, and TLA+/MIR). Every claim on this site resolves to a specific commit, a zero-<code>sorry</code> theorem, or an executable cryptographic receipt.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="workload.html#tab-absence">Training-Set Absence Protocol →</a>
+            <a class="btn btn-ghost" href="proxies.html">4-Layer Merkle Agent Proxies →</a>
+            <a class="btn btn-ghost" href="hardware.html">OBend Silicon &amp; Multi-Vendor TEEs →</a>
+            <a class="btn btn-ghost" href="#tab-quinn">Briefing for Quinn &amp; Lucid →</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Program telemetry">
+          <span class="eyebrow">Verified Telemetry (Nov 2, 2026)</span>
+          <div class="stat-row">
+            <div class="stat-val">452 mod</div>
+            <div class="stat-desc"><code>obend</code> Lean 4 silicon elaborator, 6-stage FPGA/CDNA3/FP4 equivalence &amp; DeOS kernel (<code>0 sorryAx</code>).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">3,522 LOC</div>
+            <div class="stat-desc">Lean 4 ACI-normalized Brzozowski regex-complement DFAs (<code>Dregg2/Crypto/Deriv/*</code>) for corpus absence proofs.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">78×–308×</div>
+            <div class="stat-desc">Boundary exchange-rate reduction over per-token zkML via commit-then-audit (<code>Selvage/AuditSampling.lean</code>).</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">0.72%</div>
+            <div class="stat-desc">Proving overhead to cryptographically bind top-<em>k</em> MoE router gates alongside native <code>MXFP4</code> block-32 dot products.</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">377 / 1,125</div>
+            <div class="stat-desc">Empirical residual-trust boundary test proving what a TEE signature alone allows a malicious host to forge without STARK + Merkle anchoring.</div>
+          </div>
+        </aside>
+      </div>
+      <div class="hero-foot">
+        <span>SUBSTRATES: LEAN 4.28–4.29 · HOL4 / CAKEML / CANDLE · ACL2 8.6 · ISABELLE/HOL · PLONKY3 BABYBEAR &amp; KOALABEAR</span>
+        <span>PUBLIC REPO: <a href="https://github.com/emberian/whatember">github.com/emberian/whatember</a></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="subtabs-wrap">
+    <div class="wrap subtabs" role="tablist" aria-label="Overview sections">
+      <button class="subtab-btn" role="tab" aria-selected="true" data-tab-target="tab-exec">1A · Architecture &amp; Thesis</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-matrix">1B · Problem → Primitive → Proof Matrix</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-quinn">1C · Briefing for Quinn &amp; Lucid Computing</button>
+      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-dossiers">1D · 8 Primary-Source Dossiers</button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- TAB 1A: ARCHITECTURE & THESIS -->
+    <section id="tab-exec" class="tab-panel active" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">01A · Executive Thesis</div>
+          <h2>Full-Stack Verifiable Compute</h2>
+        </div>
+        <div>
+          <p>
+            Modern AI infrastructure treats verification as an afterthought—either wrapping an unverified Python proxy inside a single cloud TEE and hoping the operator never equivocates, or attempting naive per-token zkML that collapses at frontier scale. Our work replaces assertion-by-contract with a <strong>layered cryptographic and formal stack</strong> where every boundary emits a machine-checkable certificate.
+          </p>
+        </div>
+      </div>
+
+      <div class="ember-quote">
+        “Verification is only a capability of the machine when three independent roots of trust interlock: <strong>hardware attestation</strong> binds the physical enclave and GPU channel, <strong>Merkle / MMR history commitments</strong> prevent selective omission or fork equivocation by the proxy operator, and <strong>algebraic/STARK + formal kernel certificates</strong> prove that the exact model weights, policy automaton, and grammar transitions were obeyed.”
+        <cite>— Architectural synthesis across breadstuffs · minidregg · zkml-research · degg-research · obend</cite>
+      </div>
+
+      <div class="grid-3">
+        <article class="card card-accent">
+          <div class="badge-row">
+            <span class="badge">Workload &amp; Absence</span>
+            <span class="badge badge-emerald">Lean 4 + Plonky3</span>
+          </div>
+          <h3>1. Proving What Did &amp; Did Not Run</h3>
+          <p>
+            How do you prove that a 1.56 TB frontier MoE model ran without silently swapping to an int4 distill—or prove that a training/RAG corpus <strong>contains zero instances</strong> of a leaked benchmark, PII pattern, or copyrighted span?
+          </p>
+          <p>
+            We combine <strong>Poseidon2/BLAKE3 MMR range certificates</strong> (<code>server_cannot_omit_position</code>), <strong>3,522-line Lean 4 Brzozowski regex-complement DFAs</strong> (<code>Dregg2/Crypto/Deriv/*</code>), <strong>4M-token/40ms parsing certificates</strong> (<code>AttestedAutomatonWeld8.lean</code>), <strong>certified BPE tokenization</strong>, and <strong>Selvage commit-then-audit</strong> (<code>AuditSampling.lean</code>).
+          </p>
+          <div class="meta">
+            Explore: <a href="workload.html">02 · Workload &amp; Absence Proofs →</a>
+          </div>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row">
+            <span class="badge badge-emerald">Merkle Agent Proxies</span>
+            <span class="badge badge-navy">Rust + HOL4/CakeML</span>
+          </div>
+          <h3>2. Proxy Servers with Merkleization for Agents</h3>
+          <p>
+            An agent proxy that logs to Postgres can rewrite history, drop turns, or leak API keys. We built four complementary Merkleization engines: zero-dep <strong>BLAKE3 MMR proxies</strong> with position-deriving receipts, <strong><code>grain-turn</code> Wasm sandboxes</strong> with hardware-wired <code>HISTORY_ROOT_SLOT</code> &amp; <code>HEAP_ROOT_SLOT</code>, <strong>4-ary Poseidon2 Sparse Merkle Trees</strong> with non-membership proofs, and <strong>zkOracle MPC-TLS</strong> outbound HTTPS proxies.
+          </p>
+          <p>
+            At the bottom sits <strong>Orb</strong>: a 312-module Lean 4 + HOL4/CakeML/Pancake HTTP proxy dataplane lowered to a verified <strong>1,868-byte x86-64 loop</strong>.
+          </p>
+          <div class="meta">
+            Explore: <a href="proxies.html">03 · Merkle Agent Proxies →</a>
+          </div>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row">
+            <span class="badge badge-navy">Hardware, TEEs &amp; Silicon</span>
+            <span class="badge badge-gold">AWS · AMD · Intel · FPGA</span>
+          </div>
+          <h3>3. Hardware Roots, <code>seL4</code> &amp; <code>obend</code> Silicon</h3>
+          <p>
+            Our pure-Rust <code>tee-verify</code> crate validates <strong>AWS Nitro</strong>, <strong>AMD SEV-SNP</strong> (Milan/Genoa/Turin ARK→ASK→VCEK), and <strong>Intel TDX DCAP v4/v5</strong> quotes offline, paired with <strong>FIPS 203 ML-KEM-768</strong> confidential GPU E2EE (<code>dregg-chutes-e2ee</code>) and a bare-metal <strong><code>seL4</code> Microkit</strong> STARK verifier.
+          </p>
+          <p>
+            In <code>~/dev/obend</code>, the proof kernel descends into physical silicon: a <strong>64-bit hardware CAM</strong>, <strong>3-phase ICAP dynamic partial reconfiguration</strong> (17.89× Verilator speedup), <strong>Sky130 PDK DRC proofs</strong>, and <strong>6-stage equivalence</strong> across FPGA RTL, AMD <code>CDNA3</code> GPUs, and Ozaki Base-13 <code>FP4</code> Tensor Cores.
+          </p>
+          <div class="meta">
+            Explore: <a href="hardware.html">04 · Hardware, TEEs &amp; Silicon →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-gold">
+          <div class="badge-row">
+            <span class="badge badge-gold">Formal Assurance &amp; Red-Teaming</span>
+            <span class="badge">5 Prover Substrates</span>
+          </div>
+          <h3>4. Zero-Sorry Kernels, Self-Upgrading HOL &amp; Red-Teaming</h3>
+          <p>
+            Tests check trajectories; proofs bound the state space. Across <code>breadstuffs</code>, <code>minidregg</code>, <code>nanodregg</code>, <code>obend</code>, <code>svenvs</code>, <code>fn</code>, and <code>o7vn</code>, we enforce structural anti-vacuity gates (<code>CarrierCensus.lean</code>, <code>ApexPremiseVacuity.lean</code>, <code>forensics</code>). In <code>svenvs</code>, a verified CakeML/Candle prover discharges Löb’s obstruction via a frozen reference kernel and self-upgrades its own 1.19 GB x64 binary in place. In <code>plonky3-recursion</code>, our adversarial red-team uncovered and patched a silent query-index dedup soundness collapse (<code>52e1fab</code>).
+          </p>
+          <div class="meta">
+            Explore: <a href="assurance.html">05 · Formal Kernels &amp; Law →</a>
+          </div>
+        </article>
+
+        <article class="card card-accent">
+          <div class="badge-row">
+            <span class="badge">Decade Lineage (2013–2026)</span>
+            <span class="badge badge-emerald">38+ Repos · 19 Microsites</span>
+          </div>
+          <h3>5. From Pre-1.0 Rust &amp; <code>seL4</code> to Dregg &amp; OBend</h3>
+          <p>
+            This ecosystem did not appear overnight. It is the continuation of a 13-year trajectory: pre-1.0 Rust core team &amp; <code>rustdoc</code> maintainer (2013–2015) → NICTA/UNSW <code>seL4</code> <code>l4v</code> proofs &amp; Robigalia (2015–2017) → O(1) Labs <code>Mina</code> &amp; 2026 Lean Pickles devnet verification → GraalVM/Elide polyglot runtimes → workload verification research that evolved into the <strong>Dregg / MiniDregg / NanoDregg / OBend</strong> stack.
+          </p>
+          <div class="meta">
+            Explore: <a href="vision.html">06 · Vision &amp; Lineage →</a> · <a href="atlas.html">07 · Master Atlas →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- TAB 1B: PROBLEM -> PRIMITIVE -> PROOF MATRIX -->
+    <section id="tab-matrix" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">01B · Verification Matrix</div>
+          <h2>Problem → Primitive → Proof</h2>
+        </div>
+        <div>
+          <p>
+            Filter across the core verification challenges in confidential &amp; verifiable AI to inspect the exact cryptographic primitive, implementation repository, and machine-checked theorem that discharges each threat vector.
+          </p>
+        </div>
+      </div>
+
+      <div data-filter-container>
+        <div class="filter-bar">
+          <input class="filter-input" type="search" data-filter-input placeholder="Search threat, primitive, crate, or theorem (e.g. MMR, MXFP4, Nitro, complemento, CDNA3)..." />
+          <select class="filter-select" data-filter-select aria-label="Filter by domain">
+            <option value="all">All Verification Domains</option>
+            <option value="absence">Corpus &amp; Training-Set Absence</option>
+            <option value="workload">Workload &amp; Model Identity (zkML / vFHE)</option>
+            <option value="proxy">Merkleized Agent Proxies &amp; Dataplanes</option>
+            <option value="hardware">Hardware Root of Trust, TEEs &amp; Silicon</option>
+            <option value="kernel">Formal Kernels, Red-Teaming &amp; Law</option>
+          </select>
+          <span class="eyebrow" data-filter-count></span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Verification Problem / Threat</th>
+                <th>Cryptographic / Systems Primitive</th>
+                <th>Primary Implementation</th>
+                <th>Formal Theorem / Empirical Bound</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-filter-item data-category="absence">
+                <td><strong>Training-Set / Corpus Contamination</strong><br/><span class="muted">Counterparty claims a dataset or RAG index contains no PII, copyrighted code, or eval benchmark items.</span></td>
+                <td>Poseidon2 / BLAKE3 MMR + Brzozowski Regex-Complement DFA (<code>Re::not()</code>) + Certified BPE + Zero-Budget STARK</td>
+                <td><code>breadstuffs/crates/dregg-query</code>, <code>dregg-dfa</code>, <code>tokenizer</code>, <code>audit</code></td>
+                <td><code>Dregg2/Crypto/Deriv/*</code> (3,522 LOC Lean 4): <code>correctness</code>, <code>predRE_complement_disjoint</code>, <code>MMR.lean:server_cannot_omit_position</code></td>
+              </tr>
+              <tr data-filter-item data-category="absence">
+                <td><strong>Selective Omission in Range Queries</strong><br/><span class="muted">Server omits incriminating turns or documents when answering a range scan.</span></td>
+                <td>Contiguous Leaf Index + Bagged MMR Peak Hash + Prefix/Suffix Sibling Frontier (<code>RangeCertificate</code>)</td>
+                <td><code>breadstuffs/crates/dregg-query/src/lib.rs</code></td>
+                <td><code>MMR.lean:server_cannot_omit_position</code> &amp; <code>HistoryIndex.lean:server_cannot_omit</code> (<code>0 sorry</code>)</td>
+              </tr>
+              <tr data-filter-item data-category="absence">
+                <td><strong>High-Throughput Grammar &amp; Policy Verification</strong><br/><span class="muted">Checking structured JSON/CFG constraints over millions of tokens without slowing inference.</span></td>
+                <td>Chomsky-Hierarchy Parsing Certificates + 8-Lane Welded Poseidon2 Automaton AIR</td>
+                <td><code>breadstuffs/crates/dfa-air</code>, <code>metatheory/Dregg2/Crypto/Cfg.lean</code></td>
+                <td><code>AttestedAutomatonWeld8.lean</code>: 100% column savings, <strong>4M tokens in ~40 ms</strong> (single thread)</td>
+              </tr>
+              <tr data-filter-item data-category="workload">
+                <td><strong>Silent Model Substitution / Quantization Downgrade</strong><br/><span class="muted">Provider bills for frontier FP16/MXFP4 model but routes to a cheaper quantized distill.</span></td>
+                <td>Merkle Weight Registry + Commit-Then-Audit Martingale + Native <code>MXFP4</code> Block-32 Integer Dot Products</td>
+                <td><code>zkml-research/scripts/registry_tool.py</code>, <code>Selvage/AuditSampling.lean</code></td>
+                <td><code>commit_then_audit_soundness</code>, <code>expected_verified_chunks_bounded</code> ($\mathbb{E}[C_\tau] \le 1/q$), <strong>78×–308×</strong> cost reduction</td>
+              </tr>
+              <tr data-filter-item data-category="workload">
+                <td><strong>MoE Expert Routing Tampering</strong><br/><span class="muted">Provider alters top-<em>k</em> expert selection in Mixture-of-Experts models (`gpt-oss-20b`, `DeepSeek-R1`).</span></td>
+                <td>Cryptographic Top-<em>k</em> Router Gate Binding + Hybrid Audit Inversion (prove 3.8% router/attention in ZK, audit FFN in TEE)</td>
+                <td><code>zkml-research/docs/MOE-ROUTER-BINDING.md</code></td>
+                <td><strong>0.72% proving overhead</strong> to bind routing decisions; <strong>19× net verification speedup</strong> under Hybrid Audit Inversion</td>
+              </tr>
+              <tr data-filter-item data-category="workload">
+                <td><strong>Private Fine-Tuning &amp; Continual Learning</strong><br/><span class="muted">Updating model weights on confidential customer examples without leaking the prompt or weights.</span></td>
+                <td>Verifiable FHE over $p_{61} = 2^{61} - 2^{26} + 1$ + Encrypted LoRA / Sleep-Consolidation</td>
+                <td><code>zkml-research/lean/Selvage/CyclotomicInertia.lean</code>, <code>vfhe_2026_09_08</code></td>
+                <td><code>order_two_mod_p61</code> (algebraic degree 64, 4× over Goldilocks, <strong>10–40% FHE speedup</strong>, 3,200+ STARKs)</td>
+              </tr>
+              <tr data-filter-item data-category="proxy">
+                <td><strong>Agent Proxy History Rewriting &amp; Split-View Equivocation</strong><br/><span class="muted">Proxy shows different transcript histories to the user and auditor, or silently drops tool calls.</span></td>
+                <td>Append-Only BLAKE3 MMR Proxy with Position-Deriving Receipts &amp; Cross-Receipt Prefix Consistency</td>
+                <td><code>degg-research/experiments/inclusion-availability</code></td>
+                <td><code>verify_receipt</code> derives leaf index from sibling geometry; <code>detect_equivocation</code> catches split-view forks</td>
+              </tr>
+              <tr data-filter-item data-category="proxy">
+                <td><strong>Stateful Agent Sandbox Memory &amp; Fork Integrity</strong><br/><span class="muted">Proving deterministic Wasm agent execution, $O(1)$ fork ancestry, and swarm non-collusion.</span></td>
+                <td>Wasm <code>grain-turn</code> with <code>HISTORY_ROOT_SLOT=3</code> (MMR) &amp; <code>HEAP_ROOT_SLOT=6</code> (Sorted Poseidon2)</td>
+                <td><code>breadstuffs/crates/grain-turn</code>, <code>grain-fork</code>, <code>confined-swarm</code></td>
+                <td><code>HistoryIndex.lean</code> + <code>FullForestAuth.lean</code>: 120-felt authenticated forest bundle</td>
+              </tr>
+              <tr data-filter-item data-category="proxy">
+                <td><strong>Agent API Key Exposure &amp; Unbounded Tool Delegation</strong><br/><span class="muted">Agents exfiltrate upstream API keys or escalate tool permissions across subagent hops.</span></td>
+                <td><code>SO_PEERCRED</code> Keyless BYOK Proxy + Attenuated Capability Chains + <code>deos-hermes</code> ACP Gateway</td>
+                <td><code>minidregg/crates/mini-keys</code>, <code>oracle-llm-proxy</code>, <code>breadstuffs/crates/sdk</code></td>
+                <td><code>DelegationChain.lean:delegAdmit</code> (6-way decidable conjunction) + <code>NoKeyMaterialInGrainMemory</code></td>
+              </tr>
+              <tr data-filter-item data-category="proxy">
+                <td><strong>Unverified Proxy Network Parser Vulnerabilities</strong><br/><span class="muted">Memory-corruption or state-machine bugs in the HTTP/TCP proxy dataplane itself.</span></td>
+                <td>Lean 4 Total HTTP Dataplane Lowered via HOL4/CakeML/Pancake to Verified x86-64 Machine Code</td>
+                <td><code>breadstuffs/lean/Orb</code> (312 modules), <code>orb-compiler</code></td>
+                <td><code>ServeSpec.lean:serveOne_Sound</code> + HOL4 <code>dreggnetArenaScript.sml</code> → <strong>1,868-byte verified x86-64 loop</strong></td>
+              </tr>
+              <tr data-filter-item data-category="hardware">
+                <td><strong>Multi-Cloud TEE Attestation Lock-In &amp; GPU Channel Sniffing</strong><br/><span class="muted">Verifying AWS Nitro, AMD SEV-SNP, and Intel TDX quotes offline while encrypting prompts into the GPU TEE.</span></td>
+                <td>Pure-Rust Multi-Vendor TEE Verifier + FIPS 203 <code>ML-KEM-768</code> + <code>X25519</code> Confidential GPU E2EE</td>
+                <td><code>breadstuffs/crates/tee-verify</code>, <code>dregg-chutes-e2ee</code>, <code>attest-check</code></td>
+                <td>Offline verification of Nitro Root G1, SEV-SNP 1184B (Milan/Genoa/Turin), TDX v4/v5 + <code>residual_trust.rs</code> (377/1,125)</td>
+              </tr>
+              <tr data-filter-item data-category="hardware">
+                <td><strong>Multi-Silicon &amp; FPGA Equivalence</strong><br/><span class="muted">Proving that an algorithm compiled to FPGA RTL, AMD CDNA3 GPU Wavefront ISA, and FP4 Tensor Cores computes the exact same function.</span></td>
+                <td><code>obend</code> Silicon Elaborator (64-bit Hardware CAM + 3-Phase ICAP DPR) + 6-Stage Multi-Silicon Equivalence</td>
+                <td><code>obend/Obend/Silicon/*</code>, <code>Obend/HardwareVerify.lean</code></td>
+                <td><code>full_stack_6stage_equiv</code>, <code>ozaki_fp4_exact_dot</code>, <code>full_silicon_stack_verified</code> (Sky130 DRC, <code>0 sorryAx</code>)</td>
+              </tr>
+              <tr data-filter-item data-category="kernel">
+                <td><strong>Vacuous Formal Proofs &amp; Prover Self-Reference Paradoxes</strong><br/><span class="muted">AI-generated theorems with contradictory hypotheses, or self-verifying compilers trapped by Löb’s theorem.</span></td>
+                <td>Structural Anti-Vacuity Census + Frozen Reference Kernel Discharging Löb’s Obstruction</td>
+                <td><code>breadstuffs/metatheory/CarrierCensus.lean</code>, <code>svenvs</code>, <code>hol-reflection</code></td>
+                <td><code>loebReductionScript.sml</code> + <code>prover_self_improvement_watchdog_concrete</code> + <code>cake-selfupgrade</code> (1.19 GB x64)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 1C: BRIEFING FOR QUINN & LUCID COMPUTING -->
+    <section id="tab-quinn" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">01C · Skunkworks Briefing</div>
+          <h2>Curated Reading &amp; Code Guide for Quinn &amp; Lucid Computing</h2>
+        </div>
+        <div>
+          <p>
+            Tailored directly to Quinn Dougherty’s note (<em>“One of the products im helping them on is this proxy server with merkleization for agents… Can you show me some blogging and/or code that they might like?”</em>) and Lucid Computing’s core pillars (AI Passports, Verifiable Inference, Private Fine-Tuning, Multi-Silicon Hardware Root of Trust, and Adversarial Red-Teaming).
+          </p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Direct Overlap With Lucid Computing’s Skunkworks</div>
+        <p>
+          Everything below is <strong>live, open-source, and authored in our repositories</strong> (strictly excluding any third-party/former-employer proprietary repositories). You can share the live microsites at <a href="https://emberian.github.io/dregg-microsites/"><code>emberian.github.io/dregg-microsites/</code></a> and this index at <a href="https://emberian.github.io/whatember/"><code>emberian.github.io/whatember/</code></a> directly.
+        </p>
+      </div>
+
+      <h3>1. Five Live Visual Essays (“Blogging”) to Send First</h3>
+      <div class="grid-2">
+        <article class="card card-accent">
+          <div class="badge-row">
+            <span class="badge">Start Here · Overview</span>
+            <span class="badge badge-emerald">Live Microsite</span>
+          </div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/field-guide/">The Dregg Field Guide</a></h3>
+          <p>
+            The architectural map of how <strong>AI Passports / Turn Receipts</strong> work when backed by a 16-crate Rust workspace and 383 Lean 4 files: how a turn enters an agent proxy, steps a Wasm sandbox + DFA policy monitor, anchors into a Poseidon2/BLAKE3 Merkle structure, and emits a compact verifiable receipt.
+          </p>
+          <div class="meta">URL: <a href="https://emberian.github.io/dregg-microsites/field-guide/">emberian.github.io/dregg-microsites/field-guide/</a></div>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row">
+            <span class="badge badge-emerald">Agent Proxy + Merkleization</span>
+            <span class="badge">Live Microsite</span>
+          </div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/prove-the-turn/">Prove the Turn</a></h3>
+          <p>
+            Written directly for Quinn’s <strong>Merkleized agent proxy</strong> problem: walks through how an agent turn (prompt, tool call, state transition, and policy check) is committed into an append-only Merkle Mountain Range + Poseidon2 state root and proven in ~890 ms with a 355 KB STARK receipt verified in 1.24 ms.
+          </p>
+          <div class="meta">URL: <a href="https://emberian.github.io/dregg-microsites/prove-the-turn/">emberian.github.io/dregg-microsites/prove-the-turn/</a></div>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row">
+            <span class="badge badge-navy">Verifiable Inference · zkML</span>
+            <span class="badge">Live Microsite</span>
+          </div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/which-model/">Which Model Answered You?</a></h3>
+          <p>
+            Addresses Lucid’s <strong>Model Identity &amp; Verifiable Inference</strong> pillar: why naive per-token zkML fails on frontier models, and how <strong>Selvage Commit-Then-Audit</strong> + <strong>native MXFP4 block-32 integer dot products</strong> + <strong>0.72%-overhead MoE router binding</strong> make model identity cryptographically verifiable at production throughput.
+          </p>
+          <div class="meta">URL: <a href="https://emberian.github.io/dregg-microsites/which-model/">emberian.github.io/dregg-microsites/which-model/</a></div>
+        </article>
+
+        <article class="card card-gold">
+          <div class="badge-row">
+            <span class="badge badge-gold">Adversarial Red-Teaming · Private Fine-Tuning</span>
+            <span class="badge">Live Microsites</span>
+          </div>
+          <h3><a href="https://emberian.github.io/dregg-microsites/the-fix-is-a-theorem/">The Fix Is a Theorem</a> &amp; <a href="https://emberian.github.io/dregg-microsites/keep-learning-keep-a-secret/">Keep Learning, Keep a Secret</a></h3>
+          <p>
+            <strong>The Fix Is a Theorem</strong> documents how we found a silent soundness collapse in recursive Plonky3 FRI verification (<code>52e1fab</code>) and proved the exact two-regime query budget in Lean 4. <strong>Keep Learning, Keep a Secret</strong> covers encrypted continual learning and private fine-tuning over our $p_{61}$ vFHE field.
+          </p>
+          <div class="meta">URLs: <a href="https://emberian.github.io/dregg-microsites/the-fix-is-a-theorem/">the-fix-is-a-theorem</a> · <a href="https://emberian.github.io/dregg-microsites/keep-learning-keep-a-secret/">keep-learning-keep-a-secret</a></div>
+        </article>
+      </div>
+
+      <h3>2. Six Codebases to Inspect First</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Focus Area for Quinn / Lucid</th>
+              <th>Repository &amp; Exact Path</th>
+              <th>Why It Matters Immediately</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Minimal Reference: Proxy Server with MMR Receipts &amp; Equivocation Detection</strong></td>
+              <td><code>degg-research/experiments/inclusion-availability/</code><br/>(<a href="https://github.com/emberian/degg-research">github.com/emberian/degg-research</a>)</td>
+              <td>Zero-external-dependency Rust reference implementation of a Merkle Mountain Range proxy where <code>verify_receipt</code> derives leaf position from sibling geometry and <code>equivocation.rs</code> catches split-view history forks.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Production Agent Proxy, Capability Gateway &amp; Attested MMR Range Queries</strong></td>
+              <td><code>breadstuffs/crates/{sdk,dregg-query,grain-turn,dregg-commit,dregg-audit}</code><br/>(<a href="https://github.com/emberian/breadstuffs">github.com/emberian/breadstuffs</a>)</td>
+              <td>Full 4-layer Merkleized agent proxy stack: attenuated tool-call gateway (<code>tool_gateway.rs</code>), ACP proxy (<code>deos-hermes</code>), keyless BYOK proxy, Wasm <code>grain-turn</code> MMR/heap roots, and Lean-proved non-omission (<code>MMR.lean:server_cannot_omit_position</code>).</td>
+            </tr>
+            <tr>
+              <td><strong>3. Training-Set &amp; Corpus Absence Proofs</strong></td>
+              <td><code>breadstuffs/metatheory/Dregg2/Crypto/{Deriv,Cfg,AttestedAutomatonWeld8}.lean</code> + <code>crates/{dregg-dfa,tokenizer,audit}</code></td>
+              <td>Proves that a committed training set or inference log contains <strong>zero occurrences</strong> of forbidden patterns/benchmarks using 3,522 lines of Lean-verified Brzozowski regex-complement DFAs + 4M-token/40ms welded parsing certificates.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Multi-Vendor TEE Verification, Confidential GPU E2EE &amp; Residual Trust Proof</strong></td>
+              <td><code>breadstuffs/crates/{tee-verify,tee-produce,dregg-chutes-e2ee}</code> + <code>degg-research/experiments/tee-residual-trust</code></td>
+              <td>Offline Rust verifier for AWS Nitro, AMD SEV-SNP (Milan/Genoa/Turin), and Intel TDX DCAP v4/v5; ML-KEM-768 GPU E2EE; plus an executable 377/1,125 forgery proof showing why TEEs require Merkle + STARK anchoring.</td>
+            </tr>
+            <tr>
+              <td><strong>5. Verifiable Inference (Selvage), MXFP4 &amp; MoE Router Binding</strong></td>
+              <td><code>zkml-research/lean/Selvage/AuditSampling.lean</code> + <code>docs/MOE-ROUTER-BINDING.md</code><br/>(<a href="https://github.com/emberian/zkml-research">github.com/emberian/zkml-research</a>)</td>
+              <td>Zero-<code>sorry</code> Lean 4 commit-then-audit theorems (78×–308× cost reduction), 1.56 TB Merkle weight registry, exact $\le 13$-bit MXFP4 dot products, and 0.72%-overhead MoE router gate binding.</td>
+            </tr>
+            <tr>
+              <td><strong>6. Multi-Silicon Equivalence (FPGA RTL, AMD CDNA3 GPU, FP4 Tensor Cores)</strong></td>
+              <td><code>obend/Obend/{Silicon,HardwareVerify}.lean</code></td>
+              <td>452-module Lean 4 silicon elaborator proving 6-stage functional equivalence across FPGA RTL, AMD <code>CDNA3</code> GPU Wavefront ISA, and Ozaki Base-13 <code>FP4 (E2M1)</code> Tensor Cores, down to Sky130 physical PDK DRC rules.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 1D: 8 PRIMARY-SOURCE DOSSIERS -->
+    <section id="tab-dossiers" class="tab-panel" role="tabpanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">01D · Primary-Source Archaeology</div>
+          <h2>The 8 Deep-Dive Source Dossiers (`sources/01..08`)</h2>
+        </div>
+        <div>
+          <p>
+            Every page on this site is distilled from eight exhaustive primary-source dossiers (~610 KB total markdown) compiled directly from git commit histories, <code>cv</code> engineering transcripts, Rust crates, and Lean 4 / HOL4 / ACL2 / Isabelle theorem files.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">Dossier 01 · 74 KB</span><span class="badge badge-emerald">Absence Proofs</span></div>
+          <h3><a href="sources/01-parsing-query-aggregation-absence.md">01 · Parsing Certificates, Attested Queries &amp; Training-Set Absence Proofs</a></h3>
+          <p>Covers Chomsky-hierarchy parsing certificates (<code>Cfg.lean</code>, <code>DyckStackEmit.lean</code>, <code>AttestedAutomatonWeld8.lean</code>), 3,522-line Lean 4 regex-complement DFAs (<code>Dregg2/Crypto/Deriv/*</code>), <code>dregg-query</code> MMR range proofs (<code>server_cannot_omit_position</code>), certified BPE tokenization, and 3-level recursive STARK aggregation.</p>
+          <div class="meta"><a href="sources/01-parsing-query-aggregation-absence.md">Read Raw Markdown →</a> · <a href="workload.html#tab-absence">Interactive Tab →</a></div>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">Dossier 02 · ~75 KB</span><span class="badge">Agent Proxies</span></div>
+          <h3><a href="sources/02-merkle-agent-proxies-and-dataplanes.md">02 · Merkleized Agent Proxies, Capabilities &amp; Verified Dataplanes</a></h3>
+          <p>Covers the 4-layer agent proxy architecture (<code>sdk::tool_gateway</code>, <code>deos-hermes</code>, <code>keyless-grain-proxy.py</code>, <code>mini-keys</code>), the 4 Merkleization engines (<code>inclusion-availability</code> MMR, <code>grain-turn</code> MMR/heap roots, 4-ary SMT), <code>zkoracle-live</code> MPC-TLS, and the verified <code>Orb</code> HTTP dataplane.</p>
+          <div class="meta"><a href="sources/02-merkle-agent-proxies-and-dataplanes.md">Read Raw Markdown →</a> · <a href="proxies.html">Interactive Tab →</a></div>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">Dossier 03 · 77 KB</span><span class="badge">Hardware &amp; TEEs</span></div>
+          <h3><a href="sources/03-hardware-tee-sel4-and-capabilities.md">03 · Hardware Roots of Trust, Multi-Vendor TEEs, <code>seL4</code> &amp; Capabilities</a></h3>
+          <p>Covers pure-Rust offline verification of AWS Nitro, AMD SEV-SNP, and Intel TDX DCAP quotes (<code>tee-verify</code>), FIPS 203 ML-KEM-768 GPU E2EE (<code>dregg-chutes-e2ee</code>), the 377/1,125 TEE residual-trust forgery proof, bare-metal <code>seL4</code> Microkit STARK verification, and post-quantum capability tokens.</p>
+          <div class="meta"><a href="sources/03-hardware-tee-sel4-and-capabilities.md">Read Raw Markdown →</a> · <a href="hardware.html#tab-tee">Interactive Tab →</a></div>
+        </article>
+
+        <article class="card card-gold">
+          <div class="badge-row"><span class="badge badge-gold">Dossier 04 · 70 KB</span><span class="badge">zkML &amp; vFHE</span></div>
+          <h3><a href="sources/04-workload-verification-zkml-vfhe-selvage.md">04 · Workload Verification, Selvage Commit-Then-Audit, MXFP4 &amp; vFHE</a></h3>
+          <p>Covers <code>Selvage/AuditSampling.lean</code>, the 1.56 TB model weight registry, native <code>MXFP4</code> block-32 integer dot products, <code>gpt-oss-20b</code> 124.4M scale-byte census, 0.72%-overhead MoE router binding, Hybrid Audit Inversion, and $p_{61}$ vFHE continual encrypted learners.</p>
+          <div class="meta"><a href="sources/04-workload-verification-zkml-vfhe-selvage.md">Read Raw Markdown →</a> · <a href="workload.html#tab-selvage">Interactive Tab →</a></div>
+        </article>
+
+        <article class="card card-accent">
+          <div class="badge-row"><span class="badge">Dossier 05 · 77 KB</span><span class="badge badge-navy">Formal Kernels</span></div>
+          <h3><a href="sources/05-formal-assurance-kernels-and-redteaming.md">05 · Formal Assurance Kernels, Anti-Vacuity Gates &amp; Red-Teaming</a></h3>
+          <p>Covers the 5 formal verification substrates, the kernel lineage (<code>breadstuffs</code> → <code>minidregg</code> → <code>nanodregg</code>), Farkas <code>SysCert</code>, structural anti-vacuity gates (<code>CarrierCensus.lean</code>), the Plonky3 FRI recursion bug discovery (<code>52e1fab</code>), and computable law.</p>
+          <div class="meta"><a href="sources/05-formal-assurance-kernels-and-redteaming.md">Read Raw Markdown →</a> · <a href="assurance.html">Interactive Tab →</a></div>
+        </article>
+
+        <article class="card card-emerald">
+          <div class="badge-row"><span class="badge badge-emerald">Dossier 06 · 89 KB</span><span class="badge">Vision &amp; Lineage</span></div>
+          <h3><a href="sources/06-vision-origins-and-complete-project-atlas.md">06 · The Vision, Decade Lineage (2013–2026) &amp; Complete Project Atlas</a></h3>
+          <p>Traces the 13-year arc from pre-1.0 Rust and NICTA/UNSW <code>seL4</code> to O(1) Labs <code>Mina</code>, GraalVM/Elide, and the Dregg ecosystem, alongside the <code>redregg</code> swarm-engineering handbook and the master inventory of repos, microsites, and posters.</p>
+          <div class="meta"><a href="sources/06-vision-origins-and-complete-project-atlas.md">Read Raw Markdown →</a> · <a href="vision.html">Interactive Tab →</a></div>
+        </article>
+
+        <article class="card card-navy">
+          <div class="badge-row"><span class="badge badge-navy">Dossier 07 · 78 KB</span><span class="badge badge-gold">OBend Silicon</span></div>
+          <h3><a href="sources/07-obend-silicon-fpga-and-latest-dregg.md">07 · <code>obend</code> Silicon Elaborator, FPGA/CDNA3/FP4 Equivalence &amp; DeOS</a></h3>
+          <p>Deep dive into <code>~/dev/obend</code> (452 Lean 4 modules, <code>0 sorryAx</code>): 64-bit hardware CAM (<code>ExprCAM.lean</code>), 1st/2nd/3rd Futamura projections, 2D XY Wormhole NoC &amp; 3-phase ICAP DPR (17.89× speedup), Sky130 PDK DRC proofs, and 6-stage equivalence across FPGA RTL, AMD <code>CDNA3</code> GPUs, and Ozaki Base-13 <code>FP4</code> Tensor Cores.</p>
+          <div class="meta"><a href="sources/07-obend-silicon-fpga-and-latest-dregg.md">Read Raw Markdown →</a> · <a href="hardware.html#tab-obend">Interactive Tab →</a></div>
+        </article>
+
+        <article class="card card-gold">
+          <div class="badge-row"><span class="badge badge-gold">Dossier 08 · 72 KB</span><span class="badge">Oct–Nov 2026 Stratum</span></div>
+          <h3><a href="sources/08-october-november-2026-stratum.md">08 · The Late Oct–Nov 2026 Stratum: <code>svenvs</code>, <code>verekos</code>, <code>o7vn</code> &amp; <code>fn2</code></a></h3>
+          <p>Covers the newest repositories: <code>svenvs</code> &amp; <code>hol-reflection</code> (reflective CakeML/Candle prover discharging Löb’s obstruction and self-upgrading its own 1.19 GB x64 binary), <code>verekos</code> (190-theorem Lean 4 knowledge compiler), <code>o7vn</code> (Isabelle/HOL → SML/MLton 0.1 ms binaries), <code>fn2</code>, <code>negstab</code>, and <code>forensics</code>.</p>
+          <div class="meta"><a href="sources/08-october-november-2026-stratum.md">Read Raw Markdown →</a> · <a href="assurance.html#tab-substrates">Interactive Tab →</a></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <strong>whatember</strong> · Primary-Source Technical Index of Ember’s Verifiable Systems Program<br/>
+        All claims anchored to concrete git commits, zero-<code>sorry</code> Lean 4 / HOL4 / ACL2 / Isabelle theorems, and reproducible benchmarks.
+      </div>
+      <div>
+        <a href="https://github.com/emberian/whatember">GitHub Repo</a> ·
+        <a href="https://emberian.github.io/dregg-microsites/">Dregg Microsites</a> ·
+        <a href="atlas.html">Master Atlas</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
