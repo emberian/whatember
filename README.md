@@ -7,13 +7,13 @@
 
 ---
 
-## Site Architecture (7 Pages, 27 Interactive Sub-Tabs)
+## Site Architecture (`main` Branch: 10 Pages, 49 Interactive Sub-Tabs, 3.04 MB Rendered HTML)
 
 1. **[`index.html` — 01 · Overview & Executive Index](https://emberian.github.io/whatember/index.html)**
    - **1A · Architecture & Thesis**: How hardware attestation, Merkle/MMR history commitments, and algebraic/formal certificates interlock.
    - **1B · Problem → Primitive → Proof Matrix**: Interactive filterable table mapping every verification threat to concrete crates and zero-`sorry` theorems.
    - **1C · Briefing for Quinn & Lucid Computing**: Curated guide to live visual essays (`dregg-microsites`) and reference codebases.
-   - **1D · 8 Primary-Source Dossiers**: Direct index of `sources/01..08-*.md` (~619 KB total).
+   - **1D · Primary-Source Dossiers**: Direct index of all 27 primary-source dossiers (`sources/01..08-*.md` & `sources/strands/09..27-*.md`, ~2.12 MB total).
 2. **[`workload.html` — 02 · Workload Verification, Absence Proofs, zkML & vFHE](https://emberian.github.io/whatember/workload.html)**
    - **2A · Proving Training-Set & Corpus Absence**: 6-phase protocol combining `Blake3Mmr`/`DocTree` commitments, `RangeCertificate` non-omission proofs (`MMR.lean:server_cannot_omit_position`), certified BPE tokenization (`tokenizer`), 3,522-line Lean 4 Brzozowski regex-complement DFAs (`Dregg2/Crypto/Deriv/*`), 4M-token/40ms welded parsing certificates (`AttestedAutomatonWeld8.lean`), zero-budget STARKs (`audit`), and `DARK-TRAINING.md`.
    - **2B · Selvage & Commit-Then-Audit (`AuditSampling.lean`)**: Zero-`sorry` Lean 4 supermartingale bounds ($\mathbb{E}[C_\tau] \le 1/q$), `failOpen_no_legs`, and **78×–308×** boundary exchange cost reduction.
@@ -36,10 +36,35 @@
    - **5D · Computable Law & Operatorless Agents**: `OPERATORLESS_AGENTS.md`, `leakage-lab`, and 5 CFTC/SEC regulatory comment filings.
 6. **[`vision.html` — 06 · The Vision, Decade Lineage (2013–2026) & Swarm Engineering](https://emberian.github.io/whatember/vision.html)**
 7. **[`atlas.html` — 07 · Searchable Master Atlas: 38+ Repos, 19 Microsites, 65+ Posters & Papers](https://emberian.github.io/whatember/atlas.html)**
+8. **[`deos.html` — 08 · DeOS, MiniDregg, NanoDregg, DelveTalk & The `breadstuffs` Diaspora](deos.html)**
+   - **8A · DeOS, MiniDregg, NanoDregg, DelveTalk & Spween**: Complete operating system and live-programming stack (`DelveTalk` 18-opcode bytecode + Smalltalk-80 environment, `Spween` scene graph, `Preoscript`, and `OBend` hardware unification).
+   - **8B · `breadstuffs` Diaspora I (Kernels, Circuits & Crypto)**: How `bread-kernel`, `bread-circuit`, `bread-stark`, and `bread-Poseidon2` split into `minidregg`, `nanodregg`, and `obend`.
+   - **8C · `breadstuffs` Diaspora II (DeOS Surfaces & `starbridge`)**: `deos-ui`, `spween`, `preoscript`, `delvetalk`, `starbridge` MCP/WebSocket bridge, and how to take back up the declarative visual desktop surface.
+   - **8D · `breadstuffs` Diaspora III (`dreggnet`, Worlds & PoA)**: P2P gossip, Proof-of-Agency (`poa`), interactive worlds (`mud`, `don`), and deterministic world-tick verification.
+   - **8E · `breadstuffs` Diaspora IV (Federation, Chains & Polisware)**: Cross-chain bridges (Mina/Solana/Ethereum), Polisware civic governance, and `commons` resource accounting.
+   - **8F · `obend` Language, Equi-Recursive Types & LTUO (`fareoo`)**: Objective Bend language, LTUO genealogy & C4 diamond counterexample, 8-module Amadio–Cardelli equi-recursive bisimulation (`89bd283`), algebraic subtyping, all 11 `Obend/*` spine modules, `NEXT-MATHEMATICA.md`, and `DEOS-CONTRACTS-CONSENSUS.md`.
+   - **8G · `minidregg-lanes` (273), `claudesplosion` (67), `drorb` & `DreggCloud`**: All 273 worktrees in `minidregg-lanes` (38 unmerged with commit deltas), 67 recovered lanes in `claudesplosion`, 27 scouts in `nanodregg-scout`, `delvetalk2` & `delvetalk2-lanes`, `drorb` & `drorb-swarm-salvage` (`QuicServer.lean`), `DreggNet`, and `DreggCloud`.
+9. **[`verticals.html` — 09 · All Verticals: Cognitive Learning, ISAs/Math, Markets, Residents & Interiority](verticals.html)**
+   - **9A · Cognitive Learning (`abcdeez`, `factshift`, `EKOS`/`verekos`, `teach`)**: Non-stationary bandit spaced repetition, 4-axis competence vector, and formal skill graphs.
+   - **9B · Custom RISC ISAs (`absass`), `intmat`/`intmat2` & Physics (`torchship`)**: Absolute Ass RISC ISA, 3D continuous-field living-materials GPU engine (`intmat`/`intmat2`), `graphplay`, `ergolang`, and relativistic spacecraft telemetry.
+   - **9C · Prediction Markets (`dclutch`, `joshi`, `pbot1`) & Mina ZK**: Combinatorial LMSR + Bregman projection in Lean 4/Rust, autonomous market-making engines, and Mina/Kimchi/Pickles recursive ZK.
+   - **9D · Resident Minds (`allgame`, `tulip`, `fn`/`fn2`), Games (`don`, `automatafl`) & `audec`**: Persistent autonomous minds, 322-tool `allgame` with 5-tier context compression, GPU evolution worlds, and verified neural audio codecs.
+   - **9E · Machine Interiority (`comp-theo`), The Bridge, Interpretability (`negstab`, `formal-organisms`) & Social Choice**: Phenomenology of artificial minds, model organisms of negotiated stabilization, and formal social choice (`socchoice`, `law`).
+   - **9F · `clairnets` (`GLaDOS`), `leanuweave` & `birkhoff-asa`**: `GLaDOS` 4-leg LDT woven into 7 LLM families (`LDTSoundness.lean`), `leanuweave` (25,747 audited Lean constants, seam algebra & clash coloring), `birkhoff-asa` (`asagolf` ZFC triangle congruence proof complexity, 474-line Metamath verifier), `navier-stokes-proof`, `ergolang`, and `bead-calculus`.
+   - **9G · `chreatures` Connectome (165k Neurons) & Physiology (`brorb`)**: 165,122-neuron `MaleCNS v1.0` + 6,789-neuron FlyWire FAFB connectomes, CNS Dynamics V2→V5 with `NeuroMechFly v2.1.0` `BODY807`/`MOTOR92`, 1,771-column retinal audit, 12 Rust/Metal/WebGPU/Wasm crates, `brorb` & `humanbody`, `luteastress`, and `febart`.
+   - **9H · `dragons-clutch` (11.1k Commits), `dclutch` & `degg-research`**: `dragons-clutch` (11,176 commits across 379 branches), `dclutch` (6,864 commits, 8 Solana SBF programs, 256 Lean 4 files / 64,261 LOC `0 sorry`, 6 Decision-0031 mechanisms, `qedsvm` SBF ELF lifting), all 10 `degg-research` experiments (`dark-fba-independent` 300.4M batches), `sol-misc/passwap` (Verus `P1..P17`), and `isometric-thought`.
+   - **9I · `fn` (652k LOC ACL2), `veri7vn`, `stella` & `h ghost`**: `fn` (18,807 commits, 652,201 LOC ACL2 across 1,440 books with 36,796 `defthm`s + 62,742 LOC Lean 4 in `fn2/meta/`, verified NNTP & BPv7 DTN server), `acl2aiguide`, `o7vn` (`veri7vn` 3,220 Isabelle theorems & 145 MLton specialists), `stella` (9 HOL4 theories + 47.3K LOC Rust), `h` (`h ghost` 3 HF Hub arms), `introsqwention`, `restrans`, and `world-model-trajectories`.
+   - **9J · `spindle` (`RIG`), `don`, `blackwing`, `vidbox` & `plymouth-rock`**: `spindle` (`RIG` rotating-frame roulette physics, 6-DOF gyroscopic Bell), `don` (15-channel `DataWalk` & Rosetta 2 `i686` binary oracle with 18.7M zero-mismatch calls), `automatafl`, `bw-exp0`/`bw-exp1`/`blackwing-v0` (`holdsmith-analyzer` Z3 story verifier), `frisqueendom`, `Achron`/`resequence-rs`, `audec`, `vidbox` & `scrubsheet`, `codrawer-bridge` (`RocqPad`), and `plymouth-rock` (350 MWt Sodium Fast Reactor).
+10. **[`triage.html` — 10 · Metamanagement, Unclosed Cycles (`C1`–`C15`), Revival Candidates & Human Triage (`H1`–`H15`)](triage.html)**
+    - **10A · Swarm Metamanagement & `cv distill`**: Quantitative continuity architecture (`21.5 / 24` recall vs `0.5 / 24` handoff notes), `CLAUDE.md` stratigraphy, and `mission-control`/`helm`.
+    - **10B · Portfolio Maturity Matrix (`L0`–`L4`) & 15 Unclosed Engineering Cycles (`C1`–`C15`)**: Concrete closure pathways across all 378 `~/dev` directories.
+    - **10C · Top 15 Revival Candidates ("Take Back Up")**: High-leverage dormant gems now unlocked by `minidregg`/`nanodregg`/`obend`/`svenvs`.
+    - **10D · 15 Struggling Areas Needing Human Attention (`H1`–`H15`)**: Architectural forks, multi-worktree divergences, and taste judgments that only Ember can resolve.
+    - **10E · `cv` (3.8k Commits), `wesvet` (156 Successions) & `breadstuffs/docs` (252 Files)**: `cv` (3,852 commits, OpenSession 0.3 IR, `>3,000×` live heap reduction, `cv prune`, `cv distill`, `cv retire`), `wesvet` (156-succession carry-recall study, P7 `sharpen.py` 98.6% recall at `-63.1%` tokens), `redregg`/`cxo`, `dregg-assortia`, `tokeman`, `phoenix`, and all 252 top-level entries / 706 files in `breadstuffs/docs/`.
 
 ---
 
-## Primary-Source Dossiers (`sources/`)
+## Primary-Source Dossiers (`sources/` & `sources/strands/`)
 
 | # | Dossier File | Size | Topic |
 |---|---|---|---|
@@ -51,3 +76,22 @@
 | 06 | [`sources/06-vision-origins-and-complete-project-atlas.md`](sources/06-vision-origins-and-complete-project-atlas.md) | 89 KB | The Vision, Decade Lineage (2013–2026), Swarm Engineering (`redregg` & `cv`) & Complete Project Atlas |
 | 07 | [`sources/07-obend-silicon-fpga-and-latest-dregg.md`](sources/07-obend-silicon-fpga-and-latest-dregg.md) | 78 KB | `obend` Silicon Elaborator (`ExprCAM`, Futamura, 3-Phase `ICAP` DPR), Sky130 PDK DRC & 6-Stage FPGA/CDNA3/FP4 Equivalence |
 | 08 | [`sources/08-october-november-2026-stratum.md`](sources/08-october-november-2026-stratum.md) | 72 KB | Late Oct–Nov 2026 Stratum: `svenvs` & `hol-reflection`, `verekos`, `o7vn`, `fn2`, `negstab` & `forensics` |
+| 09 | [`sources/strands/09-deos-minidregg-nanodregg-delvetalk-deep-dive.md`](sources/strands/09-deos-minidregg-nanodregg-delvetalk-deep-dive.md) | 64 KB | Deep Dive: `DeOS`, `MiniDregg`, `NanoDregg`, `DelveTalk`, `Spween`, `Preoscript` & `OBend` Hardware Unification |
+| 10 | [`sources/strands/10-cognitive-learning-abcdeez-factshift-ekos.md`](sources/strands/10-cognitive-learning-abcdeez-factshift-ekos.md) | 80 KB | Cognitive Learning & Adaptive Memory: `abcdeez`, `factshift`, `EKOS`/`verekos`, `teach`/`sensei` & `notecard` |
+| 11 | [`sources/strands/11-isa-compilers-physics-math-substrates.md`](sources/strands/11-isa-compilers-physics-math-substrates.md) | 86 KB | Custom RISC ISA (`absass`), `dhttp`, `intmat`/`intmat2` Living Materials, `graphplay`, `ergolang` & `torchship` |
+| 12 | [`sources/strands/12-markets-dclutch-solana-joshi-mina-zk.md`](sources/strands/12-markets-dclutch-solana-joshi-mina-zk.md) | 77 KB | Combinatorial Prediction Markets (`dclutch`), `joshi`/`pbot1`/`polymarket-arb` & Mina/Kimchi/Pickles Recursive ZK |
+| 13 | [`sources/strands/13-residents-bots-games-worlds-audec.md`](sources/strands/13-residents-bots-games-worlds-audec.md) | 85 KB | Resident Minds (`allgame`, `tulip`, `fn`/`fn2`), Games (`don`, `automatafl`, `c6-4x`, `mud`) & `audec` Audio Codecs |
+| 14 | [`sources/strands/14-interiority-bridge-interpretability-organisms.md`](sources/strands/14-interiority-bridge-interpretability-organisms.md) | 87 KB | Machine Interiority (`comp-theo`), The Bridge, Interpretability (`gowexp`, `negneg`, `negstab`, `formal-organisms`) & Social Choice |
+| 15 | [`sources/strands/15-metamanagement-open-cycles-revival-triage.md`](sources/strands/15-metamanagement-open-cycles-revival-triage.md) | 87 KB | Metamanagement, Unclosed Cycles (`C1`–`C15`), Top 15 Revival Candidates & Human Triage (`H1`–`H15`) |
+| 16 | [`sources/strands/16-breadstuffs-kernel-circuits-crypto-diaspora.md`](sources/strands/16-breadstuffs-kernel-circuits-crypto-diaspora.md) | 42 KB | `breadstuffs` Diaspora I: Kernel (`bread-kernel`), Plonky3 STARK Circuits & Cryptographic Primitives |
+| 17 | [`sources/strands/17-breadstuffs-deos-surfaces-starbridge-diaspora.md`](sources/strands/17-breadstuffs-deos-surfaces-starbridge-diaspora.md) | 46 KB | `breadstuffs` Diaspora II: `deos-ui`, `spween`, `preoscript`, `delvetalk`, `starbridge` & `deos-hermes` |
+| 18 | [`sources/strands/18-breadstuffs-dreggnet-games-worlds-diaspora.md`](sources/strands/18-breadstuffs-dreggnet-games-worlds-diaspora.md) | 72 KB | `breadstuffs` Diaspora III: `dreggnet` P2P Gossip, Proof-of-Agency (`poa`) & Interactive Worlds (`mud`, `don`) |
+| 19 | [`sources/strands/19-breadstuffs-federation-chains-commons-diaspora.md`](sources/strands/19-breadstuffs-federation-chains-commons-diaspora.md) | 50 KB | `breadstuffs` Diaspora IV: Federation, Cross-Chain Bridges, Polisware Civic Governance & `commons` |
+| 20 | [`sources/strands/20-clairnets-glados-leanuweave-birkhoff-formal-organs.md`](sources/strands/20-clairnets-glados-leanuweave-birkhoff-formal-organs.md) | 105 KB | `clairnets` (`GLaDOS` 4-Leg LDT in 7 LLM Families), `leanuweave` (25,747 Constants), `birkhoff-asa` (`asagolf`), `navier-stokes-proof` & `bead-calculus` |
+| 21 | [`sources/strands/21-chreatures-drosophila-connectome-and-physiology.md`](sources/strands/21-chreatures-drosophila-connectome-and-physiology.md) | 84 KB | `chreatures` (165,122-Neuron `MaleCNS v1.0` & `NeuroMechFly v2.1.0`), `brorb` & `humanbody`, `luteastress` & `febart` |
+| 22 | [`sources/strands/22-obend-language-astra-equirec-and-ltuo.md`](sources/strands/22-obend-language-astra-equirec-and-ltuo.md) | 86 KB | Objective Bend (`obend`) Language, LTUO (`fareoo`), 8-Module Equi-Recursive Bisimulation (`89bd283`), `NEXT-MATHEMATICA.md` & `DEOS-CONTRACTS-CONSENSUS.md` |
+| 23 | [`sources/strands/23-minidregg-lanes-claudesplosion-drorb-dreggcloud.md`](sources/strands/23-minidregg-lanes-claudesplosion-drorb-dreggcloud.md) | 110 KB | `minidregg` (8.9k Commits), 273 `minidregg-lanes`, 67 `claudesplosion` Lanes, 27 `nanodregg-scout`, `delvetalk2-lanes`, `drorb`, `DreggNet` & `DreggCloud` |
+| 24 | [`sources/strands/24-dragons-clutch-dclutch-degg-research-deep-rescout.md`](sources/strands/24-dragons-clutch-dclutch-degg-research-deep-rescout.md) | 74 KB | `dragons-clutch` (11.1k Commits / 379 Branches), `dclutch` (6.8k Commits, 64.2k LOC Lean 4, `qedsvm`), 10 `degg-research` Experiments & `passwap` |
+| 25 | [`sources/strands/25-fn-veri7vn-stella-h-ghost-and-mechinterp-rescout.md`](sources/strands/25-fn-veri7vn-stella-h-ghost-and-mechinterp-rescout.md) | 79 KB | `fn` (18.8k Commits, 652k LOC ACL2 + 62.7k LOC Lean 4), `acl2aiguide`, `o7vn` (`veri7vn` 3,220 Isabelle Theorems), `stella`, `h ghost` & `restrans` |
+| 26 | [`sources/strands/26-spindle-blackwing-audec-vidbox-physics-and-games-rescout.md`](sources/strands/26-spindle-blackwing-audec-vidbox-physics-and-games-rescout.md) | 96 KB | `spindle` (`RIG`), `don` (18.7M Differential Oracle Trials), `automatafl`, `blackwing` (`holdsmith-analyzer`), `frisqueendom`, `Achron`, `audec`, `vidbox` & `plymouth-rock` |
+| 27 | [`sources/strands/27-cv-wesvet-breadstuffs-253-docs-and-swarm-science-rescout.md`](sources/strands/27-cv-wesvet-breadstuffs-253-docs-and-swarm-science-rescout.md) | 103 KB | `cv` (3.8k Commits, OpenSession 0.3 IR), `wesvet` (156-Succession Study), `redregg`/`cxo`, `dregg-assortia`, `tokeman`, `phoenix` & 252 `breadstuffs/docs/` |
