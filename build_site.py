@@ -21,7 +21,6 @@ PUBLIC_GH_REPOS = {
     "plonky3-recursion": "https://github.com/emberian/plonky3-recursion/blob/main/",
     "fn": "https://github.com/emberian/fn/blob/main/",
     "dregg-posters": "https://github.com/emberian/dregg-posters/blob/main/",
-    "dregg-microsites": "https://github.com/emberian/dregg-microsites/blob/main/",
     "verifereum": "https://github.com/verifereum/verifereum/blob/main/",
 }
 
@@ -326,7 +325,7 @@ def page_shell(filename, title, description, hero_html, subtabs, panels_html, fo
       <a class="brand" href="index.html">
         <span class="brand-mark">W</span>
         <span>whatember</span>
-        <small>Verifiable Systems Monograph · Nov 2026</small>
+        <small>what ember is up to · Nov 2026</small>
       </a>
       <nav class="main-nav" aria-label="Primary navigation">
         {"".join(nav_links)}
@@ -355,7 +354,6 @@ def page_shell(filename, title, description, hero_html, subtabs, panels_html, fo
       </div>
       <div>
         <a href="https://github.com/emberian/whatember">GitHub Repo</a> ·
-        <a href="https://emberian.github.io/dregg-microsites/">Dregg Microsites</a> ·
         <a href="atlas.html">Master Atlas</a>
       </div>
     </div>
@@ -422,8 +420,8 @@ def build_all():
     """
     index_html = page_shell(
         "index.html",
-        "whatember — Verifiable Compute, Merkleized Agent Proxies & Formal Silicon Monograph",
-        "Unabridged primary-source technical monograph and index of Ember's verifiable compute, training-set absence proofs, Merkleized agent proxies, multi-vendor TEEs, and Lean/HOL4/ACL2/Isabelle formal silicon systems.",
+        "whatember — what ember is up to",
+        "Primary-source technical monograph and index of what Ember is up to across verifiable compute, formal silicon, DeOS, neurobiology, deductive neural organs, and swarm science.",
         hero_idx,
         [
             ("tab-exec", "1A · Architecture & Full-Stack Executive Monograph"),
@@ -730,21 +728,21 @@ def build_all():
     at_papers_table = m_at_papers.group(1) if m_at_papers else ""
 
     at_7a_deep = render_markdown_to_monograph(
-        read_lines("06-vision-origins-and-complete-project-atlas.md", 340, 459),
+        read_lines("06-vision-origins-and-complete-project-atlas.md", 340, 455),
         prefix="at-repos-deep",
         dossier_badge="Dossier 06 (§5) · Complete Master Atlas Table & Verbatim Code / Theorem Signatures Across All Repositories",
         raw_dossier_file="06-vision-origins-and-complete-project-atlas.md",
     )
     at_7b_deep = render_markdown_to_monograph(
-        read_lines("06-vision-origins-and-complete-project-atlas.md", 460, 509),
+        read_lines("06-vision-origins-and-complete-project-atlas.md", 456, 475),
         prefix="at-microsites-deep",
-        dossier_badge="Dossier 06 (§6.1–§6.2) · Complete `dregg-site` (`dregg.net`) & 19 `dregg-microsites` Visual Essay Atlas",
+        dossier_badge="Dossier 06 (§6.1) · Complete `dregg-site` (`dregg.net`) Route & Information Architecture Atlas",
         raw_dossier_file="06-vision-origins-and-complete-project-atlas.md",
     )
     at_7c_deep = render_markdown_to_monograph(
-        read_lines("06-vision-origins-and-complete-project-atlas.md", 510),
+        read_lines("06-vision-origins-and-complete-project-atlas.md", 476),
         prefix="at-posters-deep",
-        dossier_badge="Dossier 06 (§6.3) · Complete `dregg-posters` Archive: Bilingual Typst Suites, HTML Broadsides & All 49 ASCII Posters",
+        dossier_badge="Dossier 06 (§6.2) · Complete `dregg-posters` Archive: Bilingual Typst Suites, HTML Broadsides & All 49 ASCII Posters",
         raw_dossier_file="06-vision-origins-and-complete-project-atlas.md",
     )
 
@@ -760,17 +758,17 @@ def build_all():
     """
     atlas_html = page_shell(
         "atlas.html",
-        "07 · Searchable Master Atlas: 38+ Repos, 19 Microsites, 65+ Posters & Theorem Signatures — whatember",
-        "Complete searchable index and primary-source theorem/code signature atlas of Ember's 38+ repositories, 19 interactive visual essays, 65+ technical posters, and 8 source dossiers.",
+        "07 · Searchable Master Atlas: Repositories, Posters & Theorem Signatures — whatember",
+        "Complete searchable index and primary-source theorem/code signature atlas of Ember's repositories, 65+ technical posters, and 27 source dossiers.",
         hero_at,
         [
-            ("tab-repos", "7A · 38+ Repositories & Primary-Source Code/Theorem Signatures"),
-            ("tab-microsites", "7B · `dregg.net` & All 19 Interactive Microsites (`dregg-microsites`)"),
+            ("tab-repos", "7A · Repositories & Primary-Source Code/Theorem Signatures"),
+            ("tab-microsites", "7B · `dregg.net` Route & Information Architecture Atlas"),
             ("tab-posters", "7C · 65+ Posters: Typst EN/ZH Series, HTML Broadsides & 49 ASCII Posters"),
             ("tab-papers", "7D · All 27 Raw Primary-Source Dossiers (`sources/01..27`)"),
         ],
         atlas_panels,
-        "07 · Searchable Master Atlas (Full Dossier 06 §5–§6 · 110 KB)",
+        "07 · Searchable Master Atlas (Full Dossier 06 §5–§6 · 105 KB)",
     )
     with open(os.path.join(ROOT, "atlas.html"), "w", encoding="utf-8") as f:
         f.write(atlas_html)

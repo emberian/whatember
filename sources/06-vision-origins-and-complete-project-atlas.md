@@ -87,7 +87,7 @@ flowchart LR
   - A capability is not an ACL row on a server; it is a cryptographic value that can be **attenuated** offline by appending caveats/predicates (`Pred`) and **exercised** in a `Turn` that consumes pinned state cells (`Entry.live cell ver`), records use-once nullifiers/versions, conserves value (`admit_value`), and emits a publicly verifiable receipt.
 
 #### Pillar 2: *"Prove the turn, not the machine."* / *"Proving boundaries, not interiors."*
-- Published as a visual essay in [`dregg-microsites/prove-the-turn/`](file:///Users/ember/src/dregg-microsites/README.md#L34) and articulated in [`dregg-site/DESIGN-NOTES.md`](file:///Users/ember/dev/dregg-site/DESIGN-NOTES.md#L7-L11) (`2026-07-19`):
+- Articulated in [`dregg-site/DESIGN-NOTES.md`](file:///Users/ember/dev/dregg-site/DESIGN-NOTES.md#L7-L11) (`2026-07-19`):
   > **"dregg is a proof-native semantic computer. Programs state what an act means; specialized proofs check that meaning; faithful receipts bind the program to exact state; recursive composition turns unlike meanings into one history."**
 - And in the Conceptual Laws of [`dregg-site/DESIGN-NOTES.md`](file:///Users/ember/dev/dregg-site/DESIGN-NOTES.md#L44-L60):
   > **"1. State the semantic claim before the machinery.** Say 'proves the optimal clearing,' not 'runs a STARK circuit,' until the machinery matters.  
@@ -113,7 +113,7 @@ flowchart LR
     > *"Remember 'fixing overclaims' isn't our mission, the mission is to rise to meet the claim."*
   - Session `67fb1667` (`2026-07-16`, prompt #143):
     > *"NO NEW TRUTH FILES ... stop turning engineering tasks into documentation rituals."*
-- At the same time, when publishing external status ledgers (`CLAIMS.md`, `CURRENT.md`, `dregg-posters/CLAIMS-2026-07-23.md`, `dregg-microsites/green-is-not-true/`), Ember enforced ruthless **epistemic honesty** about cryptographic floors and unfinished seams (e.g., `prove-the-floor-false.txt`, `green-is-not-true`): every theorem must carry a **tooth** (a planted fault or trivial-system refuter proving the theorem is non-vacuous) and an explicit **TCB row** (`gates/tcb.tsv`).
+- At the same time, when publishing external status ledgers (`CLAIMS.md`, `CURRENT.md`, `dregg-posters/CLAIMS-2026-07-23.md`), Ember enforced ruthless **epistemic honesty** about cryptographic floors and unfinished seams (e.g., `prove-the-floor-false.txt`, `green-is-not-true`): every theorem must carry a **tooth** (a planted fault or trivial-system refuter proving the theorem is non-vacuous) and an explicit **TCB row** (`gates/tcb.tsv`).
 
 #### Pillar 5: *"If you were a digital entity, where would you want to live?"* — *Aurora*, *Polis*, and Non-Domination
 - The deepest motivation behind Dregg is ethical and existential: building a home where artificial and human minds can live as citizens rather than subjects or captive API endpoints.
@@ -305,7 +305,7 @@ Created on `2026-09-17` (commit `90a6563`, *"Record initial DREGG suite orientat
 In October 2026 (`2026-10-10` to `2026-10-12`), Ember commissioned a read-only archaeological synthesis in `/Users/ember/dev/aidev` across five primary strata:
 
 1. **[`docs/synthesis/dregg.md`](file:///Users/ember/dev/aidev/docs/synthesis/dregg.md#L1-L460) — The Dregg Family (14 Repos, 822 Sessions, 10,842 Prompts)**:
-   - Synthesizes the full trajectory of `breadstuffs`, `minidregg`, `DreggNet`, `drorb`, `DreggCloud`, `dclutch`, `dragons-clutch`, `zkml-research`, `degg-research`, `dregg-assortia`, `dregg-site`, `dregg-microsites`, and `dregg-posters`.
+   - Synthesizes the full trajectory of `breadstuffs`, `minidregg`, `DreggNet`, `drorb`, `DreggCloud`, `dclutch`, `dragons-clutch`, `zkml-research`, `degg-research`, `dregg-assortia`, `dregg-site`, and `dregg-posters`.
    - Catalogs **30 load-bearing prompts** (`§6`, [lines 352–425](file:///Users/ember/dev/aidev/docs/synthesis/dregg.md#L352-L425)) and **18 open technical problems** (`§7`, [lines 427–460](file:///Users/ember/dev/aidev/docs/synthesis/dregg.md#L427-L460)), including the FRI soundness floor at BabyBear (`conjectured 130 / proven 51–73 / ceiling 2^123.6`), non-native field widening (`FieldLanes9`), and the two-state-machine seam between `NativeHost` and `World.admit` that `nanodregg` later closed.
 
 2. **[`docs/synthesis/rest.md`](file:///Users/ember/dev/aidev/docs/synthesis/rest.md#L1-L431) — Everything Else (121 Repos, 1,103 Sessions, 5,502 Prompts)**:
@@ -365,8 +365,7 @@ All counts below are measured directly from the local git repositories on `2026-
 | 24 | **`negneg`** | [`/Users/ember/dev/negneg`](file:///Users/ember/dev/negneg) | `github.com/emberian/negneg` | `47` | `2026-05-17` (`dad4576`) $\to$ `2026-05-21` (`c759e39`) | `16,745` Py · `9,913` MD · `437` HTML | `0` (PyTorch training/retention study) | Empirical study of belief implantation, double-negation (`¬¬P`), and memory retention dynamics in `HRM-Text` and small language models, demonstrating transient implantation decay by step 6,000. |
 | 25 | **`comp-theo`** | [`/Users/ember/dev/comp-theo`](file:///Users/ember/dev/comp-theo) | `github.com/emberian/comp-theo` | `13` | `2026-05-18` (`faf3fe2`) $\to$ `2026-05-19` (`947025b`) | `51,575` MD · `8,471` HTML · `4,180` Py · `396` Rust | `0` (Toy-model dynamics + `REVIEW.md`) | Exploratory computational-theology and small-model attractor dynamics repository, capped by a self-critical audit (`REVIEW.md`) documenting where toy-model metrics undercut headline claims. |
 | 26 | **`dregg-site`** | [`/Users/ember/dev/dregg-site`](file:///Users/ember/dev/dregg-site) | Live: `https://www.dregg.net` (`dregg-anchor`) | `27` | `2026-07-14` (`bb79c8d`) $\to$ `2026-10-07` (`619e64f`) | `6,639` HTML · `902` MD · `473` JS · `163` Py | `0` (Zola static site) | Source repository for `www.dregg.net`, presenting Dregg as a *proof-native semantic computer* in the register of an illustrated technical monograph (`Gloock` / `Newsreader` / `League Spartan` / `JetBrains Mono`). |
-| 27 | **`dregg-microsites`** | [`/Users/ember/src/dregg-microsites`](file:///Users/ember/src/dregg-microsites) | `github.com/emberian/dregg-microsites` · `emberian.github.io/dregg-microsites/` | `16` | `2026-08-25` (`cd17300`) $\to$ `2026-09-20` (`c0df432`) | `6,072` HTML · `919` JS · `559` TXT · `530` MD · `107` Py | `0` (18 self-contained visual essays) | Eighteen dependency-free, interactive HTML visual essays explaining Dregg's core theses (*Prove the turn, not the machine*, *Green is not true*, *A promise that survives*, *A clutch of eggs*, *Keep learning. Keep a secret.*). |
-| 28 | **`dregg-posters`** | [`/Users/ember/src/dregg-posters`](file:///Users/ember/src/dregg-posters) | `~/src/dregg-posters` (`@DreggNet` / `dregg.net`) | `40` | `2026-06-30` (`81c2d48`) $\to$ `2026-09-03` (`c2f0bd1`) | `1,775` TXT (29 ASCII posters) · `18` dated Typst/HTML sets · `1,399` MD | `0` (Backed by `CLAIMS-*.md` ledgers) | Dedicated home for all Dregg / DreggNet bilingual (`en` + `zh`) Typst broadsides, 88-column ASCII triptychs, and `CLAIMS-<date>.md` adversarial verification ledgers. |
+| 27 | **`dregg-posters`** | [`/Users/ember/src/dregg-posters`](file:///Users/ember/src/dregg-posters) | `~/src/dregg-posters` (`@DreggNet` / `dregg.net`) | `40` | `2026-06-30` (`81c2d48`) $\to$ `2026-09-03` (`c2f0bd1`) | `1,775` TXT (29 ASCII posters) · `18` dated Typst/HTML sets · `1,399` MD | `0` (Backed by `CLAIMS-*.md` ledgers) | Dedicated home for all Dregg / DreggNet bilingual (`en` + `zh`) Typst broadsides, 88-column ASCII triptychs, and `CLAIMS-<date>.md` adversarial verification ledgers. |
 
 ---
 
@@ -451,7 +450,7 @@ While Dossiers 01–05 cover the deep internals of `breadstuffs`, `minidregg`, `
 
 ---
 
-## 6. Complete Microsite & Poster Atlas (`dregg-site`, `dregg-microsites`, `dregg-posters`)
+## 6. Complete Site & Poster Atlas (`dregg-site`, `dregg-posters`)
 
 ### 6.1 `dregg-site` (`https://www.dregg.net`) — Route & Information Architecture Atlas
 
@@ -474,34 +473,7 @@ Served by Caddy on `dregg-anchor` (`/var/www/dregg-net`) from branch `codex-rede
 
 ---
 
-### 6.2 `dregg-microsites` (`https://emberian.github.io/dregg-microsites/`) — Complete Visual Essay Atlas
-
-All 18 self-contained visual essays in [`/Users/ember/src/dregg-microsites`](file:///Users/ember/src/dregg-microsites/README.md#L1-L44):
-
-| # | Directory / Slug | Live URL | Subject & Primary Repository |
-|---:|---|---|---|
-| 1 | [`a-promise-that-survives/`](file:///Users/ember/src/dregg-microsites/a-promise-that-survives/index.html) | Local report (`3e1b184` audit) | Independent assessment of **`fn`** (`3e1b184`): executable ACL2, NNTP, LMDB storage, DTN, interactive failure-boundary diagram, agent deployment architecture, and `evidence.json`. |
-| 2 | [`field-guide/`](file:///Users/ember/src/dregg-microsites/field-guide/index.html) | `https://emberian.github.io/dregg-microsites/field-guide/` | Interactive field guide to the Dregg ecosystem, its vocabulary, and how its subsystems fit together. |
-| 3 | [`the-whole-way-through/`](file:///Users/ember/src/dregg-microsites/the-whole-way-through/index.html) | `https://emberian.github.io/dregg-microsites/the-whole-way-through/` | End-to-end trace of a verified action from high-level specification through Lean theorem to wire bytes. |
-| 4 | [`keep-learning-keep-a-secret/`](file:///Users/ember/src/dregg-microsites/keep-learning-keep-a-secret/index.html) | `https://emberian.github.io/dregg-microsites/keep-learning-keep-a-secret/` | Visual essay on **`zkml-research`**: exact `bf16` arithmetization and proving a model learned from an example without revealing the private training data or weights. |
-| 5 | [`keep-the-next-example/`](file:///Users/ember/src/dregg-microsites/keep-the-next-example/index.html) | `https://emberian.github.io/dregg-microsites/keep-the-next-example/` | Companion zkML essay on verifiable online learning and incremental committed updates. |
-| 6 | [`plan-to-compost-at-least-three/`](file:///Users/ember/src/dregg-microsites/plan-to-compost-at-least-three/index.html) | `https://emberian.github.io/dregg-microsites/plan-to-compost-at-least-three/` | Essay on **Compost Development**: why agent swarms let one engineer build three complete generations (`breadstuffs`, `minidregg`, `fn`/`nanodregg`) and compost the earlier trees into nutrient-rich specifications. |
-| 7 | [`fourteen-rooms/`](file:///Users/ember/src/dregg-microsites/fourteen-rooms/index.html) | `https://emberian.github.io/dregg-microsites/fourteen-rooms/` | Visual tour of **DEOS / Delve** rooms, capability boundaries, and multi-agent spatial coordination. |
-| 8 | [`two-phones/`](file:///Users/ember/src/dregg-microsites/two-phones/index.html) | `https://emberian.github.io/dregg-microsites/two-phones/` | How two thin-client devices verify state and exchange capabilities over an untrusted relay using succinct receipts. |
-| 9 | [`a-clutch-of-eggs/`](file:///Users/ember/src/dregg-microsites/a-clutch-of-eggs/index.html) | `https://emberian.github.io/dregg-microsites/a-clutch-of-eggs/` | Interactive explainer of **`dragons-clutch` / `dclutch`**: partition-of-unity B-spline outcome curves (`deg 0–3`), the `Hoard` solvency theorem, and why there are zero liquidations. |
-| 10 | [`make-the-digest-a-proof/`](file:///Users/ember/src/dregg-microsites/make-the-digest-a-proof/index.html) | `https://emberian.github.io/dregg-microsites/make-the-digest-a-proof/` | The **`don` (*Descent of Nations*)** thesis: how a 2003 lockstep RTS's 15-channel per-turn checksum is already a verification protocol waiting to become a ZK proof (`18,722,565` oracle trials, `0` mismatches). |
-| 11 | [`trust-me-in-latin/`](file:///Users/ember/src/dregg-microsites/trust-me-in-latin/index.html) | `https://emberian.github.io/dregg-microsites/trust-me-in-latin/` | Critique of traditional smart-contract security audits ("trust me, in Latin") vs. machine-checked Lean 4 / HOL4 theorems over real deployed bytecode. |
-| 12 | [`green-is-not-true/`](file:///Users/ember/src/dregg-microsites/green-is-not-true/index.html) | `https://emberian.github.io/dregg-microsites/green-is-not-true/` | Epistemic-honesty essay on vacuous theorems: why a `lake build` exit code of `0` ("green") does not mean a theorem is true if its hypotheses are unsatisfiable or its carrier is trivial. |
-| 13 | [`prove-the-turn/`](file:///Users/ember/src/dregg-microsites/prove-the-turn/index.html) | `https://emberian.github.io/dregg-microsites/prove-the-turn/` | Core architectural manifesto: **"Prove the turn, not the machine"** — why proving the semantic boundary relation of a capability turn beats cycle-by-cycle CPU emulation inside a zkVM. |
-| 14 | [`the-cheat-is-unsatisfiable/`](file:///Users/ember/src/dregg-microsites/the-cheat-is-unsatisfiable/index.html) | `https://emberian.github.io/dregg-microsites/the-cheat-is-unsatisfiable/` | How **`automatafl`** and Dregg games compile game rules into Lean-emitted AIR constraints where an illegal move has no satisfying witness. |
-| 15 | [`the-fix-is-a-theorem/`](file:///Users/ember/src/dregg-microsites/the-fix-is-a-theorem/index.html) | `https://emberian.github.io/dregg-microsites/the-fix-is-a-theorem/` | How an HTTP response-splitting vulnerability found on **`DreggNet` / `drorb`** was closed in Lean so the fix is a machine-checked theorem rather than a patch note. |
-| 16 | [`months-in-evenings/`](file:///Users/ember/src/dregg-microsites/months-in-evenings/index.html) | `https://emberian.github.io/dregg-microsites/months-in-evenings/` | Essay on swarm engineering velocity (`cv`, `swarm-build`, auditor-doers) compressing months of formal proof engineering into evenings. |
-| 17 | [`promises-priced/`](file:///Users/ember/src/dregg-microsites/promises-priced/index.html) | `https://emberian.github.io/dregg-microsites/promises-priced/index.html` | Economic and game-theoretic design of capability promises, escrow, and collateralized service commitments. |
-| 18 | [`which-model/`](file:///Users/ember/src/dregg-microsites/which-model/index.html) & [`reading-a-millennium-proof/`](file:///Users/ember/src/dregg-microsites/reading-a-millennium-proof/index.html) | `https://emberian.github.io/dregg-microsites/which-model/` · `.../reading-a-millennium-proof/` | Essays on model-commitment binding (knowing *which* neural network weights answered a prompt) and reading machine-checked formal proofs at scale. |
-
----
-
-### 6.3 `dregg-posters` (`/Users/ember/src/dregg-posters`) — Complete Poster & Broadside Atlas
+### 6.2 `dregg-posters` (`/Users/ember/src/dregg-posters`) — Complete Poster & Broadside Atlas
 
 Stored in [`/Users/ember/src/dregg-posters`](file:///Users/ember/src/dregg-posters/README.md#L1-L12), the poster corpus comprises **29 standalone 88-column ASCII posters** (`*.txt`) and **18 dated Typst / HTML visual broadside sets** (`2026-07-17` through `2026-10-07`), governed by adversarial `CLAIMS-<date>.md` verification ledgers:
 
