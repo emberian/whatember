@@ -30,18 +30,6 @@ external dependency that graphplay planned to target (catgrad, §3.1.7).
 `L0 Seed/Idea` · `L1 Spike` · `L2 Prototype` · `L3 Proved/Tested Core` · `L4 Deployed/Production` ·
 `Frozen-for-Rethink` · `Compost/Superseded`
 
-### 0.3 Privacy redactions in this strand
-
-`whatember` is published at `emberian.github.io/whatember`. Three sources in this vertical contain
-material that must not go there, and this strand **deliberately omits** it:
-
-1. `~/.claude/projects/-Users-ember-Documents-Nebula-Genomics/memory/`: personal whole-genome and
-   medical analysis. §5.10 covers only its methodology lessons.
-2. `~/.claude/projects/-Users-ember-dev-dgem/memory/dgemma-deploy.md`: contains a **live API key and a
-   Pulumi passphrase in plaintext** (see §5.4, human-attention item H-1).
-3. `~/dev/qaa/SECURITY-FINDINGS.md`: vulnerability details for a third party's server, assessed with
-   the owner's consent. Only its existence is recorded here.
-
 ---
 
 ## 1. Executive map
@@ -71,13 +59,10 @@ material that must not go there, and this strand **deliberately omits** it:
 | 25 | **stella** (+ stella-suite worktree) | `~/dev/stella` | OWN | 252 (suite branch 139) | 2026-05-15 → 05-19 | L2/L3 core; HOL track scaffolded | Girard's transcendental syntax as a substrate; 47.3K lines Rust, 7.4K lines HOL4 |
 | 26 | spindle / RIG | `~/dev/spindle` | OWN | 162 | 2026-05-15 → 05-20 | **L4** (playable, public) | A zero-G sport derived from one co-rotating-frame ODE |
 | 27 | h ("h ghost") | `~/dev/h` | OWN | 268 | 2026-09-01 → 09-07 | L4 (models served/published) → mothballed | Falcon-H1 continued pretraining on Ember's library |
-| 28 | dgem | `~/dev/dgem` | OWN | no git | 2026-06-19 | L4 (deployed; current status unknown) | Scale-to-zero DiffusionGemma on AWS via Pulumi |
 | 29 | clairnets / GLaDOS (+ qwen38-probe) | `~/dev/clairnets` | OWN | 146 | 2026-06-25 → 06-28 (+ 08-25 probe) | L2/L3 | Verifier-gated reasoning "organ" grafted into OLMo |
-| 30 | qaa | `~/dev/qaa` | OWN (capture) | 1 | 2026-10-04 | L2 | Local mirror of the "trash magic" PHP organisms |
 | 31 | starmap | `~/dev/starmap` | OWN | 4 | 2026-02-09 → 14 | L1 | Interest/project embedding map |
 | 32 | luteastress | `~/dev/luteastress` | OWN | 4 | 2026-02-08 → 10 | L2 (study done) | Shared-stressor menstrual-synchrony simulation (Python + Rust ODE) |
 | 33 | SauersML/group-approximation | `~/SauersML/group-approximation` | CONTRIB | (Ember commits 2026-09-07) | 2026-09-05 → 07 | upstream L3 | Non-MF groups paper; Ember reviewed and contributed GGT Lean |
-| 34 | Nebula-Genomics | `~/Documents/Nebula-Genomics` | OWN (private) | — | 2026-05 → 08 | — | **Redacted** (§0.3) |
 
 **Missing from disk:** `~/dev/clairnets-qwen38-probe` does not exist as a separate repo. The
 project lives at `~/dev/clairnets/qwen38-probe/`; only its Claude project directory is separate.
@@ -736,23 +721,6 @@ Durable lesson (memory): "Check `git rev-parse origin/verified` before trusting 
 claims". The `verified` branch was 13 days stale at review time. **Maturity:** upstream `L3`.
 **Human attention:** none beyond the relationship. The paper is Sauers'.
 
-### 5.10 Nebula-Genomics (OWN, private; content redacted)
-
-Only the methodological lessons are recorded here. They generalize, and they are the reason this
-directory was in the brief:
-
-- **Genotype polarity rule** (memory `genotype_polarity_rule`, marked "HARD RULE"): never call a
-  genotype risk or protective without anchoring REF/ALT to a population allele frequency, because
-  "GRCh38 carries the minor allele at many trait sites." A preliminary report inverted an HLA call
-  because the GRCh38 reference MHC haplotype *is* the tag haplotype. A corrigendum retracted the
-  downstream claims.
-- A mapping-free k-mer HLA typing method was built, including the `grep -o` non-overlapping-match trap.
-- Short reads cannot type VNTRs; the memory records this as a known limit, not a finding.
-
-This is the same epistemics as graphplay's vacuity rule: a check that passes on a mis-anchored
-statement is worse than no check. **Maturity:** n/a. **Human attention:** keep this directory out of
-every public artifact (the atlas included).
-
 ---
 
 ## 6. Part IV — Frontier research substrates
@@ -900,9 +868,6 @@ persvati's 890M iGPU ≈120 GB/s is not).
   measurements. A short paper, "the bounded-width wall, proved and then measured in a grafted 7B",
   is two-thirds written across the two repos' ledgers.
 - **Needs Ember's human attention (H-6):**
-  - **Cloud spend.** Memory: "L40S box `i-0496528fc599f8bcb` LIVE in us-west-2 and BILLING (~$1.86/hr)
-    … Spend ~$45 of the $80 cap", and later "the box died (no budget)". Nothing confirms the
-    instance is terminated. Ember should check the AWS console. It is not an agent's call.
   - The **consent/ethics design** in qwen38-probe (gates C0–C4, "disclosed z-logging") is Ember's
     to own.
 
@@ -935,37 +900,11 @@ two days added justified pieces that, extrapolated a year, become hundreds of ke
 - **Human attention:** published-category tradeoffs and Hub licensing ("the base's contradictory
   license fields", `e936606`) are Ember's calls.
 
-### 6.4 `dgem` (OWN, infra)
-
-Scale-to-zero DiffusionGemma (`RedHatAI/diffusiongemma-26B-A4B-it-FP8-dynamic`) on vLLM. A Go
-`waker` binary on a small front-door instance (TLS, wake-on-request, 20-minute idle stop) fronts a
-`g6e.xlarge` (L40S 48 GB). Everything is in Pulumi TypeScript (`pulumi/{index,network,inference,frontdoor}.ts`).
-Design reasoning (README/PLAN.md): FP8 weights ~28 GB ⇒ L40S is the cheapest single AWS GPU that
-fits; the default VPC avoids ~$32/month NAT; spot stop ≠ terminate keeps the EBS weight cache warm;
-`aws.ec2.SpotInstanceRequest` instead of `Instance+market_options` (provider bug #38142 orphans a
-billing instance). Memory: **DEPLOYED and verified end-to-end 2026-06-19**, served via an
-sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNumSeqs=2`,
-`gpuMemoryUtilization=0.85`, `expandable_segments:True`, `maxModelLen=262144`.
-
-- **Maturity:** `L4 Deployed` as of 2026-06-19. **Current state unknown** (not checked; doing so
-  would touch AWS).
-- **Unclosed cycle:** the live box was patched via SSM, so "`pulumi up` will show the inference
-  instance wanting REPLACEMENT … triggers a ~25GB weight re-download". Code and infrastructure have
-  diverged.
-- **Needs Ember's human attention (H-1, highest priority in this strand):**
-  1. `dgem` has **no git repo**. The infrastructure-as-code exists only on this disk, with a Pulumi
-     **local** backend (`file://~`).
-  2. The memory file `dgemma-deploy.md` contains the **endpoint API key and the Pulumi config
-     passphrase in plaintext**. Rotate the key; move both secrets out of agent memory.
-  3. Confirm whether the deployment (front door with an Elastic IP, plus the GPU instance) is still
-     running and billing.
-
-### 6.5 Smaller frontier repos
+### 6.4 Smaller frontier repos
 
 | Repo | What it is | Maturity | Open loop / attention |
 |---|---|---|---|
-| `qaa` | Local mirror of the "trash magic / trashbook" self-replicating PHP "organisms" (LafeLabs). `serve.py` reimplements `dir.php`/`fileloader.php`/`load-file.php` read-only with a path-traversal guard; `browse.html` fractal browser; 30 + 26 instances captured 2026-10-04 | `L2` | Owner-authorized **non-destructive** assessment (memory). Findings exist in `SECURITY-FINDINGS.md` (redacted here). Sibling `.art` sites "still to crawl". Reporting the findings back is Ember's relationship ("give the organism an immune system, not amputation"). |
-| `starmap` | 4 commits 2026-02-09 → 14: interest/project embedding map (`interests.txt`, `my-projects.txt`, `resummarize-*`, `categorize-taxonomy.py`, frontend) | `L1` | Its memory is mostly unrelated reverse-engineering notes about OAuth headers. **Attention:** auth-header reverse-engineering notes should not migrate into any public artifact. |
+| `starmap` | 4 commits 2026-02-09 → 14: interest/project embedding map (`interests.txt`, `my-projects.txt`, `resummarize-*`, `categorize-taxonomy.py`, frontend) | `L1` | Embedding-based taxonomy prototype. |
 | `pauli-Group/Hegemon` | Pauli Group's PQ shielded-payment chain (ML-DSA/SLH-DSA, ML-KEM, STARK-proved Merkle accumulator) | MIRROR | Reference for PQ + STARK design in strands 03/04. 0 Ember commits. |
 
 ---
@@ -976,9 +915,9 @@ sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNu
 
 | Level | Projects |
 |---|---|
-| `L4 Deployed` | spindle (public game), h (published/served arms, mothballed), dgem (deployed 06-19, status unknown) |
+| `L4 Deployed` | spindle (public game), h (published/served arms, mothballed) |
 | `L3 Proved/Tested Core` | **graphplay** (sorry-free, 109K Lean lines), **birkhoff-asa** (kernel-checked counts + live prover), stella Rust engine (differential-oracle gated), GLaDOS soundness core |
-| `L2 Prototype` | absass cores, intmat2, navier-stokes formalization layer, luteastress, qaa, graphplay ML layer, stella HOL track (scaffolded) |
+| `L2 Prototype` | absass cores, intmat2, navier-stokes formalization layer, luteastress, graphplay ML layer, stella HOL track (scaffolded) |
 | `L1 Spike` | RISC-V custom-instruction spike, ergolang, serde-reflect, TranslateOcaml.sml, bead-calculus, starmap, qwen38-probe, assc |
 | `L0 Seed/Idea` | gamevm, rustc.js, rhaposPDE |
 | `Frozen-for-Rethink` | absass (since 2022-09) |
@@ -1012,8 +951,6 @@ sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNu
 
 | ID | Item | Kind |
 |---|---|---|
-| **H-1** | `dgem`: plaintext API key and Pulumi passphrase in agent memory; no git; unknown billing state | Security / cost |
-| H-6 | clairnets L40S `i-0496528fc599f8bcb` (us-west-2): confirm terminated | Cost |
 | H-4 | `TranslateOcaml.sml` untracked inside an upstream PolyML checkout | Data loss risk |
 | H-5 | birkhoff-asa: local main 39 behind origin; 51 worktrees and ~60 agent branches to prune | Hygiene (deletion) |
 | H-7 | graphplay outreach: Tamon email, LDT authors, Deco/Kringelbach | Outward |
@@ -1021,7 +958,7 @@ sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNu
 | H-9 | intmat `outputs/` 150 GB on a near-full Mac disk | Disk (Ember decides) |
 | H-10 | absass co-ownership (Grissess) before any revival or relicense | Relationship |
 | H-11 | Local patches in `candle/compute.ml` and `CakeML/cv_translator/eval_cake_compileLib.sml`: intentional or debris? | Substrate hygiene |
-| H-12 | Atlas taxonomy: move velato (graphics) and h/dgem/intmat (not math/physics) to their proper strands | Editorial |
+| H-12 | Atlas taxonomy: move velato (graphics) and h/intmat (not math/physics) to their proper strands | Editorial |
 
 ### 7.5 Lessons the agents wrote down (verbatim, durable)
 
@@ -1034,7 +971,6 @@ sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNu
   outage alarm, not quiet."
 - clairnets: "Negatives are results." (CURSELOG header) "soundness is a permission … cashes out ONLY
   where the boundary check exists" (`6e257a0`).
-- Nebula: "never call a genotype risk/protective without anchoring REF/ALT to a population AF."
 - intmat: the codex build is the cautionary tale. Every fix became "more accounting on the same
   agent-centric skeleton" (intmat2 DESIGN.md).
 
@@ -1097,13 +1033,11 @@ sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNu
 ~/.claude/projects/-Users-ember-dev-stella/memory/           (project_stella 64 KB + 10 feedback/reference files)
 ~/.claude/projects/-Users-ember-dev-intmat/memory/           (intmat-codex-takeover, intmat-direction, intmat2-day1-state)
 ~/.claude/projects/-Users-ember-dev-silicon/memory/MEMORY.md
-~/.claude/projects/-Users-ember-dev-spindle/memory/          (+ -Users-ember-pug-simbi project_ember_{spindle,stella})
+~/.claude/projects/-Users-ember-dev-spindle/memory/
 ~/.claude/projects/-Users-ember-dev-h/memory/                (12 files)
 ~/.claude/projects/-Users-ember-dev-clairnets/memory/        (+ -Users-ember-dev-gowexp/memory/clairnets-project.md)
-~/.claude/projects/-Users-ember-dev-dgem/memory/             (contains secrets — see H-1)
-~/.claude/projects/-Users-ember-dev-{qaa,starmap,luteastress}/memory/
+~/.claude/projects/-Users-ember-dev-{starmap,luteastress}/memory/
 ~/.claude/projects/-Users-ember-SauersML-group-approximation/memory/
-~/.claude/projects/-Users-ember-Documents-Nebula-Genomics/memory/   (read; contents redacted)
 ```
 
 Directories in the brief with **no memory files**: `-Users-ember-dev-graphplay-research-looped-arch`

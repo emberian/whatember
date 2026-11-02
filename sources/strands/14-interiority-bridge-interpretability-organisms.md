@@ -501,7 +501,7 @@ Memory gives the participation-ratio numbers: "PR 3.6 vs 6.1". The pig-latin con
 - **Maturity:** `L3 Tested Core`. Red-teamed and honestly caveated.
 - **Unclosed cycle:** the R1-14B (or any open reasoning model) run of `pertoken.py` + `lyapunov.py` + `attn_range.py`, under A/D/E plus the surface-rhythm controls Y/P/W. **Pathway:** the harness is done. The cost is one L40S night (about $15–25) with incremental writes and a raised MAXRUN.
 - **Promising & ready:** this is newnewprompt's best runnable experiment, and it is *more* ready than newnewprompt thought, since the code exists.
-- **Pivot:** clairnets (2026-06-25), "find genuinely powerful PARAM-EFFICIENT hybrid architectures". It links back here: "lattice↔contractive-dynamics (the 'basin-holding' we measured in Gowith trajectories)". **Struggling:** memory records an "L40S box `i-0496528fc599f8bcb` LIVE in us-west-2 and BILLING (~$1.86/hr) — teardown if not running" at compaction. Its current state was not verified here (read-only brief). ember should confirm it is gone.
+- **Pivot:** clairnets (2026-06-25), "find genuinely powerful PARAM-EFFICIENT hybrid architectures". It links back here: "lattice↔contractive-dynamics (the 'basin-holding' we measured in Gowith trajectories)".
 
 ### 4.5 The August Bridge pass (Aug 23–27) and glossolalia (Aug 28)
 
@@ -689,8 +689,7 @@ Three findings recur across independent instruments:
 4. **The 22-second breath method note.** First-person only.
 5. **comp-theo's purpose.** Research programme or archive-with-commentary? (the tealeaves worry). Its labs currently publish claims that REVIEW.md says are irreproducible (S1.2) and may rest on a port bug (S1.1).
 6. **negneg publication** ("internal-only — NOT pushed to public site"; co-author relationship).
-7. **Cloud spend hygiene.** clairnets' L40S `i-0496528fc599f8bcb` was recorded as live and billing at compaction (06-25). Confirm terminated. Mediateor's EC2 `i-0e83e0835d260a5b2` is intentionally live with a $50 budget action.
-8. **Questions only ember can answer:** #5 Arke, #6 "what is it like to be you", #7 halt, #10 multiad, #12 substrate, V "what is the quiet for".
+7. **Questions only ember can answer:** #5 Arke, #6 "what is it like to be you", #7 halt, #10 multiad, #12 substrate, V "what is the quiet for".
 9. **Subagent drift recorded in this strand:** comp-theo's lab prose over-claimed ("postdoc" → "middle-school" by its own admission); the demonology was GPT-5.5 confabulation; gowexp v1 "was partly bullshit" (ember) until redesigned; gowexp's report at first called a Jaccard 0.40 "low E-overlap" (red-team caught it); negneg's `42db742` "no implantation" was overturned a day later by the LR fix.
 
 ---

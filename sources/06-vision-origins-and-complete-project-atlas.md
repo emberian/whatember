@@ -455,7 +455,7 @@ While Dossiers 01–05 cover the deep internals of `breadstuffs`, `minidregg`, `
 
 ### 6.1 `dregg-site` (`https://www.dregg.net`) — Route & Information Architecture Atlas
 
-Served by Caddy on `dregg-anchor` (`88.99.126.35`, `/var/www/dregg-net`) from branch `codex-redesign` ([`dregg-site/DEPLOY.md`](file:///Users/ember/dev/dregg-site/DEPLOY.md#L1-L37)), `www.dregg.net` is structured around 12 primary routes documented in [`dregg-site/DESIGN-NOTES.md`](file:///Users/ember/dev/dregg-site/DESIGN-NOTES.md#L99-L120):
+Served by Caddy on `dregg-anchor` (`/var/www/dregg-net`) from branch `codex-redesign` ([`dregg-site/DEPLOY.md`](file:///Users/ember/dev/dregg-site/DEPLOY.md#L1-L37)), `www.dregg.net` is structured around 12 primary routes documented in [`dregg-site/DESIGN-NOTES.md`](file:///Users/ember/dev/dregg-site/DESIGN-NOTES.md#L99-L120):
 
 | Route | Title / Role in the Monograph | Core Thesis / Subject |
 |---|---|---|

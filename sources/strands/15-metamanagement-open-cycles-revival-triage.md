@@ -19,7 +19,7 @@ It does **not** re-derive project internals that other strands own (dregg kernel
 | persvati dig | `~/dev/aidev/docs/digs/persvati.md` (142 lines) | the March 2026 persvati campaign: 6,750 prompts, 182 sessions, 41 active days |
 | dregg synthesis | `~/dev/aidev/docs/synthesis/dregg.md` (459 lines) | T1–T26, failure modes, R1–R12 |
 | projects / ledger | `~/dev/aidev/docs/projects.md`, `ledger.md` | 366 projects; 40 described entries; state tallies |
-| memory files | `~/.claude/projects/-Users-ember-{dev-cv (20), dev-mission-control (6), dev-tokeman (5), dev-aidev (5), pug-claurdvoyant (12), pug-simbi (17)}/memory/` | rules, measurements, release state, decisions pending |
+| memory files | `~/.claude/projects/-Users-ember-{dev-cv (20), dev-mission-control (6), dev-tokeman (5), dev-aidev (5), pug-claurdvoyant (12)}/memory/` | rules, measurements, release state, decisions pending |
 | memory, newer | `-Users-ember-dev-{breadstuffs,minidregg,o7vn,EKOS,intmat}/memory/*` modified after 2026-10-15 | drain/freeze, nanodregg, board/seats, lane-brief template, broadcast-stops-lane |
 | repos | `~/dev/{cv, cv-distill-loss, tokeman, mission-control, helm, helm-old, sesh, lcrio, forensics, torchship, acl2aiguide, brorb}` | READMEs, design docs, `git log`, authorship (`git shortlog -sne --all`) |
 | machines | `~/swarm/MACHINES.md` (facts dated 2026-10-31), `~/swarm` log `8ac5161` | hbox / persvati / Mac roles |
@@ -547,8 +547,6 @@ Sources: `ledger.md` (counts as of 2026-10-10), `projects.md` (states), memory f
 | 78 | `~/dev/tulip.fg-goose.online` / `tulip2` | **L4** | the platform residents live on | 2026-02-04 |
 | 79 | `tulip.arke.me` → qwobot → zwobot | **Superseded** | lineage into allgame | 2026-01 / 03-03 |
 | 80 | `~/dev/joshibot` / `joshi` | **Compost** | −7.47 SOL fabricated-cost-basis bug; "mostly null" Jupiter studies | 2026-08-29 |
-| 81 | `~/pug/simbi` (client) | **L4 (client's)** | simbi.com on Hetzner 5.78.140.136 since 05-31; sidekiq-unique-jobs v7 | 2026-06 |
-| 82 | `~/doppel` (Wallace) | **Shipped/ended (client's)** | handoff 08-03 | 2026-08-03 |
 
 ### 2.6 Games, sims and desktop tools
 

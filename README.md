@@ -7,7 +7,7 @@
 
 ---
 
-## Site Architecture (`open-strands` Branch: 10 Pages, 49 Interactive Sub-Tabs, 3.04 MB Rendered HTML)
+## Site Architecture (`main` Branch: 10 Pages, 49 Interactive Sub-Tabs, 3.04 MB Rendered HTML)
 
 1. **[`index.html` — 01 · Overview & Executive Index](https://emberian.github.io/whatember/index.html)**
    - **1A · Architecture & Thesis**: How hardware attestation, Merkle/MMR history commitments, and algebraic/formal certificates interlock.

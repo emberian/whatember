@@ -119,7 +119,7 @@ def render_markdown_to_monograph(md_text, prefix="sec", dossier_badge=None, raw_
     sec_counter = 0
 
     if dossier_badge and raw_dossier_file:
-        branch_ref = "open-strands" if raw_dossier_file.startswith("strands/") else "main"
+        branch_ref = "main"
         out.append(
             f'<div class="callout" style="margin-top:0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">'
             f'<div><div class="callout-title">{html.escape(dossier_badge)}</div>'
@@ -402,7 +402,7 @@ def build_all():
     m_hero_idx = re.search(r'(<section class="hero">.*?</section>)', old_index, re.S)
     hero_idx = m_hero_idx.group(1)
     m_exec_cards = re.search(r'<section id="tab-exec"[^>]*>(.*?)</section>', old_index, re.S)
-    exec_cards_html = m_exec_cards.group(1) if m_exec_cards else ""
+    exec_cards_html = m_exec_cards.group(1).split('<hr style="margin:42px 0;')[0].strip() if m_exec_cards else ""
 
     index_panels = f"""
     <section id="tab-exec" class="tab-panel active" role="tabpanel">
@@ -725,7 +725,7 @@ def build_all():
         old_at = f.read()
     hero_at = re.search(r'(<section class="hero">.*?</section>)', old_at, re.S).group(1)
     m_at_repos = re.search(r'<section id="tab-repos"[^>]*>(.*?)</section>', old_at, re.S)
-    at_repos_filter = m_at_repos.group(1) if m_at_repos else ""
+    at_repos_filter = m_at_repos.group(1).split('<hr style="margin:42px 0;')[0].strip() if m_at_repos else ""
     m_at_papers = re.search(r'<section id="tab-papers"[^>]*>(.*?)</section>', old_at, re.S)
     at_papers_table = m_at_papers.group(1) if m_at_papers else ""
 
