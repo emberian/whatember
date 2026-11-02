@@ -315,7 +315,6 @@ And the purpose statements that make fn a **dregg** component, not a toy:
  │ store: format 10 page store, BLAKE3, Cancel-Lock keys (STORE/keys/node-secret.key)    │
  └───────────────────────────────────────────────────────────────────────────────────────┘
  Crypto via FFI: libsodium (Ed25519/SHA-512), vendored PQClean ML-DSA-65 (host/native/fn-mldsa65.c)
- Deploy: dregg-infra edge (workhorse compose + anchor Caddy + headscale tailnet); hbox = private peer
 ```
 
 Image anatomy, measured (memory `fn-d27-representation.md`): fn's compiled code is **14.5 MiB of a 368 MiB image**; image-floor-2 took core content 271 → 106 MiB, in-use after 1,000 posts 154 → **68 MiB**, thread stacks 64 MiB → 1.2 MiB.

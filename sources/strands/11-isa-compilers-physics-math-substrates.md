@@ -51,8 +51,6 @@ material that must not go there, and this strand **deliberately omits** it:
 | 1 | absass | `~/dev/absass` | CO (Grissess) | 157 (88 ember / 69 Grissess) | 2022-06-26 → 2022-09-16 | L2 → Frozen | "ABSOLUTE ASS": 16-bit word-size-agnostic RISC ISA, 3 HDL cores, Rust emulator, C-like compiler |
 | 2 | RISC-V custom-instruction spike | `~/dev/silicon` | OWN (spike) | untracked | 2026-02-20 | L1 | 8 custom instructions (LVB, BLAKE3 co-proc, VATCALL/CAPTRAP traps), Sail + Spike |
 | 3 | gamevm | `~/dev/gamevm` | OWN | no git | 2026-01-05 | L0 | 3,110-line plan to turn Blackwing into a schema-driven game VM |
-| 4 | assemblies | `~/dev/assemblies` | MIRROR | 26 | 2018–2023 | n/a | Mitropolsky's Assembly Calculus (brain model) |
-| 5 | eshkol | `~/dev/eshkol` | CONTRIB | 2,140 (0 ember) | 2025-03 → 2026-10 | upstream L4 | tsotchke's Scheme+AD language; Ember ran the 44-issue security/soundness audit |
 | 6 | ergolang | `~/dev/ergolang` | OWN | 2 | 2025-12-17 | L1 | "Programs as Sheaf Sections", an 834-line Prolog interpreter |
 | 7 | velato | `~/dev/velato` | CONTRIB | 91 (1 ember) | 2023 → 2026-03 | upstream L4 | Linebender Lottie renderer fork; **misfiled**, it is not a language |
 | 9 | bend | `~/dev/bend` | MIRROR | 3,416 | — | n/a | HigherOrderCO Bend; referenced by stella's README |
@@ -70,7 +68,6 @@ material that must not go there, and this strand **deliberately omits** it:
 | 21 | rhaposPDE | `~/dev/rhaposPDE` | OWN | no git | — | L0 | "a love letter to differential equations", a one-line README |
 | 22 | pauli-Group/Hegemon | `~/dev/pauli-Group/Hegemon` | MIRROR | ~1,100 (0 ember) | → 2026-03 | n/a | Pauli Group's PQ shielded-payment chain |
 | 23 | reu / bead-calculus | `~/dev/bead-calculus` | OWN | 13 | 2025-12-29 → 30 | L1 | String diagrams as marble machines (puzzle game) |
-| 24 | clockdag-protocol | `~/dev/clockdag-protocol` | MIRROR | 872 (0 ember) | 2026-04 → 09 | n/a | Simbi mutual-credit DAG |
 | 25 | **stella** (+ stella-suite worktree) | `~/dev/stella` | OWN | 252 (suite branch 139) | 2026-05-15 → 05-19 | L2/L3 core; HOL track scaffolded | Girard's transcendental syntax as a substrate; 47.3K lines Rust, 7.4K lines HOL4 |
 | 26 | spindle / RIG | `~/dev/spindle` | OWN | 162 | 2026-05-15 → 05-20 | **L4** (playable, public) | A zero-G sport derived from one co-rotating-frame ODE |
 | 27 | h ("h ghost") | `~/dev/h` | OWN | 268 | 2026-09-01 → 09-07 | L4 (models served/published) → mothballed | Falcon-H1 continued pretraining on Ember's library |
@@ -248,67 +245,11 @@ Checking" and a "Phase 1 Detailed Implementation (STARTING POINT)".
 - **Human attention:** the test cases are modelled on specific commercial games. Any implementation
   should build original games in those genres, not recreations.
 
-### 3.4 `assemblies` (MIRROR)
-
-- `assemblies`: `https://github.com/dmitropolsky/assemblies` (Daniel Mitropolsky, last commit
-  2023-11-24), the Assembly Calculus brain simulator (`brain.py`, `parser.py`,
-  `recursive_parser.py`). It has 0 Ember commits and serves as a reference for neural-assembly
-  computation. `Compost` as far as Ember is concerned.
-
 ---
 
 ## 4. Part II — Programming languages and compilers
 
-### 4.1 `eshkol` (CONTRIB: Ember audited it)
-
-**Whose it is.** `origin = github.com/emberian/eshkol` (fork), `upstream =
-git@github.com:tsotchke/eshkol`. All 2,140 commits are upstream (tsotchke 2,074; Matt Neel 24;
-Gabriel Kahen 12; …). **Ember has 0 commits.** HEAD is `341ac812 Correct v1.3.6 publication facts …
-(#835)`, 2026-10-17.
-
-**What it is** (README): "a Scheme-based programming language that unifies functional programming
-with native automatic differentiation … Built on Homotopy Type Theory foundations and compiled to
-native code via LLVM". It has a 72-opcode bytecode VM that must agree with LLVM: "823 configured
-CTest cases and all 411 VM parity cases".
-
-**Ember's contribution: the 2026-10-20 static audit swarm** *(memory: eshkol-audit-2026-10)*. It ran
-8 read-only lanes (4 died of context overflow and were salvaged from their transcripts) and filed
-**44 issues** on `emberian/eshkol` (the fork; Ember explicitly authorized `gh issue create` there).
-All 44 are still OPEN.
-
-| Severity | Issue | Finding (title, verbatim) |
-|---|---|---|
-| critical | #32 | Standalone VM runs .eskb files without opcode/operand validation → OOB computed-goto dispatch |
-| critical | #24 | move/borrow/linear flags are dead code — no use-after-move detection exists anywhere |
-| high | #1 | Reverse-mode AD tape silently wrong for rational/complex/dual intermediates |
-| high | #2 | Capability sandbox: system(), process spawn, sockets, dlopen bypass all capability checks |
-| high | #4/#5/#6 | Loss ops / optimizer steps / 1D tensor-dot read (and write) out of bounds on shape mismatch |
-| high | #25 | README claims linear types + borrow checking prevent use-after-free at compile time — contradicted by the same README and the code |
-| high | #27 | `(the T e)` ascription is a pure pass-through |
-| high | #34 | Threaded vs switch dispatch drift: unchecked stack write, silently dropped wind entries, missing CALL/CC check |
-| high | #37 | string-upcase/downcase: heap buffer overflow (write) on invalid UTF-8, reachable from pure Scheme |
-| high | #42 | Named-let TCO gate is unsound: … invalid IR / bogus PHI predecessors |
-| high | #43 | floor-quotient lacks the INT64_MIN / -1 srem guard |
-| medium | #7 | qllm_backward.c: attention backward silently returns zero gradients for W_k and W_v |
-| medium | #8 | se3-exp/se3-log are retractions, not the exponential map |
-
-The upstream README has since absorbed part of #24/#25. It now says ownership annotations "are erased
-at compile time today, but this is *not yet* backed by discharged type-level proofs … `BorrowChecker`
-has zero production callers" (corrected 2026-08-25, ADR-0004, target v1.9.0/v2.0).
-
-- **Maturity:** upstream is `L4` (published releases). Ember's audit artifact is complete.
-- **Unclosed cycle:** the issues sit on Ember's fork, not upstream. **The loop to tsotchke is not
-  closed.** Nothing in the record shows the findings reached the people who can fix them.
-- **Promising:** eshkol's "AD as a compiler primitive" plus VM/LLVM parity corpus is a natural
-  consumer of the verified-numerics discipline from soundcalc-lean and graphplay.
-- **Needs Ember's human attention (H-3):** decide whether and how to upstream the critical/high
-  findings (#1, #2, #24, #32, #37, #42). That means a responsible-disclosure conversation with
-  tsotchke, which is outward-facing and Ember's call. Process lesson (memory
-  `swarm-lane-context-death`): audit lanes over >1K-line C files die of "prompt too long".
-  Checkpoint findings to a file as they are confirmed, and salvage dead lanes from their own jsonl
-  narration.
-
-### 4.2 `ergolang` — "Programs as Sheaf Sections" (OWN)
+### 4.1 `ergolang` — "Programs as Sheaf Sections" (OWN)
 
 Two commits on 2025-12-17 (`e174fd6 sth`, `fac031e don't see that`). Contents: `ergo.pl` (834
 lines, Prolog interpreter), `prelude.ergo` (104), `test.pl` (36), and
@@ -1026,7 +967,6 @@ sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNu
 | `qaa` | Local mirror of the "trash magic / trashbook" self-replicating PHP "organisms" (LafeLabs). `serve.py` reimplements `dir.php`/`fileloader.php`/`load-file.php` read-only with a path-traversal guard; `browse.html` fractal browser; 30 + 26 instances captured 2026-10-04 | `L2` | Owner-authorized **non-destructive** assessment (memory). Findings exist in `SECURITY-FINDINGS.md` (redacted here). Sibling `.art` sites "still to crawl". Reporting the findings back is Ember's relationship ("give the organism an immune system, not amputation"). |
 | `starmap` | 4 commits 2026-02-09 → 14: interest/project embedding map (`interests.txt`, `my-projects.txt`, `resummarize-*`, `categorize-taxonomy.py`, frontend) | `L1` | Its memory is mostly unrelated reverse-engineering notes about OAuth headers. **Attention:** auth-header reverse-engineering notes should not migrate into any public artifact. |
 | `pauli-Group/Hegemon` | Pauli Group's PQ shielded-payment chain (ML-DSA/SLH-DSA, ML-KEM, STARK-proved Merkle accumulator) | MIRROR | Reference for PQ + STARK design in strands 03/04. 0 Ember commits. |
-| `clockdag-protocol` | Simbi's mutual-credit DAG with a VRF-witness "Clockchain" (BLAKE3, ed25519, libp2p) | MIRROR | 3 commits by `simbi-inc-claude`; none by Ember. |
 
 ---
 
@@ -1074,7 +1014,6 @@ sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNu
 |---|---|---|
 | **H-1** | `dgem`: plaintext API key and Pulumi passphrase in agent memory; no git; unknown billing state | Security / cost |
 | H-6 | clairnets L40S `i-0496528fc599f8bcb` (us-west-2): confirm terminated | Cost |
-| H-3 | eshkol: whether and how to disclose 44 audit findings (2 critical) to upstream tsotchke | Outward |
 | H-4 | `TranslateOcaml.sml` untracked inside an upstream PolyML checkout | Data loss risk |
 | H-5 | birkhoff-asa: local main 39 behind origin; 51 worktrees and ~60 agent branches to prune | Hygiene (deletion) |
 | H-7 | graphplay outreach: Tamon email, LDT authors, Deco/Kringelbach | Outward |
@@ -1091,7 +1030,6 @@ sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNu
 - birkhoff-asa: "engine proposes, kernel disposes." Three quantities are "never summed."
 - stella: "HOL4 proof-closing is a poor delegation fit." "NEVER run two WRITE agents on the same
   crate/dir concurrently." "NEVER use `git commit -m` with backticks/$ — ALWAYS -F a message file."
-- eshkol: "a lane that dies loses its findings". Checkpoint as you confirm.
 - h: "extend those instead of adding a fourth thing." "treat a near-empty observatory day as an
   outage alarm, not quiet."
 - clairnets: "Negatives are results." (CURSELOG header) "soundness is a permission … cashes out ONLY
@@ -1109,7 +1047,6 @@ sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNu
 | absass | `31a8b46` | 2022-06-26 | ABSOLUTE ASS |
 | absass | `4d960df` | 2022-09-16 | assc: Add function declarations |
 | velato | `a34e5d0` | 2026-03-28 | fix: position spatial easing … mask modes |
-| eshkol | `341ac812` | 2026-10-17 | Correct v1.3.6 publication facts (#835) |
 | graphplay | `3a0750a` | — | LDT kind-checker: fix 35-min hang |
 | graphplay | `91425c8` | 2026-06-02 | wave-20 capstone |
 | graphplay | `0c6fecf` / `2d9256d` | 2026-06-04 | Connectome bridge / connectome energy |
@@ -1159,7 +1096,6 @@ sslip.io hostname to work around a DNS delegation mismatch. vLLM OOM fix: `maxNu
                                                                transport-anchored-floor, website-prover)
 ~/.claude/projects/-Users-ember-dev-stella/memory/           (project_stella 64 KB + 10 feedback/reference files)
 ~/.claude/projects/-Users-ember-dev-intmat/memory/           (intmat-codex-takeover, intmat-direction, intmat2-day1-state)
-~/.claude/projects/-Users-ember-dev-eshkol/memory/           (eshkol-audit-2026-10, swarm-lane-context-death)
 ~/.claude/projects/-Users-ember-dev-silicon/memory/MEMORY.md
 ~/.claude/projects/-Users-ember-dev-spindle/memory/          (+ -Users-ember-pug-simbi project_ember_{spindle,stella})
 ~/.claude/projects/-Users-ember-dev-h/memory/                (12 files)

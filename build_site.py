@@ -673,7 +673,7 @@ def build_all():
     with open(os.path.join(ROOT, "assurance.html"), "w", encoding="utf-8") as f:
         f.write(assurance_html)
 
-    # 6. Build VISION.HTML (Full Sections 1–4 of Dossier 06 + Model Organisms/intmat/eshkol from Dossier 08 — ~95 KB)
+    # 6. Build VISION.HTML (Full Sections 1–4 of Dossier 06 + Model Organisms/intmat/torchship from Dossier 08 — ~95 KB)
     with open(os.path.join(ROOT, "vision.html"), "r", encoding="utf-8") as f:
         old_vi = f.read()
     hero_vi = re.search(r'(<section class="hero">.*?</section>)', old_vi, re.S).group(1)
@@ -695,7 +695,7 @@ def build_all():
         + "\n\n---\n\n"
         + read_lines("08-october-november-2026-stratum.md", 465, 486),
         prefix="vi-organisms",
-        dossier_badge="Dossier 08 (§3, §4, §6) · `intmat`/`intmat2`, `negstab`, `formal-organisms`, `acl2aiguide` (23 `fn` Wound Lessons), `eshkol` & `torchship`",
+        dossier_badge="Dossier 08 (§3, §4, §6) · `intmat`/`intmat2`, `negstab`, `formal-organisms`, `acl2aiguide` (23 `fn` Wound Lessons) & `torchship`",
         raw_dossier_file="08-october-november-2026-stratum.md",
     )
 
@@ -767,7 +767,7 @@ def build_all():
             ("tab-repos", "7A · 38+ Repositories & Primary-Source Code/Theorem Signatures"),
             ("tab-microsites", "7B · `dregg.net` & All 19 Interactive Microsites (`dregg-microsites`)"),
             ("tab-posters", "7C · 65+ Posters: Typst EN/ZH Series, HTML Broadsides & 49 ASCII Posters"),
-            ("tab-papers", "7D · All 8 Raw Primary-Source Dossiers (`sources/01..08`)"),
+            ("tab-papers", "7D · All 27 Raw Primary-Source Dossiers (`sources/01..27`)"),
         ],
         atlas_panels,
         "07 · Searchable Master Atlas (Full Dossier 06 §5–§6 · 110 KB)",
@@ -775,14 +775,14 @@ def build_all():
     with open(os.path.join(ROOT, "atlas.html"), "w", encoding="utf-8") as f:
         f.write(atlas_html)
 
-    # 8. Build DEOS.HTML (Dossier 09 + Breadstuffs Diaspora Dossiers 16, 17, 18, 19 — ~252 KB of primary sources)
+    # 8. Build DEOS.HTML (Dossier 09 + Breadstuffs Diaspora 16..19 + OBend Language 22 + Mini/Nano/DelveTalk2 Lanes 23 — ~450 KB of primary sources)
     hero_deos = """
   <section class="hero">
     <div class="wrap">
-      <div class="eyebrow">08 · DeOS, MiniDregg, NanoDregg, DelveTalk &amp; The Breadstuffs Diaspora</div>
-      <h1>From the 2.89M-LOC <code>breadstuffs</code> Monorepo to Verified <code>minidregg</code>, <code>nanodregg</code>, <code>delvetalk2</code> &amp; <code>obend-gui</code></h1>
+      <div class="eyebrow">08 · DeOS, MiniDregg, NanoDregg, DelveTalk, OBend Language &amp; The Breadstuffs Diaspora</div>
+      <h1>From the 2.89M-LOC <code>breadstuffs</code> Monorepo to Verified <code>minidregg</code>, <code>nanodregg</code>, <code>delvetalk2</code> &amp; Objective Bend (<code>obend</code>)</h1>
       <p class="lead">
-        Complete primary-source archaeology across the <strong>100+ crates</strong> and <strong>21,511 commits</strong> of <code>~/dev/breadstuffs</code>, tracing how every kernel, circuit, ocap UI surface, Starbridge factory app, game engine, and federation protocol spread into <code>minidregg</code>, <code>nanodregg</code>, <code>delvetalk2</code>, <code>spween</code>, <code>leanuweave</code>, and <code>obend</code>—plus the prioritized <strong>Revival &amp; Take-Back-Up Roadmap</strong> for dropped or under-elaborated gems.
+        Complete primary-source archaeology across the <strong>100+ crates</strong> and <strong>21,511 commits</strong> of <code>~/dev/breadstuffs</code>, the <strong>Objective Bend (<code>obend</code>)</strong> language &amp; Amadio–Cardelli equi-recursive bisimulation, and the <strong>273 worktree lanes of <code>minidregg-lanes</code></strong>, <strong>67 recovered lanes of <code>claudesplosion</code></strong>, <strong>27 scouts of <code>nanodregg-scout</code></strong>, <strong>66 lanes of <code>delvetalk2-lanes</code></strong>, <code>drorb</code>, and <code>DreggCloud</code>.
       </p>
     </div>
   </section>"""
@@ -796,7 +796,7 @@ def build_all():
     deos_8b = render_markdown_to_monograph(
         read_lines("strands/16-breadstuffs-kernel-circuits-crypto-diaspora.md", 1),
         prefix="deos-bs-kernel",
-        dossier_badge="Dossier 16 · Breadstuffs Kernel, Circuits & Cryptography Diaspora (`dregg-*`, `fhegg-*`, `crypto-*`, `uc-crypthol` · 42 KB)",
+        dossier_badge="Dossier 16 · Breadstuffs Kernel, Circuits & Cryptography Diaspora (`dregg-*`, `fhegg-*`, `crypto-*`, `uc-crypthol` · 48 KB)",
         raw_dossier_file="strands/16-breadstuffs-kernel-circuits-crypto-diaspora.md",
     )
     deos_8c = render_markdown_to_monograph(
@@ -808,14 +808,26 @@ def build_all():
     deos_8d = render_markdown_to_monograph(
         read_lines("strands/18-breadstuffs-dreggnet-games-worlds-diaspora.md", 1),
         prefix="deos-bs-worlds",
-        dossier_badge="Dossier 18 · Breadstuffs DreggNet, Inhabited Worlds, Games (`dungeon-on-dregg`, `automatafl`) & PoA Diaspora (58 KB)",
+        dossier_badge="Dossier 18 · Breadstuffs DreggNet, Inhabited Worlds, Games (`dungeon-on-dregg`, `automatafl`) & PoA Diaspora (70 KB)",
         raw_dossier_file="strands/18-breadstuffs-dreggnet-games-worlds-diaspora.md",
     )
     deos_8e = render_markdown_to_monograph(
         read_lines("strands/19-breadstuffs-federation-chains-commons-diaspora.md", 1),
         prefix="deos-bs-fed",
-        dossier_badge="Dossier 19 · Breadstuffs Federation, Cross-Chain Light Clients, `pg-dregg`, `fhir` & Polisware Diaspora (42 KB)",
+        dossier_badge="Dossier 19 · Breadstuffs Federation, Cross-Chain Light Clients, `pg-dregg`, `fhir` & Polisware Diaspora (50 KB)",
         raw_dossier_file="strands/19-breadstuffs-federation-chains-commons-diaspora.md",
+    )
+    deos_8f = render_markdown_to_monograph(
+        read_lines("strands/22-obend-language-astra-equirec-and-ltuo.md", 1),
+        prefix="deos-obend-lang",
+        dossier_badge="Dossier 22 · Objective Bend (`obend`) Language, LTUO (`fareoo`), Equi-Recursive Bisimulation, Astra Effect Laws & 11 Spine Modules (86 KB)",
+        raw_dossier_file="strands/22-obend-language-astra-equirec-and-ltuo.md",
+    )
+    deos_8g = render_markdown_to_monograph(
+        read_lines("strands/23-minidregg-lanes-claudesplosion-drorb-dreggcloud.md", 1),
+        prefix="deos-mini-lanes",
+        dossier_badge="Dossier 23 · Direct Source Re-Scout: `minidregg-lanes` (273 Entries), `claudesplosion` (67 Lanes), `nanodregg-scout` (27 Scouts), `delvetalk2-lanes` (66 Entries), `drorb` & `DreggCloud` (110 KB)",
+        raw_dossier_file="strands/23-minidregg-lanes-claudesplosion-drorb-dreggcloud.md",
     )
 
     deos_panels = f"""
@@ -824,33 +836,37 @@ def build_all():
     <section id="tab-bs-ui" class="tab-panel" role="tabpanel">{deos_8c}</section>
     <section id="tab-bs-worlds" class="tab-panel" role="tabpanel">{deos_8d}</section>
     <section id="tab-bs-fed" class="tab-panel" role="tabpanel">{deos_8e}</section>
+    <section id="tab-obend-lang" class="tab-panel" role="tabpanel">{deos_8f}</section>
+    <section id="tab-mini-lanes" class="tab-panel" role="tabpanel">{deos_8g}</section>
     """
     deos_html = page_shell(
         "deos.html",
-        "08 · DeOS, MiniDregg, NanoDregg, DelveTalk & The Breadstuffs Diaspora Monograph — whatember",
-        "Complete primary-source monograph covering DeOS, MiniDregg, NanoDregg, DelveTalk, Spween, Preoscript, and the 4-part Breadstuffs Diaspora & Revival Roadmap.",
+        "08 · DeOS, MiniDregg, NanoDregg, DelveTalk, OBend Language & Breadstuffs Diaspora Monograph — whatember",
+        "Complete primary-source monograph covering DeOS, MiniDregg (273 lanes), NanoDregg (27 scouts), DelveTalk2 (66 lanes), Objective Bend (obend language & equirecursive types), Drorb, DreggCloud, and the 4-part Breadstuffs Diaspora.",
         hero_deos,
         [
-            ("tab-deos-deep", "8A · DeOS, MiniDregg, NanoDregg, DelveTalk & Preoscript Deep Dive"),
+            ("tab-deos-deep", "8A · DeOS, MiniDregg, NanoDregg, DelveTalk & Preoscript Overview"),
             ("tab-bs-kernel", "8B · Breadstuffs Kernel, Circuits & Crypto Diaspora (`dregg-*`, `fhegg-*`, `uc-crypthol`)"),
             ("tab-bs-ui", "8C · Breadstuffs DeOS Surfaces, Starbridge (32 Apps) & Moldable Inspector"),
             ("tab-bs-worlds", "8D · Breadstuffs DreggNet, Worlds, Games (`dungeon-on-dregg`) & PoA"),
             ("tab-bs-fed", "8E · Breadstuffs Federation, Light Clients, `pg-dregg`, `fhir` & Polisware"),
+            ("tab-obend-lang", "8F · Objective Bend (`obend`) Language, Equi-Recursive Types, Astra & LTUO (`fareoo`)"),
+            ("tab-mini-lanes", "8G · `minidregg-lanes` (273), `claudesplosion` (67), `nanodregg-scout`, `delvetalk2-lanes`, `drorb` & `DreggCloud`"),
         ],
         deos_panels,
-        "08 · DeOS, MiniDregg, NanoDregg, DelveTalk & The Breadstuffs Diaspora (Full Dossiers 09, 16–19 · 252 KB)",
+        "08 · DeOS, MiniDregg, NanoDregg, DelveTalk, OBend Language & Breadstuffs Diaspora (Full Dossiers 09, 16–19, 22–23 · 474 KB)",
     )
     with open(os.path.join(ROOT, "deos.html"), "w", encoding="utf-8") as f:
         f.write(deos_html)
 
-    # 9. Build VERTICALS.HTML (Dossiers 10, 11, 12, 13, 14 — ~418 KB of primary sources)
+    # 9. Build VERTICALS.HTML (Dossiers 10..14 + Direct Source Re-Scouts 20, 21, 24, 25, 26 — ~850 KB of primary sources)
     hero_vert = """
   <section class="hero">
     <div class="wrap">
-      <div class="eyebrow">09 · All Other Verticals Across <code>~/dev</code></div>
-      <h1>Cognitive Learning, Custom ISAs &amp; Physics, Markets &amp; ZK, Resident Minds, Games &amp; Machine Interiority</h1>
+      <div class="eyebrow">09 · All Other Verticals Across <code>~/dev</code> (Direct Source Excavations)</div>
+      <h1>Cognitive Learning, Formal Organs (<code>clairnets</code>), <em>Drosophila</em> Connectomes (<code>chreatures</code>), Markets (<code>dragons-clutch</code>/<code>dclutch</code>), Verified Minds (<code>fn</code>/<code>stella</code>/<code>h</code>) &amp; Physics/Audio (<code>spindle</code>/<code>audec</code>)</h1>
       <p class="lead">
-        Unabridged primary-source monographs across five complete engineering and research verticals: <strong>Cognitive Learning &amp; EKOS</strong> (<code>abcdeez</code>, <code>factshift</code>, <code>EKOS</code>), <strong>Custom RISC ISAs, Compilers, Physics &amp; Math</strong> (<code>absass</code>, <code>intmat</code>, <code>graphplay</code>, <code>spindle</code>), <strong>Markets &amp; ZK</strong> (<code>dclutch</code>, <code>joshi</code>, Mina), <strong>Resident Minds &amp; Games</strong> (<code>allgame</code>, <code>tulip</code>, <code>fn</code>, <code>don</code>, <code>automatafl</code>, <code>audec</code>), and <strong>Machine Interiority &amp; Model Organisms</strong> (<code>comp-theo</code>, <code>gowexp</code>, <code>negneg</code>, <code>negstab</code>, <code>formal-organisms</code>).
+        Unabridged primary-source monographs across ten complete engineering and research verticals excavated directly from source repositories: <strong>Cognitive Learning &amp; EKOS</strong> (<code>abcdeez</code>, <code>verekos</code>), <strong>Custom RISC ISAs &amp; Math</strong> (<code>absass</code>, <code>intmat2</code>, <code>graphplay</code>, <code>birkhoff-asa</code>), <strong>Checked Neural Deduction &amp; Seam Weaving</strong> (<code>clairnets</code>/GLaDOS, <code>leanuweave</code>), <strong><em>Drosophila</em> Connectome Embodiment &amp; Physiology</strong> (<code>chreatures</code>, <code>brorb</code>, <code>luteastress</code>, <code>febart</code>), <strong>Markets &amp; Mechanism Design</strong> (<code>dragons-clutch</code>, <code>dclutch</code>, all 10 <code>degg-research</code> experiments, <code>passwap</code>, <code>joshibot</code>), <strong>Formal Minds &amp; Interpretability</strong> (<code>fn</code>/<code>fn2</code>, <code>veri7vn</code>, <code>stella</code>, <code>h ghost</code>, <code>mediateor</code>), and <strong>Rotating-Frame Sports, Games, Audio &amp; Nuclear Physics</strong> (<code>spindle</code>, <code>don</code>, <code>blackwing</code>, <code>resequence-rs</code>, <code>audec</code>, <code>kitforge</code>, <code>vidbox</code>, <code>plymouth-rock</code>).
       </p>
     </div>
   </section>"""
@@ -858,13 +874,13 @@ def build_all():
     vert_9a = render_markdown_to_monograph(
         read_lines("strands/10-cognitive-learning-abcdeez-factshift-ekos.md", 1),
         prefix="vert-cog",
-        dossier_badge="Dossier 10 · Cognitive Learning, Adaptive Spaced Repetition, Spw & Verified EKOS (`abcdeez`, `factshift`, `EKOS` · 80 KB)",
+        dossier_badge="Dossier 10 · Cognitive Learning, Adaptive Spaced Repetition, Spw & Verified EKOS (`abcdeez`, `factshift`, `EKOS` · 78 KB)",
         raw_dossier_file="strands/10-cognitive-learning-abcdeez-factshift-ekos.md",
     )
     vert_9b = render_markdown_to_monograph(
         read_lines("strands/11-isa-compilers-physics-math-substrates.md", 1),
         prefix="vert-isa",
-        dossier_badge="Dossier 11 · Custom RISC ISAs (`absass`), Compilers (`eshkol`, `avon`), Physics (`intmat`, `spindle`) & Math (`graphplay`, `birkhoff-asa` · 89 KB)",
+        dossier_badge="Dossier 11 · Custom RISC ISAs (`absass`), Living Materials (`intmat2`), Quantum Walks (`graphplay`) & Proof Complexity (`birkhoff-asa` · 86 KB)",
         raw_dossier_file="strands/11-isa-compilers-physics-math-substrates.md",
     )
     vert_9c = render_markdown_to_monograph(
@@ -885,6 +901,36 @@ def build_all():
         dossier_badge="Dossier 14 · Machine Interiority, The Bridge (`comp-theo`), Interpretability (`gowexp`, `negneg`, `h`) & Model Organisms (`negstab`, `formal-organisms` · 87 KB)",
         raw_dossier_file="strands/14-interiority-bridge-interpretability-organisms.md",
     )
+    vert_9f = render_markdown_to_monograph(
+        read_lines("strands/20-clairnets-glados-leanuweave-birkhoff-formal-organs.md", 1),
+        prefix="vert-clairnets",
+        dossier_badge="Dossier 20 · Direct Source Re-Scout: `clairnets` (GLaDOS 4-Leg LDT), `leanuweave` (Seam Solver), `birkhoff-asa` (`asagolf`), `navier-stokes-proof` & `ergolang` (105 KB)",
+        raw_dossier_file="strands/20-clairnets-glados-leanuweave-birkhoff-formal-organs.md",
+    )
+    vert_9g = render_markdown_to_monograph(
+        read_lines("strands/21-chreatures-drosophila-connectome-and-physiology.md", 1),
+        prefix="vert-chreatures",
+        dossier_badge="Dossier 21 · Direct Source Re-Scout: `chreatures` (165K-Neuron MaleCNS v1.0 Drosophila Connectome & 12 Native Crates), `brorb`, `luteastress` & `febart` (84 KB)",
+        raw_dossier_file="strands/21-chreatures-drosophila-connectome-and-physiology.md",
+    )
+    vert_9h = render_markdown_to_monograph(
+        read_lines("strands/24-dragons-clutch-dclutch-degg-research-deep-rescout.md", 1),
+        prefix="vert-dclutch-deep",
+        dossier_badge="Dossier 24 · Direct Source Re-Scout: `dragons-clutch` (11,176 Commits), `dclutch` (6,864 Commits, 256 Lean 4 Files), All 10 `degg-research` Experiments & `passwap` (74 KB)",
+        raw_dossier_file="strands/24-dragons-clutch-dclutch-degg-research-deep-rescout.md",
+    )
+    vert_9i = render_markdown_to_monograph(
+        read_lines("strands/25-fn-veri7vn-stella-h-ghost-and-mechinterp-rescout.md", 1),
+        prefix="vert-fn-stella-h",
+        dossier_badge="Dossier 25 · Direct Source Re-Scout: `fn` (18,807 Commits, 652K LOC ACL2) & `fn2`, `veri7vn` (`o7vn`), `stella` (252 Commits), `h ghost` (268 Commits) & `mediateor` (79 KB)",
+        raw_dossier_file="strands/25-fn-veri7vn-stella-h-ghost-and-mechinterp-rescout.md",
+    )
+    vert_9j = render_markdown_to_monograph(
+        read_lines("strands/26-spindle-blackwing-audec-vidbox-physics-and-games-rescout.md", 1),
+        prefix="vert-spindle-audec",
+        dossier_badge="Dossier 26 · Direct Source Re-Scout: `spindle` (`RIG`), `don` (`DataWalk` & `i686` Oracle), `blackwing`, `resequence-rs`, `audec`, `kitforge`, `vidbox` & `plymouth-rock` (96 KB)",
+        raw_dossier_file="strands/26-spindle-blackwing-audec-vidbox-physics-and-games-rescout.md",
+    )
 
     verticals_panels = f"""
     <section id="tab-cog" class="tab-panel active" role="tabpanel">{vert_9a}</section>
@@ -892,33 +938,43 @@ def build_all():
     <section id="tab-mkt" class="tab-panel" role="tabpanel">{vert_9c}</section>
     <section id="tab-res" class="tab-panel" role="tabpanel">{vert_9d}</section>
     <section id="tab-int" class="tab-panel" role="tabpanel">{vert_9e}</section>
+    <section id="tab-clairnets" class="tab-panel" role="tabpanel">{vert_9f}</section>
+    <section id="tab-chreatures" class="tab-panel" role="tabpanel">{vert_9g}</section>
+    <section id="tab-dclutch-deep" class="tab-panel" role="tabpanel">{vert_9h}</section>
+    <section id="tab-fn-stella-h" class="tab-panel" role="tabpanel">{vert_9i}</section>
+    <section id="tab-spindle-audec" class="tab-panel" role="tabpanel">{vert_9j}</section>
     """
     verticals_html = page_shell(
         "verticals.html",
-        "09 · All Verticals: Cognitive Learning, ISAs/Math, Markets/ZK, Residents/Games & Interiority Monograph — whatember",
-        "Complete primary-source monographs across Cognitive Learning (abcdeez/EKOS), ISAs/Math/Physics (absass/intmat/graphplay), Markets/ZK (dclutch/joshi/Mina), Residents/Games (allgame/fn/don/automatafl), and Machine Interiority (comp-theo/gowexp/negneg/negstab).",
+        "09 · All Verticals: Cognitive Learning, Formal Organs, Connectomes, Markets, Verified Minds & Physics Monograph — whatember",
+        "Complete primary-source monographs across Cognitive Learning (abcdeez/verekos), ISAs/Math (absass/intmat2/graphplay), Formal Organs (clairnets/leanuweave/birkhoff-asa), Drosophila Connectomes (chreatures/brorb), Markets (dragons-clutch/dclutch/degg-research), Formal Minds (fn/veri7vn/stella/h), and Physics/Audio/Games (spindle/don/audec/kitforge/vidbox/plymouth-rock).",
         hero_vert,
         [
             ("tab-cog", "9A · Cognitive Learning & EKOS (`abcdeez`, `factshift`, `EKOS`, `verekos`)"),
-            ("tab-isa", "9B · Custom ISAs, Compilers, Physics & Math (`absass`, `intmat`, `graphplay`, `spindle`)"),
-            ("tab-mkt", "9C · Markets, Auctions & Mina ZK (`dclutch`, `dragons-clutch`, `joshi`, Mina)"),
-            ("tab-res", "9D · Resident Minds, Bots, Games & Audio (`allgame`, `tulip`, `fn`, `don`, `audec`)"),
+            ("tab-isa", "9B · Custom ISAs, Living Matter & Quantum Walks (`absass`, `intmat2`, `graphplay`)"),
+            ("tab-mkt", "9C · Markets, Auctions & Mina ZK Overview (`dclutch`, `joshi`, Mina)"),
+            ("tab-res", "9D · Resident Minds, Bots, Games & Audio Overview (`allgame`, `tulip`, `fn`, `don`, `audec`)"),
             ("tab-int", "9E · Machine Interiority, Interpretability & Organisms (`comp-theo`, `gowexp`, `negneg`, `negstab`)"),
+            ("tab-clairnets", "9F · Deep Re-Scout: `clairnets` (GLaDOS), `leanuweave`, `birkhoff-asa` (`asagolf`) & `ergolang`"),
+            ("tab-chreatures", "9G · Deep Re-Scout: `chreatures` (165K-Neuron Drosophila Connectome), `brorb`, `luteastress` & `febart`"),
+            ("tab-dclutch-deep", "9H · Deep Re-Scout: `dragons-clutch` (11K Commits), `dclutch` (64K LOC Lean 4) & 10 `degg-research` Exps"),
+            ("tab-fn-stella-h", "9I · Deep Re-Scout: `fn` (652K LOC ACL2) & `fn2`, `veri7vn`, `stella` (252 Commits), `h ghost` & `mediateor`"),
+            ("tab-spindle-audec", "9J · Deep Re-Scout: `spindle` (`RIG`), `don`, `blackwing`, `resequence-rs`, `audec`, `kitforge`, `vidbox` & `plymouth-rock`"),
         ],
         verticals_panels,
-        "09 · All Other Verticals Across ~/dev (Full Dossiers 10–14 · 418 KB)",
+        "09 · All Other Verticals Across ~/dev (Full Dossiers 10–14, 20–21, 24–26 · 851 KB)",
     )
     with open(os.path.join(ROOT, "verticals.html"), "w", encoding="utf-8") as f:
         f.write(verticals_html)
 
-    # 10. Build TRIAGE.HTML (Dossier 15 — Metamanagement, 96-Project Maturity Matrix, Open Cycles C1..C15, Revival Queue #1..#15 & Needs-Ember H1..H15)
+    # 10. Build TRIAGE.HTML (Dossier 15 + Direct Source Re-Scout Dossier 27 — ~190 KB)
     hero_tri = """
   <section class="hero">
     <div class="wrap">
-      <div class="eyebrow">10 · Swarm Metamanagement, Open Cycles, Revival Queue &amp; Human Triage</div>
-      <h1>How to Metamanage Multi-Wave Swarms, Relative Maturities (<code>L0</code>–<code>L4</code>), Unclosed Cycles (<code>C1</code>–<code>C15</code>) &amp; Revival/Triage Queues</h1>
+      <div class="eyebrow">10 · Swarm Metamanagement, <code>cv</code>/<code>wesvet</code> Empirical Science, <code>breadstuffs/docs</code> (252 Docs) &amp; Triage</div>
+      <h1>How to Metamanage Multi-Wave Swarms (<code>cv</code>, <code>wesvet</code>, <code>redregg</code>), Relative Maturities (<code>L0</code>–<code>L4</code>), Unclosed Cycles (<code>C1</code>–<code>C15</code>) &amp; Revival/Triage Queues</h1>
       <p class="lead">
-        Empirical synthesis from <strong>2,469 session files</strong>, <strong>33,200 subagent transcripts</strong>, <strong>940 memory files</strong>, and the 9-layer <code>CLAUDE.md</code> stratigraphy: why rules took months to reach lane briefs (the skipped Phase 2 template &amp; Phase 3 mechanism), the 24-question recall measurement (full transcript <strong>24/24</strong>, <code>cv distill</code> <strong>21.5/24</strong>, lane <code>STATUS</code> <strong>11.5/24</strong>, root paraphrase <strong>0.5/24</strong>), the <strong>96-effort Maturity Matrix</strong>, <strong>15 Unclosed Cycles</strong>, <strong>Top 15 Revival Queue</strong>, and <strong>15 Needs-Ember Blockers</strong>.
+        Empirical synthesis from <strong>3,852 commits of <code>cv</code></strong> (OpenSession 0.3 IR, <code>&gt;3,000×</code> JSONL heap cut, <code>cv prune</code> &amp; <code>cv distill</code>), the <strong><code>wesvet</code> ("Veterans at the Front") study</strong> across 156 successions (<code>sharpen.py</code> <strong>98.6% recall</strong> at <code>-63.1%</code> tokens; 22.3M tokens lost to 350K park wakes), <code>redregg/cxo</code> (34.0M $\to$ 0.3M build-wait tokens), the <strong>252 internal design/audit documents of <code>breadstuffs/docs</code></strong>, the <strong>Maturity Matrix</strong>, <strong>15 Unclosed Cycles</strong>, <strong>Top 15 Revival Queue</strong>, and <strong>15 Needs-Ember Blockers</strong>.
       </p>
     </div>
   </section>"""
@@ -930,22 +986,28 @@ def build_all():
         raw_dossier_file="strands/15-metamanagement-open-cycles-revival-triage.md",
     )
     tri_10b = render_markdown_to_monograph(
-        read_lines("strands/15-metamanagement-open-cycles-revival-triage.md", 451, 599),
+        read_lines("strands/15-metamanagement-open-cycles-revival-triage.md", 451, 594),
         prefix="tri-matrix",
-        dossier_badge="Dossier 15 (§2) · Master 96-Effort Maturity & Lifecycle Matrix (`L0`–`L4`, `Frozen-for-Rethink`, `Compost/Superseded`)",
+        dossier_badge="Dossier 15 (§2) · Master Portfolio Maturity & Lifecycle Matrix (`L0`–`L4`, `Frozen-for-Rethink`, `Compost/Superseded`)",
         raw_dossier_file="strands/15-metamanagement-open-cycles-revival-triage.md",
     )
     tri_10c = render_markdown_to_monograph(
-        read_lines("strands/15-metamanagement-open-cycles-revival-triage.md", 600, 722),
+        read_lines("strands/15-metamanagement-open-cycles-revival-triage.md", 595, 717),
         prefix="tri-cycles",
         dossier_badge="Dossier 15 (§3) · Unclosed Cycles (`C1`–`C15`): Exact Blockers, Closure Pathways & Next-Move Owners",
         raw_dossier_file="strands/15-metamanagement-open-cycles-revival-triage.md",
     )
     tri_10d = render_markdown_to_monograph(
-        read_lines("strands/15-metamanagement-open-cycles-revival-triage.md", 723),
+        read_lines("strands/15-metamanagement-open-cycles-revival-triage.md", 718),
         prefix="tri-revival",
         dossier_badge="Dossier 15 (§4–§5 & Appendices) · High-Leverage Revival Queue (`#1`–`#15`), Needs-Ember Triage (`H1`–`H15`) & Key Numbers",
         raw_dossier_file="strands/15-metamanagement-open-cycles-revival-triage.md",
+    )
+    tri_10e = render_markdown_to_monograph(
+        read_lines("strands/27-cv-wesvet-breadstuffs-253-docs-and-swarm-science-rescout.md", 1),
+        prefix="tri-cv-wesvet",
+        dossier_badge="Dossier 27 · Direct Source Re-Scout: `cv` (3,852 Commits, OpenSession 0.3, `>3,000×` Heap Cut), `wesvet` (Veterans at the Front), `redregg`/`cxo`, `phoenix` & All 252 `breadstuffs/docs` Entries (103 KB)",
+        raw_dossier_file="strands/27-cv-wesvet-breadstuffs-253-docs-and-swarm-science-rescout.md",
     )
 
     triage_panels = f"""
@@ -953,25 +1015,27 @@ def build_all():
     <section id="tab-maturity" class="tab-panel" role="tabpanel">{tri_10b}</section>
     <section id="tab-cycles" class="tab-panel" role="tabpanel">{tri_10c}</section>
     <section id="tab-revival" class="tab-panel" role="tabpanel">{tri_10d}</section>
+    <section id="tab-cv-wesvet" class="tab-panel" role="tabpanel">{tri_10e}</section>
     """
     triage_html = page_shell(
         "triage.html",
-        "10 · Swarm Metamanagement, Open Cycles, Revival Queue & Human Triage Monograph — whatember",
-        "Complete primary-source metamanagement manual, 96-effort maturity matrix, 15 unclosed cycles (C1-C15), top 15 revival candidates, and 15 human-attention blockers (H1-H15).",
+        "10 · Swarm Metamanagement, cv/wesvet Science, breadstuffs/docs (252 Docs) & Human Triage Monograph — whatember",
+        "Complete primary-source metamanagement manual, cv (3,852 commits) & wesvet empirical swarm science, 252 breadstuffs/docs design excavations, portfolio maturity matrix, 15 unclosed cycles (C1-C15), top 15 revival candidates, and 15 human-attention blockers (H1-H15).",
         hero_tri,
         [
             ("tab-manual", "10A · Swarm Metamanagement Manual (`cv`, `tokeman`, `board/seats`, Rules M1–M8)"),
-            ("tab-maturity", "10B · Master 96-Effort Maturity Matrix (`L0`–`L4`, `Frozen`, `Compost`)"),
+            ("tab-maturity", "10B · Master Portfolio Maturity Matrix (`L0`–`L4`, `Frozen`, `Compost`)"),
             ("tab-cycles", "10C · Unclosed Cycles (`C1`–`C15`) & Closure Pathway Map"),
             ("tab-revival", "10D · Top 15 Revival Queue (`#1`–`#15`) & Needs-Ember Triage (`H1`–`H15`)"),
+            ("tab-cv-wesvet", "10E · Deep Re-Scout: `cv` (3,852 Commits), `wesvet` (Veterans), `redregg`/`cxo` & 252 `breadstuffs/docs`"),
         ],
         triage_panels,
-        "10 · Swarm Metamanagement, Open Cycles, Revival Queue & Human Triage (Full Dossier 15 · 87 KB)",
+        "10 · Swarm Metamanagement, cv/wesvet Science, breadstuffs/docs & Human Triage (Full Dossiers 15 & 27 · 190 KB)",
     )
     with open(os.path.join(ROOT, "triage.html"), "w", encoding="utf-8") as f:
         f.write(triage_html)
 
-    print("Successfully compiled all 10 HTML monograph pages across all 19 dossiers!")
+    print("Successfully compiled all 10 HTML monograph pages across all 27 dossiers!")
 
 
 if __name__ == "__main__":

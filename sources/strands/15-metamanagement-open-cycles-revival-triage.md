@@ -20,7 +20,7 @@ It does **not** re-derive project internals that other strands own (dregg kernel
 | dregg synthesis | `~/dev/aidev/docs/synthesis/dregg.md` (459 lines) | T1–T26, failure modes, R1–R12 |
 | projects / ledger | `~/dev/aidev/docs/projects.md`, `ledger.md` | 366 projects; 40 described entries; state tallies |
 | memory files | `~/.claude/projects/-Users-ember-{dev-cv (20), dev-mission-control (6), dev-tokeman (5), dev-aidev (5), pug-claurdvoyant (12), pug-simbi (17)}/memory/` | rules, measurements, release state, decisions pending |
-| memory, newer | `-Users-ember-dev-{breadstuffs,minidregg,o7vn,eshkol,EKOS,intmat}/memory/*` modified after 2026-10-15 | drain/freeze, nanodregg, board/seats, lane-brief template, broadcast-stops-lane |
+| memory, newer | `-Users-ember-dev-{breadstuffs,minidregg,o7vn,EKOS,intmat}/memory/*` modified after 2026-10-15 | drain/freeze, nanodregg, board/seats, lane-brief template, broadcast-stops-lane |
 | repos | `~/dev/{cv, cv-distill-loss, tokeman, mission-control, helm, helm-old, sesh, lcrio, forensics, torchship, acl2aiguide, brorb}` | READMEs, design docs, `git log`, authorship (`git shortlog -sne --all`) |
 | machines | `~/swarm/MACHINES.md` (facts dated 2026-10-31), `~/swarm` log `8ac5161` | hbox / persvati / Mac roles |
 
@@ -489,21 +489,18 @@ Sources: `ledger.md` (counts as of 2026-10-10), `projects.md` (states), memory f
 | 31 | `~/dev/DreggNet` | **Frozen (parked)** | 521 commits; ORB-CUT-PLAN; "regeneration recipe — manual by decision" | 2026-07-27 `7f51591` |
 | 32 | `~/dev/DreggCloud` | **L1** | 88 commits | 2026-07-12 |
 | 33 | `~/dev/claudesplosion` | **Frozen** | 23-lane Fable review; SESSION-STATE of cutover night | 2026-10-03 |
-| 34 | `~/dev/dregg-infra` | **L4** | routes `automatafl.fg-goose.online` | 2026-11-01 `9f29f1c` |
 | 35 | `~/dev/automatafl` | **L4** | dregg's "first fully verified AND deployed" game; live lobby | 2026-11-02 `97db66a` |
 | 36 | `~/dev/delvetalk` | **Superseded** → delvetalk2 | Codex "kinda a disaster" | 2026-10-09 |
 | 37 | `~/dev/delvetalk2` | **L2** | 18 `com.atproto.lexicon.schema` records published | 2026-10-15 `fb217996` |
 | 38 | `~/dev/dragons-clutch` | **Compost** | README: superseded Aug 2026; "study it, never copy it" | 2026-09-09 |
 | 39 | `~/dev/dclutch` | **Frozen (parked) L2** | devnet cohort 17, eight programs; handoff | 2026-09-09 `6967e79cb` |
 | 40 | `~/dev/leanuweave` (preoscript) | **Frozen L1** | 166 commits; "sweep-up commit from usage wall" | 2026-08-14 |
-| 41 | `~/dev/clockdag-protocol` | **L2** | 1,732 commits; "stranded Rails-side mesh-bridge work" | 2026-09-16 |
 | 42 | `~/dev/dragons-net` | **L2** | NNTP slices (#32) | 2026-09-29 |
 | 43 | `~/dev/dregg-assortia` | **L1** | NOW/ARCHITECTURE refresh | 2026-09-30 |
 | 44 | `~/dev/dregg-stitched{,-2,-final}` | **Compost** | July stitch worktrees | 2026-07-14 |
 | 45 | `~/dev/breadstuffs-codex` | **Superseded** | Codex fork, 285 sessions | 2026-07-17 |
 | 46 | `~/dev/bs-vk`, `dregg-gnark-wrap`, `plonky3-bn254-wrap` | **L1** | 4,188 / 1 / 3 commits | 2026-06/07 |
 | 47 | `~/dev/plonky3-recursion` (+ p3rec worktrees) | **L2** | "FRI: the query count is CONFIGURED" | 2026-08-14 |
-| 48 | `~/dev/polyana` | **Compost** | sandbox SBX-3 | 2026-06-30 |
 | 49 | `~/dev/dregg-site`, `dregg-media`, `dreggfi-report` | **L4 / L0 / L1** | 27 / 0 / 7 commits | 2026-10-07 |
 | 50 | `~/dev/degg-research` | **L1** | 88 commits | 2026-08-27 |
 | 51 | `~/dev/EKOS` / verekos | **L2** | "no mirrors, no twins" | 2026-10-19 → |
@@ -536,7 +533,6 @@ Sources: `ledger.md` (counts as of 2026-10-10), `projects.md` (states), memory f
 | 68 | `~/dev/chreatures` | **L2** | "sealed the trained V5 weekend handoff" | 2026-09-08 |
 | 69 | `~/dev/intmat` → `intmat2` | **Compost → L1** | Julia/KA single-field rule; "subopus, not subfable" | 2026-10-16 |
 | 70 | `~/dev/o7vn` (oracle7) | **L2** | native oracle-host; slim 10.1; upstream PRs 8/9/10 open | 2026-10-29 |
-| 71 | `~/dev/eshkol` | **L1 (audit)** | 3 of 5 audit lanes died "prompt is too long" | 2026-10-20 |
 | 72 | `~/dev/obend` | **L2** | builds on hbox; dregg-build2 | 2026-10 |
 | 73 | `~/dev/restrans`, `world-model-trajectories`, `I-DLM`, `chain-of-jailbreaks` | **L1** | Kimi/Codex sprints | 2026-04/05 |
 | 74 | `~/dev/navier-stokes-proof` | **L0–L1** | 14 commits, Codex | 2026-08-17 |
@@ -567,8 +563,6 @@ Sources: `ledger.md` (counts as of 2026-10-10), `projects.md` (states), memory f
 | 89 | `~/dev/spweebo'ard`, `factshift(-redux)`, `spw-workbench` | **Compost** (collab) | spwashi's notation | 2026-01 |
 | 90 | `~/dev/guise`, `gpui-component`, `emberian-zed`, `zed-dregg-web` | **L1** / forks | GPUI workspace migration | 2026-09-01 |
 | 91 | `~/dev/chapterx` | **L2** | 512 commits; "preserve deferred event order" | 2026-09-01 |
-| 92 | `~/dev/meld` | **L1** | whisper recv queue fix | 2026-07-17 |
-| 93 | `~/dev/rhizomatic`, `~/dev/avon`, `~/dev/bend` | third-party / forks (mbilokonsky, sigilante PRs; `bend` #1915) | reference | 2026-06 → 10 |
 
 ### 2.7 Pre-history (biographical context only)
 
@@ -772,7 +766,6 @@ Only items where a subagent can't proceed without Ember's judgment, authority, h
 | 10-16 | intmat | "idk that codex ever really quite had the right ideas" → intmat2 | `intmat-direction.md` |
 | 10-17 | o7vn | a broadcast to 18 lanes stopped each one | `subagent-broadcast-stops-lane.md` |
 | 10-19 | cv astra | the Codex manager rewrote Ember's PLAN-0.18.md; zeroed the Claude turn count; derive copied invalid JSON verbatim (the bug pug's #27 fixed) | `cv-0-17-plan.md` (10-19 entries) |
-| 10-20 | eshkol | 3 of 5 audit lanes died "prompt is too long" before reporting | `swarm-lane-context-death.md` |
 | 10-21 | cv | 300 GB scratchpad filled the disk; machine crashed | `cargo-worktree-target-dir.md` |
 | late Oct | nanodregg | ROOT kill-swept every lane on "wind down" | `project-nanodregg-wound-down.md` |
 | 10-31 | minidregg | root spent its context relaying ~400 lane events; the integrator degraded → board/seats | `project-board-coordination.md` |

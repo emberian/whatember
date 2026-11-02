@@ -183,7 +183,6 @@ EVENTUALLY, NO DATE").
 | `~/dev/drorb` | `main`, 618 | 07-03 `221ca24` → 07-26 `f253290` | "a formally verified network engine": implementation + verification only |
 | `~/dev/DreggCloud` | `main`, 88 | 07-10 `ed91fff` → 07-12 `e9ff17a` | "operated firmament": House / Worlds / Rooms over breadstuffs path deps |
 | `~/dev/dregg-stitched-final` | `main`, 5,465 | 05-19 → 07-14 | product of the stitch kit (pyana root → breadstuffs) |
-| `~/dev/dregg-infra` (+7 sibling worktrees) | `main` `9f29f1c` 11-01 | 09 → 11-01 | the live edge: Caddy, headscale, tofu, demo VM, fn node, delvetalk, automatafl |
 
 ### 3.1 The arc
 
@@ -207,8 +206,7 @@ EVENTUALLY, NO DATE").
 
 **Maturity Level:** DreggNet product **Compost/Superseded** (its own banner: "DO NOT scope work
 against ~/dev/DreggNet"); DreggCloud **L2 Prototype**, idle since 07-12; drorb **L3** for its proved
-admission fold and live tailnet, idle since 07-26; dregg-infra **L4 Deployed** (it carries every live
-box in this strand).
+admission fold and live tailnet, idle since 07-26.
 
 **Unclosed Cycles & Missing Links.** Consensus-by-exception is designed, not built; the operated
 edges (webauth forward-auth W-1, machines-API W-2, static hosting W-3, status W-4) have no native
