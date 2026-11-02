@@ -2,17 +2,17 @@
 
 **Live Site:** [https://emberian.github.io/whatember/](https://emberian.github.io/whatember/)
 
-`whatember` is a primary-source technical monograph and architectural index of what Ember is up to across **180+ repositories**, **five theorem-proving substrates** (Lean 4, HOL4/CakeML/Candle, ACL2, Isabelle/HOL, and TLA+/Kani/MIR), **verifiable compute & training-set absence proofs**, **Merkleized agent proxies**, **multi-vendor hardware roots of trust (`tee-verify`, `seL4`, `obend` silicon)**, **`DeOS` / `MiniDregg` / `NanoDregg` / `DelveTalk`**, **neurobiology (`chreatures`)**, **deductive neural organs (`clairnets` / `GLaDOS`)**, **combinatorial markets (`dclutch`)**, and **swarm continuity science (`cv`, `wesvet`)**.
+`whatember` is a working notebook and open map of what Ember is exploring across `~/dev` — a living index of active research threads, half-built worlds, formal kernels, composted generations, and open engineering cycles. Rather than a statement of done, it is organized as an invitation moving forward: what questions we are pulling on, what prototypes and formal footholds exist so far, which loops are still unclosed, and where to jump in across **DeOS / MiniDregg / NanoDregg / DelveTalk**, **`obend` language & silicon**, **verifiable compute & corpus-absence proofs**, **Merkleized agent proxies**, **multi-vendor TEEs & `seL4`**, **deductive neural organs (`clairnets` / `GLaDOS`)**, **neurobiology (`chreatures`)**, **combinatorial markets (`dclutch`)**, and **swarm continuity (`cv`, `wesvet`)**.
 
 ---
 
-## Site Architecture (10 Pages · 49 Interactive Sub-Tabs · 27 Primary-Source Dossiers)
+## Site Map (10 Pages · 49 Interactive Sub-Tabs · 27 Field-Note Dossiers)
 
-1. **[`index.html` — 01 · Overview](https://emberian.github.io/whatember/index.html)**
-   - **1A · Architecture & Full-Stack Executive Monograph**: How hardware attestation, Merkle/MMR history commitments, and algebraic/formal certificates interlock across all verticals.
-   - **1B · Problem → Primitive → Proof Matrix**: Interactive filterable table mapping verification problems to concrete crates and zero-`sorry` theorems.
-   - **1C · Briefing for Quinn & Lucid Computing**: Targeted guide to verifiable compute, Merkleized agent proxies, and reference codebases.
-   - **1D · Oct–Nov 2026 Stratum**: `svenvs` & `hol-reflection`, `verekos`, `o7vn` (`veri7vn`), `fn2`, `negstab`, and `forensics`.
+1. **[`index.html` — 01 · Overview & Workshop Map](https://emberian.github.io/whatember/index.html)**
+   - **1A · Workshop Map & Open Directions**: The active questions, current footholds, and open seams across all threads.
+   - **1B · Problem → Primitive → Foothold Matrix**: Interactive filterable table mapping open verification problems to crates, prototypes, and theorems.
+   - **1C · Briefing for Quinn & Lucid Computing**: Entry points on verifiable compute, Merkleized agent proxies, and reference codebases.
+   - **1D · Oct–Nov 2026 Stratum**: Recent explorations in `svenvs` & `hol-reflection`, `verekos`, `o7vn` (`veri7vn`), `fn2`, `negstab`, and `forensics`.
 2. **[`workload.html` — 02 · Workload Verification, Absence Proofs, zkML & vFHE](https://emberian.github.io/whatember/workload.html)**
    - **2A · Attested MMR Queries & Training-Set Absence Protocol**: 6-phase protocol combining `Blake3Mmr`/`DocTree` commitments, `RangeCertificate` non-omission proofs (`MMR.lean:server_cannot_omit_position`), certified BPE tokenization (`tokenizer`), and zero-budget STARKs (`audit`).
    - **2B · Regex-Complement DFAs & Symbolic Derivatives**: 3,522-line Lean 4 Brzozowski regex-complement DFAs (`Dregg2/Crypto/Deriv/*`).

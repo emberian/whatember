@@ -122,7 +122,7 @@ def render_markdown_to_monograph(md_text, prefix="sec", dossier_badge=None, raw_
         out.append(
             f'<div class="callout" style="margin-top:0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">'
             f'<div><div class="callout-title">{html.escape(dossier_badge)}</div>'
-            f'<div>Complete primary-source monograph rendered inline below, with verbatim theorem statements, code blocks, git commit tables, and <code>cv</code> session transcripts.</div></div>'
+            f'<div>Working field notes &amp; source index below, with theorem anchors, code pointers, git history, and open questions.</div></div>'
             f'<div style="display:flex;gap:8px;"><a class="btn btn-primary" href="https://github.com/emberian/whatember/blob/{branch_ref}/sources/{html.escape(raw_dossier_file)}" target="_blank" rel="noopener">View on GitHub ↗</a>'
             f'<a class="btn btn-ghost" style="color:var(--ink);border-color:var(--line);" href="sources/{html.escape(raw_dossier_file)}" target="_blank">Raw Markdown ↗</a></div>'
             f"</div>"
@@ -350,7 +350,7 @@ def page_shell(filename, title, description, hero_html, subtabs, panels_html, fo
     <div class="wrap footer-grid">
       <div>
         <strong>whatember</strong> · {footer_note}<br/>
-        All claims anchored to primary-source git commits, zero-<code>sorry</code> Lean 4 / HOL4 / ACL2 / Isabelle theorems, and reproducible benchmarks.
+        Working notebook &amp; open map across <code>~/dev</code> — linking live prototypes, formal footholds, composted generations, and open cycles.
       </div>
       <div>
         <a href="https://github.com/emberian/whatember">GitHub Repo</a> ·
@@ -387,7 +387,7 @@ def build_all():
     tab_1a_monograph = render_markdown_to_monograph(
         exec_synth_md,
         prefix="idx-exec",
-        dossier_badge="Executive Synthesis Across Dossiers 01, 02, 04 & 07",
+        dossier_badge="Field Notes Across Dossiers 01, 02, 04 & 07",
         raw_dossier_file="01-parsing-query-aggregation-absence.md",
     )
     tab_1d_monograph = render_markdown_to_monograph(
@@ -421,16 +421,16 @@ def build_all():
     index_html = page_shell(
         "index.html",
         "whatember — what ember is up to",
-        "Primary-source technical monograph and index of what Ember is up to across verifiable compute, formal silicon, DeOS, neurobiology, deductive neural organs, and swarm science.",
+        "Working notebook and open map of what Ember is up to across verifiable compute, DeOS, OBend silicon, neurobiology, deductive neural organs, and swarm continuity.",
         hero_idx,
         [
-            ("tab-exec", "1A · Architecture & Full-Stack Executive Monograph"),
-            ("tab-matrix", "1B · Interactive Problem → Primitive → Proof Matrix"),
+            ("tab-exec", "1A · Workshop Map & Open Directions"),
+            ("tab-matrix", "1B · Interactive Problem → Primitive → Foothold Matrix"),
             ("tab-quinn", "1C · Briefing for Quinn & Lucid Computing"),
             ("tab-dossiers", "1D · Oct–Nov 2026 Stratum (svenvs, verekos, o7vn, fn2)"),
         ],
         index_panels,
-        "01 · Overview & Full-Stack Executive Monograph",
+        "01 · Overview & Workshop Map",
     )
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as f:
         f.write(index_html)
