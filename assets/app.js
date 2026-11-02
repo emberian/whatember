@@ -105,62 +105,36 @@
       applyFilter();
     });
 
-    // 4. Built-in Dossier Reader Modal for sources/*.md links
-    const mdLinks = document.querySelectorAll('a[href^="sources/"][href$=".md"]');
-    if (mdLinks.length > 0) {
-      const modal = document.createElement("div");
-      modal.className = "dossier-modal";
-      modal.setAttribute("role", "dialog");
-      modal.setAttribute("aria-modal", "true");
-      modal.innerHTML = `
-        <div class="dossier-dialog">
-          <div class="dossier-header">
-            <span class="dossier-title" id="dossier-modal-title">Primary-Source Dossier</span>
-            <div class="dossier-actions">
-              <a class="btn btn-ghost" id="dossier-github-link" target="_blank" rel="noopener">View on GitHub ↗</a>
-              <a class="btn btn-ghost" id="dossier-raw-link" target="_blank" rel="noopener">Raw .md ↗</a>
-              <button class="btn btn-primary" id="dossier-close-btn" type="button">Close ✕</button>
-            </div>
-          </div>
-          <div class="dossier-body" id="dossier-modal-body">Loading primary-source dossier...</div>
-        </div>
-      `;
-      document.body.appendChild(modal);
-
-      const titleEl = document.getElementById("dossier-modal-title");
-      const bodyEl = document.getElementById("dossier-modal-body");
-      const rawLink = document.getElementById("dossier-raw-link");
-      const ghLink = document.getElementById("dossier-github-link");
-      const closeBtn = document.getElementById("dossier-close-btn");
-
-      const closeModal = () => modal.classList.remove("open");
-      closeBtn.addEventListener("click", closeModal);
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-      });
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeModal();
-      });
-
-      mdLinks.forEach((link) => {
-        link.addEventListener("click", async (e) => {
-          if (e.metaKey || e.ctrlKey || e.shiftKey) return;
-          e.preventDefault();
-          const href = link.getAttribute("href");
-          titleEl.textContent = href;
-          rawLink.href = href;
-          ghLink.href = "https://github.com/emberian/whatember/blob/main/" + href;
-          bodyEl.textContent = "Loading " + href + " ...";
-          modal.classList.add("open");
-          try {
-            const res = await fetch(href);
-            if (!res.ok) throw new Error("HTTP " + res.status);
-            bodyEl.textContent = await res.text();
-          } catch (err) {
-            window.location.href = href;
-          }
+    // 4. Copy buttons on code blocks
+    document.querySelectorAll(".code-copy-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const wrap = btn.closest(".code-block-wrap");
+        const codeEl = wrap ? wrap.querySelector("pre code") : null;
+        if (!codeEl) return;
+        navigator.clipboard.writeText(codeEl.textContent).then(() => {
+          const orig = btn.textContent;
+          btn.textContent = "Copied ✓";
+          setTimeout(() => {
+            btn.textContent = orig;
+          }, 1400);
         });
       });
+    });
+
+    // 5. Render KaTeX math if loaded
+    if (window.renderMathInElement) {
+      window.renderMathInElement(document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+        ],
+        throwOnError: false,
+      });
+    }
+
+    // 6. Render Mermaid diagrams if loaded
+    if (window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: true, theme: root.getAttribute("data-theme") === "dark" ? "dark" : "neutral" });
     }
   });
 })();

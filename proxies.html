@@ -3,9 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>03 · Merkleized Agent Proxies, Capabilities &amp; Verified Dataplanes — whatember</title>
-  <meta name="description" content="Four-layer Merkleized agent proxy stack: attenuated tool-call gateways, keyless BYOK proxies, BLAKE3 MMR &amp; Poseidon2 heap/forest Merkleization, zkOracle MPC-TLS, and the verified Orb HTTP dataplane." />
+  <title>03 · Merkleized Agent Proxies, Capabilities &amp; Verified Dataplanes Monograph — whatember</title>
+  <meta name="description" content="Complete primary-source monograph for the 4-layer Merkleized agent proxy stack, grain-turn MMR/heap roots, inclusion-availability equivocation proofs, mini-keys SO_PEERCRED, and the verified Orb HTTP dataplane." />
   <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script src="assets/app.js" defer></script>
 </head>
 <body>
@@ -14,16 +18,10 @@
       <a class="brand" href="index.html">
         <span class="brand-mark">W</span>
         <span>whatember</span>
-        <small>Verifiable Systems Atlas · Nov 2026</small>
+        <small>Verifiable Systems Monograph · Nov 2026</small>
       </a>
       <nav class="main-nav" aria-label="Primary navigation">
-        <a href="index.html">01 · Overview</a>
-        <a href="workload.html">02 · Workload &amp; Absence</a>
-        <a href="proxies.html" aria-current="page">03 · Merkle Proxies</a>
-        <a href="hardware.html">04 · Hardware &amp; Silicon</a>
-        <a href="assurance.html">05 · Formal Kernels</a>
-        <a href="vision.html">06 · Vision &amp; Lineage</a>
-        <a href="atlas.html">07 · Master Atlas</a>
+        <a href="index.html">01 · Overview</a><a href="workload.html">02 · Workload &amp; Absence</a><a href="proxies.html" aria-current="page">03 · Merkle Proxies</a><a href="hardware.html">04 · Hardware &amp; Silicon</a><a href="assurance.html">05 · Formal Kernels</a><a href="vision.html">06 · Vision &amp; Lineage</a><a href="atlas.html">07 · Master Atlas</a>
         <button id="theme-toggle" class="theme-toggle" type="button" title="Toggle theme">◐</button>
       </nav>
     </div>
@@ -73,240 +71,594 @@
   </section>
 
   <div class="subtabs-wrap">
-    <div class="wrap subtabs" role="tablist" aria-label="Proxy sections">
-      <button class="subtab-btn" role="tab" aria-selected="true" data-tab-target="tab-engines">3A · The 4 Merkleization Engines</button>
-      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-gateways">3B · Tool-Call, ACP &amp; Keyless BYOK Proxies</button>
-      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-zkoracle">3C · zkOracle Outbound HTTPS Proxy (MPC-TLS + STARK)</button>
-      <button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-orb">3D · Verified HTTP Dataplane (`Orb` + HOL4/CakeML)</button>
+    <div class="wrap subtabs" role="tablist">
+      <button class="subtab-btn" role="tab" aria-selected="true" data-tab-target="tab-engines">3A · The 4 Merkleization Engines (`grain-turn`, MMR, `FullForestAuth`, `AuthTrie`)</button><button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-gateways">3B · Tool Gateways, ACP (`deos-hermes`), Keyless BYOK (`mini-keys`) &amp; `secS-magik`</button><button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-orb">3C · Verified HTTP Proxy Dataplane (`Orb`, Pancake x86-64 &amp; HOL4 Arena)</button><button class="subtab-btn" role="tab" aria-selected="false" data-tab-target="tab-zkoracle">3D · Git Commit Spine &amp; Primary-Source `cv` Session Archaeology</button>
     </div>
   </div>
 
   <main class="wrap">
-    <!-- TAB 3A: THE 4 MERKLEIZATION ENGINES -->
-    <section id="tab-engines" class="tab-panel active" role="tabpanel">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">03A · Merkleization Architecture</div>
-          <h2>Four Complementary Merkleization Engines for Agent Proxies</h2>
-        </div>
-        <div>
-          <p>
-            A production agent proxy cannot use a single naive Merkle tree for everything: append-only turn transcripts, mutable key-value sandbox heaps, sparse revocation sets, and multi-agent fork trees have fundamentally different update and proof patterns. Our stack separates them into four specialized engines that weld into a single turn receipt.
-          </p>
-        </div>
-      </div>
+    
+    <section id="tab-engines" class="tab-panel active" role="tabpanel"><div class="doc-layout"><aside class="doc-toc" aria-label="Section table of contents"><div class="doc-toc-title">On This Tab (8 Sections)</div><ul><li><a href="#pr-engines-2-the-merkleization-engines-for-agents-state-his-1">2. The Merkleization Engines for Agents (State, History, Capabilities, &amp; Availability Logs)</a></li><li class="toc-h3"><a href="#pr-engines-2-1-grain-turn-welding-history-mmr-heap-root-act-2">2.1 <code>grain-turn</code>: Welding History MMR, Heap Root, Action, Meter, and zkOracle Attestation into One Cell</a></li><li class="toc-h3"><a href="#pr-engines-2-2-degg-research-experiments-inclusion-availabi-4">2.2 <code>degg-research/experiments/inclusion-availability</code>: Position-Deriving MMR, 10-Step Admission Log, and Equivocation Verdicts</a></li><li class="toc-h3"><a href="#pr-engines-2-3-heap-roots-umemregistry-grain-fork-confined--8">2.3 Heap Roots, <code>UmemRegistry</code>, <code>grain-fork</code>, <code>confined-swarm</code>, <code>commit</code>, and <code>audit</code></a></li><li class="toc-h3"><a href="#pr-engines-2-4-lean-4-merkle-capability-forest-authtrie-pro-9">2.4 Lean 4 Merkle, Capability Forest &amp; AuthTrie Proofs (<code>breadstuffs/metatheory</code> &amp; <code>minidregg</code>)</a></li><li><a href="#pr-engines-5-additional-verbatim-structural-verification-de-13">5. Additional Verbatim Structural &amp; Verification Definitions</a></li><li class="toc-h3"><a href="#pr-engines-5-1-sandstorm-bridge-src-lib-rs-sandstorm-spk-po-14">5.1 <code>sandstorm-bridge/src/lib.rs</code>: Sandstorm <code>.spk</code> Powerbox &amp; <code>/var</code> ↔ <code>Umem</code> Cell Bridge</a></li><li class="toc-h3"><a href="#pr-engines-5-2-degg-research-experiments-inclusion-availabi-15">5.2 <code>degg-research/experiments/inclusion-availability/src/equivocation.rs</code>: Verbatim Slashable Equivocation Verifier</a></li></ul></aside><div class="doc-prose"><div class="callout" style="margin-top:0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"><div><div class="callout-title">Dossier 02 (§2 &amp; §5) · The 4 Merkleization Engines (`grain-turn`, `inclusion-availability` MMR, `grain-fork`, `FullForestAuth.lean`, `AuthTrie.lean`)</div><div>Complete primary-source monograph rendered inline below, with verbatim theorem statements, code blocks, git commit tables, and <code>cv</code> session transcripts.</div></div><div style="display:flex;gap:8px;"><a class="btn btn-primary" href="https://github.com/emberian/whatember/blob/main/sources/02-merkle-agent-proxies-and-dataplanes.md" target="_blank" rel="noopener">View on GitHub ↗</a><a class="btn btn-ghost" style="color:var(--ink);border-color:var(--line);" href="sources/02-merkle-agent-proxies-and-dataplanes.md" target="_blank">Raw Markdown ↗</a></div></div><h2 id="pr-engines-2-the-merkleization-engines-for-agents-state-his-1">2. The Merkleization Engines for Agents (State, History, Capabilities, &amp; Availability Logs)</h2><h3 id="pr-engines-2-1-grain-turn-welding-history-mmr-heap-root-act-2">2.1 <code>grain-turn</code>: Welding History MMR, Heap Root, Action, Meter, and zkOracle Attestation into One Cell</h3><p><a href="https://github.com/emberian/breadstuffs/blob/main/grain-turn/src/lib.rs#L1-L520" target="_blank" rel="noopener" title="breadstuffs/grain-turn/src/lib.rs#L1-L520"><code>breadstuffs/grain-turn/src/lib.rs</code></a> (621 lines) is the flagship R2/R3 kernel-turn minter (<code>ToolGatewayMinter</code>) wired into <code>agent-platform</code>. Every time a confined agent executes an admitted tool call, <code>ToolGatewayMinter</code> commits a real Dregg kernel turn that updates five reserved 32-byte slots in <code>cell.state.fields</code>:</p><div class="table-wrap"><table><thead><tr><th>Slot Constant</th><th>Index</th><th>Line</th><th>Semantic Commitment Bound into <code>cell.state.fields[slot]</code></th></tr></thead><tbody><tr><td><code>CALLS_MADE_SLOT</code></td><td><code>0</code></td><td><code>:204</code></td><td>Canonical <code>field_from_u64</code> big-endian low-8-byte monotonic invocation counter (<code>calls_made</code>).</td></tr><tr><td><code>HISTORY_ROOT_SLOT</code></td><td><code>3</code></td><td><a href="https://github.com/emberian/breadstuffs/blob/main/grain-turn/src/lib.rs#L138" target="_blank" rel="noopener" title="breadstuffs/grain-turn/src/lib.rs#L138"><code>:138</code></a></td><td><code>grain_history_root(receipt_hashes[0..N-1])</code> — <code>Blake3Mmr</code> root over all prior <code>dregg-receipt-v5</code> turn receipt hashes.</td></tr><tr><td><code>CONSUMED_SLOT</code></td><td><code>5</code></td><td><a href="https://github.com/emberian/breadstuffs/blob/main/grain-turn/src/lib.rs#L103" target="_blank" rel="noopener" title="breadstuffs/grain-turn/src/lib.rs#L103"><code>:103</code></a></td><td>Cumulative meter units consumed by the grain (<code>consumed_after</code>).</td></tr><tr><td><code>HEAP_ROOT_SLOT</code></td><td><code>6</code></td><td><a href="https://github.com/emberian/breadstuffs/blob/main/grain-turn/src/lib.rs#L251" target="_blank" rel="noopener" title="breadstuffs/grain-turn/src/lib.rs#L251"><code>:251</code></a></td><td>The grain&#x27;s committed key-value heap / <code>VarTree</code> Merkle root after the tool&#x27;s state effect.</td></tr><tr><td><code>ACTION_SLOT</code></td><td><code>7</code></td><td><a href="https://github.com/emberian/breadstuffs/blob/main/grain-turn/src/lib.rs#L259" target="_blank" rel="noopener" title="breadstuffs/grain-turn/src/lib.rs#L259"><code>:259</code></a></td><td><code>action_commit(label, cost)</code> under domain <code>b&quot;dregg-grain-action-commit-v1&quot;</code> (line 277).</td></tr><tr><td><code>ATTESTATION_SLOT</code></td><td><code>8</code></td><td><a href="https://github.com/emberian/breadstuffs/blob/main/grain-turn/src/lib.rs#L274" target="_blank" rel="noopener" title="breadstuffs/grain-turn/src/lib.rs#L274"><code>:274</code></a></td><td>Optional 32-byte <code>attestation_commitment</code> of the confined brain&#x27;s <code>ZkOracleAttestation</code>.</td></tr></tbody></table></div><h4 id="pr-engines-per-grain-commitbindsmmr-grain-history-root-veri-3">Per-Grain <code>CommitBindsMMR</code> (<code>grain_history_root</code> &amp; <code>verify_grain_history</code>)</h4><p>Landed in commit <code>43e36191e</code> (<code>grain-turn: bind each grain&#x27;s receipt history into its committed state (CommitBindsMMR, per-grain)</code>, 2026-07-12), <code>grain_history_root</code> and <code>verify_grain_history</code> (<a href="https://github.com/emberian/breadstuffs/blob/main/grain-turn/src/lib.rs#L148-L248" target="_blank" rel="noopener" title="breadstuffs/grain-turn/src/lib.rs#L148-L248"><code>grain-turn/src/lib.rs</code></a>) make a grain&#x27;s entire interior execution history non-equivocable relative to its latest committed cell state:</p><div class="code-block-wrap"><div class="code-header"><span>rust</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>// /Users/ember/dev/breadstuffs/grain-turn/src/lib.rs:148-150
+pub fn grain_history_root(receipt_hashes: &amp;[[u8; 32]]) -&gt; [u8; 32] {
+    dregg_query::Mmr::from_values(dregg_query::Blake3Mmr, receipt_hashes.to_vec()).root()
+}
 
-      <div class="grid-2">
-        <article class="card card-accent">
-          <div class="badge-row"><span class="badge">Engine 1 · Availability &amp; Equivocation</span><span class="badge badge-emerald">Zero-Dep Rust</span></div>
-          <h3>1. Append-Only BLAKE3 MMR Proxy (`inclusion-availability`)</h3>
-          <p>
-            In <code>degg-research/experiments/inclusion-availability/src/{mmr.rs,log.rs,equivocation.rs}</code>, every admitted agent turn emits an <code>InclusionReceipt</code> over a BLAKE3 Merkle Mountain Range with domain-separated leaf (`0x00`), parent (`0x01`), and right-to-left peak bagging (`0x02`) hashes.
-          </p>
-          <p>
-            Crucially, <code>verify_receipt</code> <strong>derives the leaf’s 0-based position purely from the left/right bit-geometry of the sibling path</strong>—preventing an operator from lying about turn ordering—while <code>verify_equivocation</code> proves split-view proxy forks whenever two receipts at the same size disagree or violate prefix consistency.
-          </p>
-          <div class="meta">Path: <code>degg-research/experiments/inclusion-availability/</code></div>
-        </article>
+// /Users/ember/dev/breadstuffs/grain-turn/src/lib.rs:211-248
+pub fn verify_grain_history(
+    cell: &amp;dregg_cell::Cell,
+    receipt_hashes: &amp;[[u8; 32]],
+) -&gt; GrainHistoryVerdict {
+    let committed = cell.state.fields[HISTORY_ROOT_SLOT];
+    if committed == [0u8; 32] {
+        return GrainHistoryVerdict::Unbound;
+    }
+    let calls_made_field = cell.state.fields[CALLS_MADE_SLOT as usize];
+    if calls_made_field[..24].iter().any(|b| *b != 0) {
+        return GrainHistoryVerdict::MalformedCallsMade;
+    }
+    let calls_made = u64::from_be_bytes(
+        calls_made_field[24..32].try_into().expect(&quot;8-byte slice of a 32-byte field&quot;),
+    );
+    let presented = receipt_hashes.len() as u64;
+    if calls_made != presented {
+        return GrainHistoryVerdict::LengthMismatch { calls_made, presented };
+    }
+    // The state committed by turn N binds receipts 0..N-1.
+    let prefix = &amp;receipt_hashes[..receipt_hashes.len().saturating_sub(1)];
+    let recomputed = grain_history_root(prefix);
+    if recomputed == committed {
+        GrainHistoryVerdict::Bound
+    } else {
+        GrainHistoryVerdict::Divergent { committed, recomputed }
+    }
+}</code></pre></div><p>Notice the subtle circularity-breaking design documented at lines 135–147 and 202–205:</p><ul><li>Because turn $N$&#x27;s receipt hash (<code>TurnReceipt::receipt_hash</code>, v5 format) hashes the post-state of turn $N$, turn $N$&#x27;s post-state cannot contain turn $N$&#x27;s own receipt hash without a cycle. Instead, turn $N$&#x27;s committed state binds <code>grain_history_root(&amp;receipt_hashes[0..N-1])</code>, while turn $N$&#x27;s frontier receipt is pinned by its own <code>post_state_hash</code> and executor signature.</li><li>Because <code>Blake3Mmr</code> uses a domain-tagged <strong>nonzero</strong> constant for the empty MMR root, turn $1$ (whose prefix <code>0..0</code> is empty) writes a nonzero constant into <code>HISTORY_ROOT_SLOT</code>. Thus an all-zero slot <code>[0u8; 32]</code> unambiguously identifies <code>GrainHistoryVerdict::Unbound</code> (a legacy cell that never ran through <code>ToolGatewayMinter</code>) and can never be confused with a bound empty history.</li></ul><hr/><h3 id="pr-engines-2-2-degg-research-experiments-inclusion-availabi-4">2.2 <code>degg-research/experiments/inclusion-availability</code>: Position-Deriving MMR, 10-Step Admission Log, and Equivocation Verdicts</h3><p>In <a href="https://github.com/emberian/degg-research/blob/main/experiments/inclusion-availability/src/mmr.rs#L1-L340" target="_blank" rel="noopener" title="degg-research/experiments/inclusion-availability/src/mmr.rs#L1-L340"><code>/Users/ember/dev/degg-research/experiments/inclusion-availability/src</code></a> (created in <code>cv</code> sessions <code>a9e30597</code> and <code>aad1c550</code> on 2026-08-18 with 125 tests), Ember built a standalone, zero-external-crypto-dependency SHA-256 Merkle Mountain Range (<code>mmr.rs</code>), a 10-step fail-closed batch admission log (<code>log.rs</code>), an equivocation detector (<code>equivocation.rs</code>), and a batch settlement/refund state machine (<code>lifecycle.rs</code>).</p><h4 id="pr-engines-position-deriving-mmr-mmr-rs-prefix-consistency--5">Position-Deriving MMR (<code>mmr.rs</code>) &amp; Prefix Consistency Proofs</h4><p>In <a href="https://github.com/emberian/degg-research/blob/main/experiments/inclusion-availability/src/mmr.rs#L50-L335" target="_blank" rel="noopener" title="degg-research/experiments/inclusion-availability/src/mmr.rs#L50-L335"><code>mmr.rs</code></a>:</p><ul><li><code>leaf_hash(preimage: &amp;[u8]) -&gt; [u8; 32]</code> (line 50), <code>node_hash(left: &amp;[u8; 32], right: &amp;[u8; 32]) -&gt; [u8; 32]</code> (line 56), <code>bag(peaks: &amp;[[u8; 32]]) -&gt; [u8; 32]</code> (line 65), and <code>root_of(domain: &amp;[u8; 32], leaf_count: u64, bagged: &amp;[u8; 32]) -&gt; [u8; 32]</code> (line 80) compute domain-separated SHA-256 commitments where the peak heights are uniquely determined by the binary decomposition of <code>leaf_count</code> (<code>peak_heights(leaf_count: u64) -&gt; Vec&lt;u32&gt;</code>, line 96).</li><li><code>NodeProof</code> (line 147) carries <code>siblings: Vec&lt;Sibling&gt;</code> (each <code>Sibling { side: Side, hash: [u8; 32] }</code>, lines 117–130) plus the surrounding peaks. Crucially, <code>verify_receipt</code> (<a href="https://github.com/emberian/degg-research/blob/main/experiments/inclusion-availability/src/log.rs#L419-L458" target="_blank" rel="noopener" title="degg-research/experiments/inclusion-availability/src/log.rs#L419-L458"><code>log.rs</code></a>) <strong>derives</strong> the leaf&#x27;s index (<code>seq</code>) from the left/right <code>Side</code> bits of <code>NodeProof.siblings</code> and the peak&#x27;s horizontal offset, rejecting any receipt whose derived leaf index disagrees with <code>record.seq</code> (<code>ReceiptDefect</code>, line 390).</li><li><code>ConsistencyProof</code> (line 160, with <code>PrefixPeak</code> at line 169) proves that an older MMR root at <code>old_count</code> is an exact append-only prefix of a newer MMR root at <code>new_count</code>, returning typed <code>ProofDefect</code> errors (line 181) if any peak fold mismatches.</li></ul><h4 id="pr-engines-admissionlog-log-rs-canonical-fixed-width-record-6"><code>AdmissionLog</code> (<code>log.rs</code>): Canonical Fixed-Width Records, <code>seal_padded</code>, and Refusal Priority</h4><p>In <a href="https://github.com/emberian/degg-research/blob/main/experiments/inclusion-availability/src/log.rs#L50-L510" target="_blank" rel="noopener" title="degg-research/experiments/inclusion-availability/src/log.rs#L50-L510"><code>log.rs</code></a>:</p><ul><li><code>LogDomain</code> (line 50; constructor <code>LogDomain::dark_fba_v0(batch, market, cutoff_epoch)</code> at line 83) pins the batch&#x27;s admission window, capacity limits, and domain digest (<code>LogDomain::digest(&amp;self) -&gt; [u8; 32]</code>, line 114).</li><li>Every admitted request (<code>AdmissionRequest</code>, line 135) is serialized into a fixed-size <code>AdmissionRecord</code> (<code>canonical_bytes(&amp;self) -&gt; [u8; RECORD_BYTES]</code>, line 184) and hashed into the MMR (<code>leaf(&amp;self, domain_digest: &amp;[u8; 32]) -&gt; [u8; 32]</code>, line 211).</li><li>Inbound submissions pass through a deterministic <strong>10-step refusal priority</strong> returning <code>AdmissionRefusal</code> (line 269) before touching the MMR or reserve ledger—checking seal state, epoch window bounds, domain match, nullifier uniqueness, payload size, and reserve escrow.</li><li>At the batch cutoff, <code>seal_padded</code> pads the log to its target batch size using deterministic domain-bound padding records (<code>AdmissionRecord::padding(domain_digest, seq, domain)</code>, line 233) and emits a <code>CutoffRoot</code> (line 370) and per-record <code>InclusionReceipt</code>s (line 381).</li></ul><h4 id="pr-engines-equivocation-rs-lifecycle-rs-slashable-root-conf-7"><code>equivocation.rs</code> &amp; <code>lifecycle.rs</code>: Slashable Root Conflicts and Reserve Conservation</h4><p>In <a href="https://github.com/emberian/degg-research/blob/main/experiments/inclusion-availability/src/equivocation.rs#L46-L340" target="_blank" rel="noopener" title="degg-research/experiments/inclusion-availability/src/equivocation.rs#L46-L340"><code>equivocation.rs</code></a>: -Sequencer/holder statements are represented as <code>RootStatement</code> (<code>HolderId(pub [u8; 32])</code>, <code>StatementKind::Ack</code> vs. <code>StatementKind::Seal</code>, lines 46–125).</p><ul><li><code>verify_equivocation</code> (line 305) compares two statements from the same <code>HolderId</code> and domain, classifying any inconsistency into <code>Conflict</code> variants (line 170, e.g., conflicting <code>CutoffRoot</code>s at the same seal, an <code>AdmissionAck</code> whose leaf or prefix root is incompatible with a subsequent <code>CutoffRoot</code>, or conflicting sequence assignments) and emitting a self-contained <code>EquivocationVerdict</code> (line 237) or <code>EquivocationDefect</code> (line 254).</li><li>In <a href="https://github.com/emberian/degg-research/blob/main/experiments/inclusion-availability/src/lifecycle.rs#L345-L635" target="_blank" rel="noopener" title="degg-research/experiments/inclusion-availability/src/lifecycle.rs#L345-L635"><code>lifecycle.rs</code></a>, <code>ReserveLedger</code> (line 345) tracks <code>escrow</code>, <code>total_escrowed</code>, <code>total_refunded</code>, <code>total_settled</code>, and <code>total_outstanding</code>, maintaining the invariant <code>ReserveLedger::conserves(&amp;self) -&gt; bool</code> (line 414: <code>total_escrowed == total_refunded + total_settled + total_outstanding</code>) across all <code>BatchMachine</code> (line 458) abort/timeout classes (<code>AbortClass</code>, line 71; <code>Consequence</code>, line 123).</li></ul><hr/><h3 id="pr-engines-2-3-heap-roots-umemregistry-grain-fork-confined--8">2.3 Heap Roots, <code>UmemRegistry</code>, <code>grain-fork</code>, <code>confined-swarm</code>, <code>commit</code>, and <code>audit</code></h3><p>Across <code>breadstuffs</code> and <code>DreggNet</code>, agent memory and capability state are Merkleized at four complementary layers:</p><ol><li><strong>Cell Heap Roots (<code>breadstuffs/cell</code> &amp; <code>Dregg2/Substrate/Heap.lean</code>):</strong></li><li><a href="https://github.com/emberian/breadstuffs/blob/main/cell/src/lib.rs#L196" target="_blank" rel="noopener" title="breadstuffs/cell/src/lib.rs#L196"><code>breadstuffs/cell/src/lib.rs</code></a> exports <code>compute_heap_root</code>, <code>empty_heap_root</code>, <code>compute_fields_root</code>, and <code>empty_fields_root</code> over <code>STATE_SLOTS</code>.</li><li><a href="https://github.com/emberian/breadstuffs/blob/main/metatheory/Dregg2/Substrate/Heap.lean#L82-L570" target="_blank" rel="noopener" title="breadstuffs/metatheory/Dregg2/Substrate/Heap.lean#L82-L570"><code>breadstuffs/metatheory/Dregg2/Substrate/Heap.lean</code></a> proves the sorted key-value heap laws: <code>get_set_self</code> (line 136), <code>get_set_frame</code> (line 154), <code>set_sorted</code> (line 196), <code>get_none_of_gap</code> (line 279, the sorted-tree non-membership gap witness used by the IMT AIR), and the keyed-ROM collision-or-binding theorems rebuilt by Ember on 2026-07-23 (commits <code>988b01684</code> and <code>a71fa3305</code>) after refuting the old 1-felt <code>IsPolyTime</code> assumption:</li></ol><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>     -- /Users/ember/dev/breadstuffs/metatheory/Dregg2/Substrate/Heap.lean:475-568
+     theorem addrColl_refutable : AddrColl (fun _ =&gt; (0 : ℤ)) 0 0 0 1 := by decide
 
-        <article class="card card-emerald">
-          <div class="badge-row"><span class="badge badge-emerald">Engine 2 · Turn Transcript MMR</span><span class="badge">Slot 3 · Lean 4</span></div>
-          <h3>2. Wasm `grain-turn` History MMR (`HISTORY_ROOT_SLOT = 3`)</h3>
-          <p>
-            In <code>breadstuffs/grain-turn/src/lib.rs</code>, every Wasm agent turn commits the prefix of all prior turn digests $0 \dots N-1$ into <code>HISTORY_ROOT_SLOT = 3</code> (breaking the circularity of hashing turn $N$’s own STARK receipt inside turn $N$).
-          </p>
-          <p>
-            Paired with <code>breadstuffs/crates/dregg-query</code> and <code>metatheory/HistoryIndex.lean</code> (<code>server_cannot_omit</code>), any counterparty can request a range of agent turns $[lo, hi]$ and verify via a <code>RangeCertificate</code> that the proxy did not drop a single intermediate tool call or refusal.
-          </p>
-          <div class="meta">Path: <code>breadstuffs/grain-turn/src/lib.rs</code> · <code>metatheory/HistoryIndex.lean</code></div>
-        </article>
+     theorem hget_hset_frame_or_aliases (hash : List ℤ → ℤ) (h : FeltHeap) (c k c&#x27; k&#x27; v : ℤ) :
+         hget hash (hset hash h c k v) c&#x27; k&#x27; = hget hash h c&#x27; k&#x27; ∨ AddrColl hash c k c&#x27; k&#x27;
 
-        <article class="card card-navy">
-          <div class="badge-row"><span class="badge badge-navy">Engine 3 · Mutable Sandbox State</span><span class="badge badge-gold">Slot 6 · $O(1)$ Forking</span></div>
-          <h3>3. Sorted Poseidon2 Key-Value Heap &amp; $O(1)$ Multi-Agent Forking (`HEAP_ROOT_SLOT = 6`)</h3>
-          <p>
-            In <code>breadstuffs/cell/src/lib.rs</code> and <code>metatheory/Dregg2/Substrate/Heap.lean</code>, the agent’s persistent memory is a sorted key-value store committed into a Poseidon2 Merkle root in <code>HEAP_ROOT_SLOT = 6</code>. Non-existence of a key is proven via adjacent-key gap witnesses (<code>get_none_of_gap</code>).
-          </p>
-          <p>
-            Because the entire agent state is captured by `(HEAP_ROOT_SLOT, HISTORY_ROOT_SLOT)`, <code>breadstuffs/grain-fork/src/lib.rs</code> implements <strong>$O(1)$ copy-on-write agent branching (`fork`), deterministic time-travel (`rewind`), and verified child-turn stitching (`absorb` / `stitch_child`)</strong>, while <code>confined-swarm</code> proves non-collusion across parallel subagents.
-          </p>
-          <div class="meta">Path: <code>breadstuffs/grain-fork/src/lib.rs</code> · <code>metatheory/Dregg2/Substrate/Heap.lean</code></div>
-        </article>
+     theorem map_leaf_binds_or_collides (hash : List ℤ → ℤ) (l₁ l₂ : FeltHeap)
+         (hr : root hash l₁ = root hash l₂) : l₁ = l₂ ∨ MapLeafColl hash l₁ l₂</code></pre></div><ol><li><strong>Unified Memory (<code>DreggNet/umem/src/lib.rs</code>) &amp; Forkable Grains (<code>breadstuffs/grain-fork/src/lib.rs</code>) &amp; Swarms (<code>breadstuffs/confined-swarm/src/lib.rs</code>):</strong></li><li><span class="src-loc" title="DreggNet/umem/src/lib.rs#L200-L460"><code>DreggNet/umem/src/lib.rs</code></span> defines <code>UmemRegistry&lt;R: Record&gt;</code>, persisting append-only log records whose live state is committed by <code>boundary_root(&amp;self) -&gt; String</code> (line 416) and <code>boundary_root_bytes(&amp;self) -&gt; [u8; 32]</code> (line 431), supporting O(1) logical <code>fork</code> (line 453), <code>checkpoint</code>, <code>restore</code>, and three-way <code>merge</code>.</li><li><a href="https://github.com/emberian/breadstuffs/blob/main/grain-fork/src/lib.rs#L203-L645" target="_blank" rel="noopener" title="breadstuffs/grain-fork/src/lib.rs#L203-L645"><code>breadstuffs/grain-fork/src/lib.rs</code></a> implements <code>Grain</code> (<code>rent</code>, <code>root</code>, <code>ancestor_root</code>, <code>learn</code>, <code>forget</code>, <code>recall</code>, <code>grant</code>, <code>revoke</code>, <code>checkpoint</code>, <code>rewind</code>, <code>fork</code>, <code>absorb</code>, <code>stitch_child</code> returning <code>StitchReport</code> at line 642), allowing an agent grain to checkpoint its Merkle root (<code>checkpoint(&amp;mut self) -&gt; Result&lt;[u8; 32], GrainError&gt;</code>, line 376), fork child grains with attenuated budgets and capabilities (<code>fork</code>, line 454), rewind to any historical root (<code>rewind</code>, line 402), and absorb a child&#x27;s <code>StitchReport</code> back into the parent grain (<code>absorb</code>, line 519).</li><li><a href="https://github.com/emberian/breadstuffs/blob/main/confined-swarm/src/lib.rs#L115-L645" target="_blank" rel="noopener" title="breadstuffs/confined-swarm/src/lib.rs#L115-L645"><code>breadstuffs/confined-swarm/src/lib.rs</code></a> orchestrates multi-worker agent swarms (<code>Swarm::assemble</code>, <code>fork_workers</code>, <code>land_reports</code>) where each <code>Worker</code> (line 294) is bound to a <code>Source</code> digest (<code>Source::digest(&amp;self) -&gt; [u8; 32]</code>, line 235) and attested via <code>SwarmAttestationCarrier</code> (line 115), producing a <code>SwarmVerdict</code> (line 395).</li><li><strong>Depth-16 4-ary Fact/Rule SMT (<code>breadstuffs/commit/src/</code>) &amp; Verifiable Usage Audit Log (<code>breadstuffs/audit/src/</code>):</strong></li><li><a href="https://github.com/emberian/breadstuffs/blob/main/commit/src/factset.rs#L21-L130" target="_blank" rel="noopener" title="breadstuffs/commit/src/factset.rs#L21-L130"><code>breadstuffs/commit/src/</code></a> encodes Datalog-like agent facts and rules as 128-byte 4-tuple <code>Fact</code>s (<a href="https://github.com/emberian/breadstuffs/blob/main/commit/src/fact.rs#L16-L125" target="_blank" rel="noopener" title="breadstuffs/commit/src/fact.rs#L16-L125"><code>fact.rs:16-125</code></a>) stored in a depth-16 4-ary Sparse Merkle Tree (<code>FactSet</code> at <a href="https://github.com/emberian/breadstuffs/blob/main/commit/src/factset.rs#L21" target="_blank" rel="noopener" title="breadstuffs/commit/src/factset.rs#L21"><code>factset.rs:21</code></a>, <code>hash_node(children: &amp;[[u8; 32]; 4]) -&gt; [u8; 32]</code> at <a href="https://github.com/emberian/breadstuffs/blob/main/commit/src/hash.rs#L41" target="_blank" rel="noopener" title="breadstuffs/commit/src/hash.rs#L41"><code>hash.rs:41</code></a>, <code>TokenState</code> and <code>StateCommitment</code> at <a href="https://github.com/emberian/breadstuffs/blob/main/commit/src/state.rs#L19-L145" target="_blank" rel="noopener" title="breadstuffs/commit/src/state.rs#L19-L145"><code>state.rs:19-145</code></a>) supporting both <code>membership_proof</code> and <code>non_membership_proof</code>.</li><li><a href="https://github.com/emberian/breadstuffs/blob/main/audit/src/lib.rs#L1-L85" target="_blank" rel="noopener" title="breadstuffs/audit/src/lib.rs#L1-L85"><code>breadstuffs/audit/src/</code></a> implements <code>AuditLog</code> (<a href="https://github.com/emberian/breadstuffs/blob/main/audit/src/log.rs" target="_blank" rel="noopener" title="breadstuffs/audit/src/log.rs"><code>log.rs</code></a>), <code>UsageEvent</code> and <code>AuditReceipt</code> (<a href="https://github.com/emberian/breadstuffs/blob/main/audit/src/event.rs#L16-L105" target="_blank" rel="noopener" title="breadstuffs/audit/src/event.rs#L16-L105"><code>event.rs:16-105</code></a>), and five verifiable proof types in <a href="https://github.com/emberian/breadstuffs/blob/main/audit/src/proofs.rs#L22-L220" target="_blank" rel="noopener" title="breadstuffs/audit/src/proofs.rs#L22-L220"><code>proofs.rs</code></a> and <a href="https://github.com/emberian/breadstuffs/blob/main/audit/src/budget.rs" target="_blank" rel="noopener" title="breadstuffs/audit/src/budget.rs"><code>budget.rs</code></a>: <code>InclusionProof</code>, <code>CountProof</code> (line 22), <code>RangeProof</code> (line 103), <code>LastUseProof</code> (line 169), <code>ConsistencyProof</code> (line 208), and <code>BudgetProof</code> (proving a capability token has $K$ remaining uses without revealing unrelated log entries).</li></ol><hr/><h3 id="pr-engines-2-4-lean-4-merkle-capability-forest-authtrie-pro-9">2.4 Lean 4 Merkle, Capability Forest &amp; AuthTrie Proofs (<code>breadstuffs/metatheory</code> &amp; <code>minidregg</code>)</h3><h4 id="pr-engines-1-8-felt-wide-indexed-merkle-tree-imt-heap-openi-10">1. 8-Felt Wide Indexed Merkle Tree (IMT) Heap Opening &amp; Write Soundness (<code>Dregg2/Circuit/Emit/HeapOpenEmit.lean</code>)</h4><p>In <a href="https://github.com/emberian/breadstuffs/blob/main/metatheory/Dregg2/Circuit/Emit/HeapOpenEmit.lean#L109-L260" target="_blank" rel="noopener" title="breadstuffs/metatheory/Dregg2/Circuit/Emit/HeapOpenEmit.lean#L109-L260"><code>breadstuffs/metatheory/Dregg2/Circuit/Emit/HeapOpenEmit.lean</code></a> (728 lines), Ember proves that the emitted EffectVM AIR constraints for heap reads (<code>effHeapOpenV3</code>, line 299) and heap writes (<code>effHeapWriteV3</code>, line 427) bind all <strong>8 KoalaBear felt lanes</strong> (~124 bits of collision resistance) of the Poseidon2 IMT leaf <code>(addr, value, nextAddr)</code> and every internal node along the <code>DEPTH</code> spine:</p><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>-- /Users/ember/dev/breadstuffs/metatheory/Dregg2/Circuit/Emit/HeapOpenEmit.lean:109-122
+structure HeapMembershipCore (tf : TraceFamily) (c : CapOpenCols) (env : VmRowEnv) : Prop where
+  leafHashed : (heapLeafLookup c).holdsAt tf env
+  nodeHashed : ∀ lvl &lt; DEPTH, (nodeLookup c lvl).holdsAt tf env
+  dirBool    : ∀ lvl &lt; DEPTH, (dirBoolGate c lvl).eval env.loc = 0
+  rootPinned : ∀ i : Fin 8, (rootPinGate c i).eval env.loc = 0
 
-        <article class="card card-gold">
-          <div class="badge-row"><span class="badge badge-gold">Engine 4 · Policy &amp; Revocation</span><span class="badge">Depth-16 4-Ary SMT</span></div>
-          <h3>4. 4-Ary Sparse Merkle FactSet &amp; 120-Felt Capability Forest (`commit` + `FullForestAuth.lean`)</h3>
-          <p>
-            In <code>breadstuffs/commit/src/</code>, policy facts and revocation lists are stored in a depth-16 4-ary Poseidon2 Sparse Merkle Tree (`FactSet`) supporting compact membership and non-membership proofs (`BudgetProof`, `LastUseProof`).
-          </p>
-          <p>
-            In <code>metatheory/Dregg2/Exec/FullForestAuth.lean</code>, multi-hop capability delegation chains are authenticated inside the STARK circuit as a <strong>120-felt witness bundle</strong> (depth-12 forest), with <code>gateOK_revoked_fails</code> and <code>minidregg/Theory/AcceptedCellEffectWitness.lean:no_accepted_of_stalePreRoot</code> proving that revoked capabilities or stale pre-state roots cannot produce an accepted turn.
-          </p>
-          <div class="meta">Path: <code>breadstuffs/commit/</code> · <code>metatheory/Dregg2/Exec/FullForestAuth.lean</code></div>
-        </article>
-      </div>
+theorem heapLeafDigest_sound8 (S8 : Heap8Scheme)
+    (tf : TraceFamily) (c : CapOpenCols) (env : VmRowEnv)
+    (hChip : ChipTableSoundN (heapPermOut S8) (tf .poseidon2))
+    (hcore : HeapMembershipCore tf c env) :
+    groupVal env c.leafDigest = heapLeafDigest8 S8 (heapLeafTripleOf c env)
 
-      <details class="specimen-details" open>
-        <summary>Code Specimen: Position-Deriving MMR Receipt Verification &amp; Split-View Equivocation (`degg-research`)</summary>
-        <div class="details-body">
-<pre><code>// From degg-research/experiments/inclusion-availability/src/log.rs &amp; equivocation.rs
-pub fn verify_receipt(
-    receipt: &amp;InclusionReceipt,
-    record: &amp;AdmissionRecord,
-    trusted_verifying_key: &amp;[u8; 32],
-) -&gt; Result&lt;(), VerifyError&gt; {
-    // 1. Recompute canonical AdmissionRecord digest &amp; verify Ed25519 checkpoint signature
-    // 2. Walk MMR sibling steps; derive 0-based leaf position purely from path geometry
-    // 3. Bag peaks right-to-left (0x02 || right_acc || left_peak) and check root equality
+-- /Users/ember/dev/breadstuffs/metatheory/Dregg2/Circuit/Emit/HeapOpenEmit.lean:216-221
+theorem heapOpen_recompose8 (S8 : Heap8Scheme)
+    (tf : TraceFamily) (c : CapOpenCols) (env : VmRowEnv)
+    (hChip : ChipTableSoundN (heapPermOut S8) (tf .poseidon2))
+    (hcore : HeapMembershipCore tf c env) :
+    recomposeUp8 S8 (heapLeafDigest8 S8 (heapLeafTripleOf c env)) (pathOf8 c env DEPTH)
+      = groupVal env c.capRoot
+
+-- /Users/ember/dev/breadstuffs/metatheory/Dregg2/Circuit/Emit/HeapOpenEmit.lean:244-256
+theorem heapOpen_writesTo8 (S8 : Heap8Scheme)
+    (tf : TraceFamily) (cBefore cAfter : CapOpenCols) (env : VmRowEnv)
+    (hChip : ChipTableSoundN (heapPermOut S8) (tf .poseidon2))
+    (hBefore : HeapMembershipCore tf cBefore env)
+    (hAfter  : HeapMembershipCore tf cAfter env)
+    (hsib : cAfter.sib = cBefore.sib)
+    (hdir : cAfter.dir = cBefore.dir)
+    (hkey : (heapLeafTripleOf cAfter env).1 = (heapLeafTripleOf cBefore env).1)
+    (hnext : (heapLeafTripleOf cAfter env).2.2 = (heapLeafTripleOf cBefore env).2.2) :
+    Dregg2.Circuit.Emit.EffectVmEmitRotationV3.heapWritesTo8 S8
+        (groupVal env cBefore.capRoot)
+        ((heapLeafTripleOf cBefore env).1) ((heapLeafTripleOf cAfter env).2.1)
+        (groupVal env cAfter.capRoot)</code></pre></div><h4 id="pr-engines-2-gated-capability-call-forest-kernel-revocation-11">2. Gated Capability Call-Forest &amp; Kernel Revocation Teeth (<code>Dregg2/Exec/FullForestAuth.lean</code>)</h4><p>In <a href="https://github.com/emberian/breadstuffs/blob/main/metatheory/Dregg2/Exec/FullForestAuth.lean#L302-L520" target="_blank" rel="noopener" title="breadstuffs/metatheory/Dregg2/Exec/FullForestAuth.lean#L302-L520"><code>breadstuffs/metatheory/Dregg2/Exec/FullForestAuth.lean</code></a> (1,183 lines), Ember decorates the recursive multi-agent capability delegation forest (<code>FullForestG</code> / <code>FullChildG</code>) with <code>NodeAuthC</code> credentials, macaroon caveat chains, and a kernel-state revocation registry check (<code>revocationGate</code>, added in commit <code>1ee750724</code>, 2026-07-10). By defining the erasure projection <code>eraseG : FullForestG → FullForestA</code> and proving <code>forestEdgesG_eq_forestEdgesA_eraseG</code>, every per-asset conservation and no-capability-amplification theorem from <code>FullForestA</code> transfers without re-proof, while <code>gateOK_revoked_fails</code> proves that any credential whose nullifier is in <code>s.kernel.revoked</code> fail-closes the entire call forest:</p><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>-- /Users/ember/dev/breadstuffs/metatheory/Dregg2/Exec/FullForestAuth.lean:477-519
+def revocationGate (na : NodeAuthC ...) (s : RecChainedState) : Bool :=
+  !(s.kernel.revoked.contains na.credNul)
+
+def gateOK (na : NodeAuthC ...) (s : RecChainedState) : Bool :=
+  credentialValidG na &amp;&amp; capAuthorityG na &amp;&amp; caveatsDischarged na s &amp;&amp; revocationGate na s
+
+theorem gateOK_revoked_fails (na : NodeAuthC ...)
+    (s : RecChainedState) (hrev : s.kernel.revoked.contains na.credNul = true) :
+    gateOK na s = false := by
+  unfold gateOK revocationGate
+  rw [hrev]; simp
+
+def execFullAGated (s : RecChainedState) (na : NodeAuthC ...) (a : FullActionA) : Option RecChainedState :=
+  if gateOK na s = true then execFullA s a else none</code></pre></div><h4 id="pr-engines-3-minidregg-s-binarymerkle-lean-merklebindair-le-12">3. MiniDregg&#x27;s <code>BinaryMerkle.lean</code>, <code>MerkleBindAir.lean</code>, <code>AcceptedCellEffectWitness.lean</code>, and <code>AuthTrie.lean</code></h4><p>In <code>/Users/ember/dev/minidregg</code>, four Lean 4 modules form the verified Merkle and state-authentication backbone:</p><ol><li><strong><a href="https://github.com/emberian/minidregg/blob/main/Selvage/BinaryMerkle.lean#L257-L294" target="_blank" rel="noopener" title="minidregg/Selvage/BinaryMerkle.lean#L257-L294"><code>Selvage/BinaryMerkle.lean</code></a> (297 lines):</strong> Proves the deterministic binary Merkle opening reduction without axioms beyond core Lean—showing that two accepted openings for different values at the same index extract an explicit <code>LeafCollision</code> or <code>NodeCollision</code> witness (<code>accepted_different_values_imply_collision</code>, <code>positionEquivocation_implies_collision</code>, <code>positionBinding_of_collisionFree</code>):</li></ol><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>   -- /Users/ember/dev/minidregg/Selvage/BinaryMerkle.lean:257-293
+   theorem accepted_different_values_imply_collision
+       (k : Nat) (root : Digest) (index : Fin (2 ^ k))
+       (left right : Value) (leftProof rightProof : List Digest)
+       (leftAccepted : (openingScheme H k).verifyOpen root index left leftProof)
+       (rightAccepted : (openingScheme H k).verifyOpen root index right rightProof)
+       (different : left ≠ right) : Collision H
+
+   theorem positionBinding_of_collisionFree (k : Nat)
+       (hfree : ¬ Collision H) : (openingScheme H k).PositionBinding</code></pre></div><ol><li><strong><a href="https://github.com/emberian/minidregg/blob/main/Compiler/MerkleBindAir.lean#L161-L355" target="_blank" rel="noopener" title="minidregg/Compiler/MerkleBindAir.lean#L161-L355"><code>Compiler/MerkleBindAir.lean</code></a> (559 lines):</strong> Proves that the algebraic constraint system <code>openingBindingGadget</code> and the composed STARK verifier <code>fullVerifier</code> (welding Fiat-Shamir <code>FsBound</code>, <code>SumcheckVerifierAccepts</code>, <code>FriQueryAccepts</code>, and Merkle <code>OpeningsBound</code>) accept an assignment <code>asg</code> if and only if every opened value is a genuine <code>memberAtDepth</code> member of its committed root (<code>openingBinding_correct</code>, <code>openingBinding_teeth</code>, <code>openingBinding_member</code>, <code>fullVerifier_correct</code>, <code>fullVerifier_binds</code>):</li></ol><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>   -- /Users/ember/dev/minidregg/Compiler/MerkleBindAir.lean:314-328
+   theorem fullVerifier_correct [NeZero w] (asg : Idx → F) (spec : PermSpec F w)
+       (mspec : PermSpec F 2) (transcript : Fin s → Fin w → Idx) (challenge : Fin s → Idx)
+       (claimW scFinalW : Idx) (g0 g1 chal : Fin n → Idx)
+       (half : F) (friFinalW : Idx) (lo hi next beta tw twoX : Fin rounds → Idx)
+       (rootW openedW : Fin rounds → Idx) (paths : Fin rounds → List (Idx × Idx)) :
+       systemAccepts asg (fullVerifier spec mspec transcript challenge claimW scFinalW
+           g0 g1 chal half friFinalW lo hi next beta tw twoX rootW openedW paths) ↔
+         (FsBound spec (transcriptVals asg transcript) (fun k =&gt; asg (challenge k))
+           ∧ SumcheckVerifierAccepts (asg claimW) (asg scFinalW)
+               (fun i =&gt; asg (g0 i)) (fun i =&gt; asg (g1 i)) (fun i =&gt; asg (chal i))
+           ∧ FriQueryAccepts half (asg friFinalW)
+               (fun k =&gt; asg (lo k)) (fun k =&gt; asg (hi k)) (fun k =&gt; asg (next k))
+               (fun k =&gt; asg (beta k)) (fun k =&gt; asg (tw k)) (fun k =&gt; asg (twoX k))
+           ∧ OpeningsBound mspec (fun k =&gt; asg (rootW k)) (fun k =&gt; asg (openedW k))
+               (fun k =&gt; (paths k).map fun sd =&gt; (asg sd.1, asg sd.2)))</code></pre></div><ol><li><strong><a href="https://github.com/emberian/minidregg/blob/main/Theory/AcceptedCellEffectWitness.lean#L82-L261" target="_blank" rel="noopener" title="minidregg/Theory/AcceptedCellEffectWitness.lean#L82-L261"><code>Theory/AcceptedCellEffectWitness.lean</code></a> (453 lines):</strong> Proves both non-vacuity (<code>acceptedCellEffect_nonempty</code>, line 117) and construction-time type-level impossibility (<code>IsEmpty</code>) of <code>AcceptedCellEffect</code> whenever a request presents a mismatched effect digest or a stale pre-state Merkle root:</li></ol><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>   -- /Users/ember/dev/minidregg/Theory/AcceptedCellEffectWitness.lean:252-260
+   theorem no_accepted_of_wrongEffects :
+       IsEmpty (AcceptedCellEffect (portal := permissivePortal)
+         (authState := authState) family wrongEffectsRequest cell () ()) :=
+     ⟨fun token =&gt; wrongEffects_not_bound token.effectsDigestBound⟩
+
+   theorem no_accepted_of_stalePreRoot :
+       IsEmpty (AcceptedCellEffect (portal := permissivePortal)
+         (authState := authState) family stalePreRootRequest cell () ()) :=
+     ⟨fun token =&gt; stalePreRoot_not_bound token.preRootBound⟩</code></pre></div><ol><li><strong><a href="https://github.com/emberian/minidregg/blob/main/Theory/AuthTrie.lean#L51-L370" target="_blank" rel="noopener" title="minidregg/Theory/AuthTrie.lean#L51-L370"><code>Theory/AuthTrie.lean</code></a> (563 lines):</strong> Defines MiniDregg&#x27;s path-compressed authenticated key-value trie (<code>NodeIn</code>, <code>Terminal</code>, <code>tree</code>, <code>climb</code>, <code>Opening</code>, <code>verify</code>) and proves <code>climb_sound</code> (lines 252–257)—Crucially avoiding the vacuous fixed-width <code>∨ Collision dig</code> quantifier by bounding collisions to the finite set of nodes actually touched by the tree and the climb (<code>CollisionAmong dig (fun x =&gt; TreeNode dig n es x ∨ ClimbNode dig t bits siblings x)</code>):</li></ol><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>   -- /Users/ember/dev/minidregg/Theory/AuthTrie.lean:252-257
+   theorem climb_sound :
+       ∀ (n : Nat) (es : List (Entry K V)) (bits : List Bool) (siblings : List D) (t : Terminal K V),
+         WF n es → siblings.length ≤ bits.length → bits.length ≤ n →
+         climb dig bits siblings (dig t.input) = tree dig n es →
+         Reports t (select (bits.take siblings.length) es) ∨
+           CollisionAmong dig (fun x =&gt; TreeNode dig n es x ∨ ClimbNode dig t bits siblings x)</code></pre></div><hr/><hr/><h2 id="pr-engines-5-additional-verbatim-structural-verification-de-13">5. Additional Verbatim Structural &amp; Verification Definitions</h2><h3 id="pr-engines-5-1-sandstorm-bridge-src-lib-rs-sandstorm-spk-po-14">5.1 <code>sandstorm-bridge/src/lib.rs</code>: Sandstorm <code>.spk</code> Powerbox &amp; <code>/var</code> ↔ <code>Umem</code> Cell Bridge</h3><p>In <a href="https://github.com/emberian/breadstuffs/blob/main/sandstorm-bridge/src/lib.rs#L1-L85" target="_blank" rel="noopener" title="breadstuffs/sandstorm-bridge/src/lib.rs#L1-L85"><code>/Users/ember/dev/breadstuffs/sandstorm-bridge/src/lib.rs</code></a>, Ember maps Sandstorm.io&#x27;s object-capability grain model directly onto Dregg cells, <code>dga1_...</code> Ed25519 caveat-chain credentials (<code>webauth_rail.rs</code>), and <code>Umem</code> Merkleized <code>/var</code> heaps (<code>cell::DataRoot</code>, <code>cell::InclusionProof</code>, <code>cell::verify_inclusion</code>):</p><div class="code-block-wrap"><div class="code-header"><span>rust</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>// /Users/ember/dev/breadstuffs/sandstorm-bridge/src/lib.rs:52-77
+pub mod bridge;
+pub use sandstorm_package::capnp_wire;
+pub mod cell;
+pub mod grain;
+pub mod limits;
+pub mod manifest;
+pub mod net;
+pub use sandstorm_package::spk;
+pub mod tenant;
+pub mod webauth_rail;
+
+pub use bridge::{
+    fetch_ledger_root, heap_root_hex, served_root_message, verify_served_against_ledger,
+    AttestedServed, BridgedRequest, CellDetailResponse, GrainWorkload, HttpBridge, HttpRequest,
+    HttpResponse, LedgerFetchError, Method, NotesApp, RootAttestation, Served, Session,
+};
+pub use cell::{verify_inclusion, DataRoot, InclusionProof, Umem};
+pub use grain::{
+    grain_cell_commitment, publish_grain_root, restore_grain, verify_update_commitment_signature,
+    GrainBackup, GrainCell, GrainError, GrainReceipt, GrainSpec, GrainState, SandboxTier,
+    UpdateCommitmentRequest, IDLE_SHUTDOWN_SECS,
+};
+pub use limits::{LeaseError, ResourceKind, ResourceLease};
+pub use manifest::{AppId, SpkManifest};
+pub use net::{EgressDecision, NetworkPolicy, OutboundCap, OverlayExposure};</code></pre></div><p>And in <a href="https://github.com/emberian/breadstuffs/blob/main/sandstorm-bridge/src/webauth_rail.rs#L39-L175" target="_blank" rel="noopener" title="breadstuffs/sandstorm-bridge/src/webauth_rail.rs#L39-L175"><code>sandstorm-bridge/src/webauth_rail.rs</code></a> and <a href="https://github.com/emberian/breadstuffs/blob/main/sandstorm-bridge/src/limits.rs#L56-L165" target="_blank" rel="noopener" title="breadstuffs/sandstorm-bridge/src/limits.rs#L56-L165"><code>sandstorm-bridge/src/limits.rs</code></a>:</p><ul><li><code>HostAuthority::mint_grain_cap</code> (line 91), <code>attenuate_grain_cap</code> (line 141), and <code>derive_permissions</code> (line 168) derive the <code>X-Sandstorm-*</code> identity and permission headers directly from the holder&#x27;s attenuated Dregg capability token.</li><li><code>ResourceLease</code> (<code>bounded(uptime, cpu_ms, mem_bytes, storage_bytes)</code> at line 91; <code>charge_uptime</code> at line 117; <code>charge_cpu</code> at line 126; <code>observe_mem</code> at line 135; <code>admit_storage</code> at line 147) enforces L4 resource bounds per grain.</li></ul><hr/><h3 id="pr-engines-5-2-degg-research-experiments-inclusion-availabi-15">5.2 <code>degg-research/experiments/inclusion-availability/src/equivocation.rs</code>: Verbatim Slashable Equivocation Verifier</h3><p><a href="https://github.com/emberian/degg-research/blob/main/experiments/inclusion-availability/src/equivocation.rs#L219-L345" target="_blank" rel="noopener" title="degg-research/experiments/inclusion-availability/src/equivocation.rs#L219-L345"><code>/Users/ember/dev/degg-research/experiments/inclusion-availability/src/equivocation.rs</code></a> reduces any pair of conflicting sequencer/holder statements into a content-addressed <code>EquivocationVerdict</code> or a typed <code>EquivocationDefect</code>:</p><div class="code-block-wrap"><div class="code-header"><span>rust</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>// /Users/ember/dev/degg-research/experiments/inclusion-availability/src/equivocation.rs:237-339
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct EquivocationVerdict {
+    pub holder: HolderId,
+    pub domain_digest: [u8; 32],
+    pub class: &amp;&#x27;static str,
+    pub left_root: [u8; 32],
+    pub right_root: [u8; 32],
+    pub digest: [u8; 32],
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum EquivocationDefect {
+    Domain(DomainDefect),
+    DomainMismatch,
+    MalformedStatement,
+    DifferentHolders,
+    RootsIdentical,
+    NotSealed,
+    NotAck,
+    Receipt(ReceiptDefect),
+    NotSameSequence { left: u32, right: u32 },
+    RecordsIdentical,
+    NotSameNullifier,
+    SamePosition { seq: u32 },
+    Consistency(ProofDefect),
+    PrefixSizeMismatch { acknowledged: u64, proved: u64 },
+    PrefixAgrees,
 }
 
 pub fn verify_equivocation(
-    r1: &amp;InclusionReceipt,
-    r2: &amp;InclusionReceipt,
-    consistency_proof: Option&lt;&amp;ConsistencyProof&gt;,
-    trusted_key: &amp;[u8; 32],
-) -&gt; EquivocationVerdict {
-    // Catches split-view proxy attacks:
-    // - Same tree_size but distinct MMR roots signed by the proxy
-    // - Smaller tree_size is not a cryptographic prefix of larger tree_size
-}</code></pre>
-        </div>
-      </details>
-    </section>
+    proof: &amp;EquivocationProof,
+) -&gt; Result&lt;EquivocationVerdict, EquivocationDefect&gt; {
+    proof.domain.validate().map_err(EquivocationDefect::Domain)?;
+    let domain_digest = proof.domain.digest();
+    for statement in [&amp;proof.left, &amp;proof.right] {
+        if !statement.is_well_formed() {
+            return Err(EquivocationDefect::MalformedStatement);
+        }
+        if statement.domain_digest != domain_digest {
+            return Err(EquivocationDefect::DomainMismatch);
+        }
+    }
+    if proof.left.holder != proof.right.holder {
+        return Err(EquivocationDefect::DifferentHolders);
+    }
+    if proof.left.root == proof.right.root {
+        return Err(EquivocationDefect::RootsIdentical);
+    }
+    // Dispatches over Conflict::Roots, Conflict::Sequence, Conflict::Nullifier, Conflict::Prefix ...</code></pre></div></div></div></section>
+    <section id="tab-gateways" class="tab-panel" role="tabpanel"><div class="doc-layout"><aside class="doc-toc" aria-label="Section table of contents"><div class="doc-toc-title">On This Tab (7 Sections)</div><ul><li><a href="#pr-gateways-executive-architecture-overview-2">Executive Architecture Overview</a></li><li><a href="#pr-gateways-1-agent-tool-call-acp-keyless-byok-intercepting--3">1. Agent Tool-Call, ACP &amp; Keyless BYOK Intercepting Proxies</a></li><li class="toc-h3"><a href="#pr-gateways-1-1-dregg-sdk-toolgateway-the-lean-4-export-dreg-4">1.1 <code>dregg_sdk::ToolGateway</code> &amp; the Lean 4 <code>@[export dregg_deleg_admit]</code> C-ABI Bridge</a></li><li class="toc-h3"><a href="#pr-gateways-1-2-deos-hermes-dreggnet-hermes-confining-nous-r-8">1.2 <code>deos-hermes</code> &amp; <code>dreggnet-hermes</code>: Confining Nous Research&#x27;s Hermes Agent over ACP + MPC-TLS/STARK <code>ZkOracleAttestation</code></a></li><li class="toc-h3"><a href="#pr-gateways-1-3-agent-platform-post-grains-id-act-demo-keyle-12">1.3 <code>agent-platform</code> (<code>POST /grains/:id/act</code>) &amp; <code>demo/keyless-grain-proxy.py</code></a></li><li class="toc-h3"><a href="#pr-gateways-1-4-minidregg-s-oracle-appliance-mini-keys-so-pe-13">1.4 MiniDregg&#x27;s <code>oracle-appliance</code> &amp; <code>mini-keys</code> (<code>SO_PEERCRED</code> Broker for <code>CLONE_NEWNET</code> Sandboxes)</a></li><li class="toc-h3"><a href="#pr-gateways-1-5-secs-magik-users-ember-zenith-secs-daemon-fr-14">1.5 <code>secS-magik</code> (<code>/Users/ember/zenith/secS-daemon</code>): From <code>ZenithPacket v0</code> to <code>VerifiedCallContext</code> and Chained SQLite <code>Receipt</code>s</a></li></ul></aside><div class="doc-prose"><div class="callout" style="margin-top:0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"><div><div class="callout-title">Dossier 02 (§0–§1) · Tool-Call, ACP &amp; Keyless BYOK Intercepting Proxies (`ToolGateway`, `deos-hermes`, `mini-keys`, `secS-magik`)</div><div>Complete primary-source monograph rendered inline below, with verbatim theorem statements, code blocks, git commit tables, and <code>cv</code> session transcripts.</div></div><div style="display:flex;gap:8px;"><a class="btn btn-primary" href="https://github.com/emberian/whatember/blob/main/sources/02-merkle-agent-proxies-and-dataplanes.md" target="_blank" rel="noopener">View on GitHub ↗</a><a class="btn btn-ghost" style="color:var(--ink);border-color:var(--line);" href="sources/02-merkle-agent-proxies-and-dataplanes.md" target="_blank">Raw Markdown ↗</a></div></div><h2 id="pr-gateways-dossier-02-merkle-agent-proxies-capability-gatew-1">Dossier 02: Merkle Agent Proxies, Capability Gateways, and Formally Verified HTTP/Proxy Dataplanes</h2><blockquote><p><strong>Scope &amp; Primary-Source Grounding:</strong> This dossier provides a source-locked technical archaeology of Ember&#x27;s intercepting agent proxies, capability-gated tool/LLM gateways, Merkleized state/history/availability engines, and formally verified HTTP/proxy dataplanes across <code>/Users/ember/dev/breadstuffs</code>, <code>/Users/ember/dev/minidregg</code>, <code>/Users/ember/dev/degg-research</code>, <code>/Users/ember/dev/DreggNet</code>, <code>/Users/ember/dev/dregg-serve-spec</code>, <code>/Users/ember/dev/dreggnet-engine</code>, and <code>/Users/ember/zenith/secS-daemon</code>. Every architectural claim is anchored to exact file paths, 1-indexed line numbers, verbatim Rust/Python/Lean 4/HOL4 declarations, git commit SHAs, and <code>cv</code> session transcripts.</p></blockquote><hr/><h2 id="pr-gateways-executive-architecture-overview-2">Executive Architecture Overview</h2><p>Across the Dregg, MiniDregg, Dark Egg Research (<code>degg-research</code>), DreggNet, Orb, and <code>secS-magik</code> repositories, Ember&#x27;s agent infrastructure treats <strong>every external side effect—whether a local filesystem edit, a subprocess invocation, an outbound HTTP fetch, or an LLM inference call—as a capability-gated, metered, and cryptographically receipted state transition over a Merkleized substrate</strong>:</p><pre class="mermaid">flowchart TD
+    subgraph AgentLoops[&quot;Untrusted / Confined Agent Loops&quot;]
+        Hermes[&quot;Nous Hermes Agent (ACP JSON-RPC)&quot;]
+        BrowserBYOK[&quot;Browser BYOK / Keyless Bedrock Proxy (:8904)&quot;]
+        SandboxNetless[&quot;CLONE_NEWNET Sandbox (UID/GID Peer)&quot;]
+        SecSClient[&quot;secS-magik Client (ZenithPacket v0)&quot;]
+    end
 
-    <!-- TAB 3B: TOOL-CALL, ACP & KEYLESS BYOK PROXIES -->
-    <section id="tab-gateways" class="tab-panel" role="tabpanel">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">03B · Capability &amp; Keyless Gateways</div>
-          <h2>Intercepting Tool Gateways, ACP Confinement &amp; Keyless BYOK Proxies</h2>
-        </div>
-        <div>
-          <p>
-            When an autonomous agent calls external tools or upstream LLM APIs (Anthropic, OpenAI, AWS Bedrock), the proxy must enforce two invariants: (1) the agent can only invoke tools authorized by an attenuated capability chain, and (2) <strong>the agent never holds raw API keys in its own memory space</strong>.
-          </p>
-        </div>
-      </div>
+    subgraph Gateways[&quot;Intercepting Gateways &amp; Admission Seams&quot;]
+        DeosHermes[&quot;deos-hermes::HermesGateway / AcpClient&quot;]
+        AgentPlat[&quot;agent-platform POST /grains/:id/act&quot;]
+        MiniKeys[&quot;mini-keys SO_PEERCRED Unix Broker&quot;]
+        SecSDaemon[&quot;secS-daemon Manifest + Ed25519 Verifier&quot;]
+        ToolGw[&quot;dregg_sdk::ToolGateway (invoke / enqueue)&quot;]
+        LeanFFI[&quot;@[export dregg_deleg_admit] Lean 4 Admission&quot;]
+    end
 
-      <div class="grid-3">
-        <article class="card card-accent">
-          <div class="badge-row"><span class="badge">C-ABI Lean Gate</span><span class="badge badge-emerald">`DelegAdmit.lean`</span></div>
-          <h3>`sdk::tool_gateway` &amp; `dregg_deleg_admit`</h3>
-          <p>
-            In <code>breadstuffs/sdk/src/tool_gateway.rs</code>, every tool call (`invoke` or non-blocking routed promise `enqueue`/`resolve`) passes through <code>@[export dregg_deleg_admit]</code> compiled directly from <code>metatheory/Dregg2/Apps/DelegAdmit.lean</code>—replacing handwritten Rust boolean checks with a Lean-verified 6-way capability attenuation check and monotonic call counter (`CALLS_MADE_SLOT`).
-          </p>
-        </article>
+    subgraph MerkleSubstrate[&quot;Merkleized State, History &amp; Availability Engines&quot;]
+        GrainTurn[&quot;grain-turn::ToolGatewayMinter\nSlots: HISTORY_ROOT=3, CONSUMED=5, HEAP_ROOT=6, ACTION=7, ATTESTATION=8&quot;]
+        CellHeap[&quot;dregg-cell Poseidon2 IMT / 4-ary SMT\nHeapOpenEmit.lean + FullForestAuth.lean&quot;]
+        AuthTrie[&quot;minidregg Theory/AuthTrie.lean\nAcceptedCellEffectWitness.lean&quot;]
+        InclusionMMR[&quot;degg-research inclusion-availability\nPosition-Deriving MMR + 10-Step AdmissionLog&quot;]
+    end
 
-        <article class="card card-emerald">
-          <div class="badge-row"><span class="badge badge-emerald">ACP Proxy</span><span class="badge">`deos-hermes`</span></div>
-          <h3>`deos-hermes` &amp; `dreggnet-hermes` ACP Gateway</h3>
-          <p>
-            Intercepts Agent Communication Protocol (`ACP`) tool calls (`ToolKind`, `ToolCallRequest`), binding every permission outcome (`PermissionOutcome`) to an 8-lane Poseidon2 `attestation_commitment` over the `ZkOracleAttestation` and hardware `TeeFactVerifier`.
-          </p>
-        </article>
+    subgraph VerifiedDataplane[&quot;Formally Verified HTTP/Proxy Dataplane&quot;]
+        Orb[&quot;breadstuffs/orb Lean 4 Proxy &amp; Reactor\nForwardProxyCorrect / ProxyBreakerCorrect / ProxyHealthCorrect&quot;]
+        ServeSpec[&quot;dregg-serve-spec/ServeSpec.lean&quot;]
+        OrbCompiler[&quot;orb-compiler/Pancake/ServeExportServes.lean&quot;]
+        HolArena[&quot;dreggnet-engine/model/dreggnetArenaScript.sml (HOL4)&quot;]
+    end
 
-        <article class="card card-navy">
-          <div class="badge-row"><span class="badge badge-navy">Keyless BYOK</span><span class="badge badge-gold">`SO_PEERCRED`</span></div>
-          <h3>`mini-keys`, `oracle-llm-proxy` &amp; `keyless-grain-proxy.py`</h3>
-          <p>
-            In <code>minidregg/native/mini-keys/src/</code>, the proxy authenticates local agent processes via kernel `SO_PEERCRED` / `getpeereid` (`peer.rs`), checks `POLLIN` lease liveness (`caller_gone`), and injects encrypted BYOK credentials only inside the outbound TLS socket—proving `NoKeyMaterialInGrainMemory`.
-          </p>
-        </article>
-      </div>
-    </section>
+    Hermes --&gt; DeosHermes --&gt; ToolGw
+    BrowserBYOK --&gt; AgentPlat --&gt; GrainTurn --&gt; ToolGw
+    SandboxNetless --&gt; MiniKeys
+    SecSClient --&gt; SecSDaemon
+    ToolGw --&gt; LeanFFI
+    ToolGw --&gt; CellHeap
+    GrainTurn --&gt; CellHeap
+    Orb --&gt; ServeSpec
+    OrbCompiler --&gt; ServeSpec
+    Orb --&gt; HolArena</pre><ol><li><strong>Dual-Surface Mandate Enforcement (<code>ToolGateway</code> + <code>Dregg2.Apps.DelegAdmit</code>):</strong> Inbound agent tool calls are intercepted before execution. Rather than trusting a hand-written Rust policy mirror, <a href="https://github.com/emberian/breadstuffs/blob/main/sdk/src/tool_gateway.rs#L241-L253" target="_blank" rel="noopener" title="breadstuffs/sdk/src/tool_gateway.rs#L241-L253"><code>sdk/src/tool_gateway.rs</code></a> marshals every invocation across the C-ABI boundary into the Lean 4 decision procedure <code>Dregg2.Apps.DelegAdmit.delegAdmit</code> (<code>@[export dregg_deleg_admit]</code> in <a href="https://github.com/emberian/breadstuffs/blob/main/metatheory/Dregg2/Apps/DelegAdmit.lean#L67-L73" target="_blank" rel="noopener" title="breadstuffs/metatheory/Dregg2/Apps/DelegAdmit.lean#L67-L73"><code>metatheory/Dregg2/Apps/DelegAdmit.lean</code></a>), checking <code>SCOPE ∧ DEADLINE ∧ STEP ∧ SANE ∧ RATE</code>. Simultaneously, the worker cell carries an on-ledger <code>mandate_program</code> enforcing <code>StateConstraint::FieldLte</code> and <code>StateConstraint::Monotonic</code> on <code>CALLS_MADE_SLOT</code>, preventing rollback or rate-ceiling bypass even if a caller circumvents the in-band gateway check.</li><li><strong>Keyless &amp; Networkless Credential Isolation (<code>agent-platform</code>, <code>mini-keys</code>, <code>deos-hermes</code>):</strong> Agent sandboxes never hold raw upstream API keys. In <code>agent-platform</code> (<a href="https://github.com/emberian/breadstuffs/blob/main/agent-platform/src/serve.rs#L659-L733" target="_blank" rel="noopener" title="breadstuffs/agent-platform/src/serve.rs#L659-L733"><code>agent-platform/src/serve.rs</code></a>) and <a href="https://github.com/emberian/breadstuffs/blob/main/demo/keyless-grain-proxy.py#L1-L78" target="_blank" rel="noopener" title="breadstuffs/demo/keyless-grain-proxy.py#L1-L78"><code>demo/keyless-grain-proxy.py</code></a>, the LLM brain proposes tool calls from outside the sandbox while <code>POST /act</code> cap-gates, meters, executes, and returns both the <code>AgentReceipt</code> (<code>cell_root</code>) and the observation summary (<code>tool_summary</code> + <code>outcome</code>). In MiniDregg&#x27;s <a href="https://github.com/emberian/minidregg/blob/main/native/mini-keys/src/peer.rs#L15-L49" target="_blank" rel="noopener" title="minidregg/native/mini-keys/src/peer.rs#L15-L49"><code>native/mini-keys</code></a>, agents run inside <code>CLONE_NEWNET</code> networkless namespaces and talk to a local Unix socket broker that authenticates caller identity via kernel <code>SO_PEERCRED</code> (<code>getsockopt(fd, SOL_SOCKET, SO_PEERCRED, ...)</code> on Linux / <code>getpeereid</code> on macOS/BSD), authorizes per-epoch grants (<code>provider-authorize</code>), writes a durable ticket bound to the exact request body digest, and forwards a single POST (<code>provider-forward</code>) while polling <code>caller_gone</code> (<code>POLLIN</code>) to abort immediately on lease revocation.</li><li><strong>Per-Grain State, Heap, Attestation, and MMR History Welding (<code>grain-turn</code>):</strong> <a href="https://github.com/emberian/breadstuffs/blob/main/grain-turn/src/lib.rs#L103-L275" target="_blank" rel="noopener" title="breadstuffs/grain-turn/src/lib.rs#L103-L275"><code>grain-turn/src/lib.rs</code></a> welds five distinct commitments into the 32-byte field slots of a single grain worker cell on every turn: <code>CALLS_MADE_SLOT</code> (rate counter), <code>HISTORY_ROOT_SLOT = 3</code> (Blake3 MMR root over prior <code>dregg-receipt-v5</code> turn receipt hashes), <code>CONSUMED_SLOT = 5</code> (cumulative meter spend), <code>HEAP_ROOT_SLOT = 6</code> (the grain&#x27;s key-value <code>VarTree</code> / heap root), <code>ACTION_SLOT = 7</code> (domain-separated <code>dregg-grain-action-commit-v1</code> action commitment), and <code>ATTESTATION_SLOT = 8</code> (the 8-lane <code>ZkOracleAttestation</code> MPC-TLS + STARK DFA injection-freedom commitment).</li><li><strong>Formally Verified HTTP/Proxy Dataplane (<code>orb</code>, <code>dregg-serve-spec</code>, <code>orb-compiler</code>, <code>dreggnet-engine</code>):</strong> At the network edge, <a href="https://github.com/emberian/breadstuffs/blob/main/orb/Dataplane.lean#L1-L70" target="_blank" rel="noopener" title="breadstuffs/orb/Dataplane.lean#L1-L70"><code>breadstuffs/orb</code></a> implements a full HTTP/1.1, HTTP/2, HTTP/3, WebSocket, gRPC-Web, Forward Proxy (<code>CONNECT</code>), and CapTP reverse proxy in Lean 4, exported via <code>@[export drorb_serve]</code> to a native Rust socket reactor. Its admission control (<code>ForwardProxyCorrect.lean</code>), circuit breaker (<code>ProxyBreakerCorrect.lean</code>), and HAProxy-style <code>rise</code>/<code>fall</code> active health checks (<code>ProxyHealthCorrect.lean</code>) are proven by refinement against independent state machines with explicit non-vacuity counter-theorems. Meanwhile, <a href="https://github.com/emberian/breadstuffs/blob/main/orb-compiler/Pancake/ServeExportServes.lean#L362-L586" target="_blank" rel="noopener" title="breadstuffs/orb-compiler/Pancake/ServeExportServes.lean#L362-L586"><code>orb-compiler/Pancake/ServeExportServes.lean</code></a> proves that the lowered Pancake systems-language codegen (<code>serveExport</code>) satisfies <code>PancakeSem</code> and writes the exact <code>ServeSpec.serialize</code> bytes into word-addressed memory, and <span class="src-loc" title="dreggnet-engine/model/dreggnetArenaScript.sml#L36-L138"><code>dreggnet-engine/model/dreggnetArenaScript.sml</code></span> proves in HOL4 that the zero-copy arena + <code>SIDECAR_BASE = 2^31</code> mutation buffer resolver is total and length-exact.</li></ol><hr/><h2 id="pr-gateways-1-agent-tool-call-acp-keyless-byok-intercepting--3">1. Agent Tool-Call, ACP &amp; Keyless BYOK Intercepting Proxies</h2><h3 id="pr-gateways-1-1-dregg-sdk-toolgateway-the-lean-4-export-dreg-4">1.1 <code>dregg_sdk::ToolGateway</code> &amp; the Lean 4 <code>@[export dregg_deleg_admit]</code> C-ABI Bridge</h3><p>The foundational primitive for confining tool-calling agents in <code>breadstuffs</code> is <a href="https://github.com/emberian/breadstuffs/blob/main/sdk/src/tool_gateway.rs#L1-L625" target="_blank" rel="noopener" title="breadstuffs/sdk/src/tool_gateway.rs#L1-L625"><code>sdk/src/tool_gateway.rs</code></a> (1,626 lines). Rather than embedding ad-hoc policy checks inside an agent harness, <code>ToolGateway</code> turns every inbound tool call into a capability-gated, metered, and optionally priced (<code>Effect::Transfer</code>) turn on the verified Dregg executor.</p><h4 id="pr-gateways-mandate-parameters-toolgrant-and-charge-5">Mandate Parameters: <code>ToolGrant</code> and <code>Charge</code></h4><p>At delegation time, the grantor pins both a rate/scope/deadline mandate (<code>ToolGrant</code>, lines 120–130) and an optional per-call market price (<code>Charge</code>, lines 164–173):</p><div class="code-block-wrap"><div class="code-header"><span>rust</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>// /Users/ember/dev/breadstuffs/sdk/src/tool_gateway.rs:120-130
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ToolGrant {
+    /// The single allowlisted tool / MCP id (the SCOPE, in-band face).
+    pub tool_id: i64,
+    /// The granted invocation ceiling `N` (the RATE).
+    pub rate_limit: i64,
+    /// The expiry height/clock (the DEADLINE).
+    pub deadline: i64,
+    /// The executor method verb the worker&#x27;s credential is scoped to (the
+    /// SCOPE&#x27;s executor face).
+    pub tool_method: String,
+}
 
-    <!-- TAB 3C: ZKORACLE OUTBOUND HTTPS PROXY -->
-    <section id="tab-zkoracle" class="tab-panel" role="tabpanel">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">03C · Verifiable External I/O</div>
-          <h2>`zkoracle-live`: TLSNotary MPC-TLS Welded to Dyck JSON &amp; DFA STARKs</h2>
-        </div>
-        <div>
-          <p>
-            What happens when an agent proxies an outbound HTTPS call to an external API (`api.anthropic.com`, `bedrock-runtime`, or a financial data feed) and needs to prove to a downstream counterparty that the response came from that exact TLS origin and satisfied a structural JSON policy—without revealing the API key or redacted fields?
-          </p>
-        </div>
-      </div>
+// /Users/ember/dev/breadstuffs/sdk/src/tool_gateway.rs:164-173
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Charge {
+    /// The per-call price the provider charges (moved consumer → provider).
+    pub price: u64,
+    /// The provider cell that receives each call&#x27;s payment (agent B).
+    pub provider: CellId,
+    /// The consumer&#x27;s total spend allowance under this mandate: cumulative
+    /// `spent` may never exceed this (the VALUE budget, the money analogue of the
+    /// grant&#x27;s rate ceiling).
+    pub budget: u64,
+}</code></pre></div><h4 id="pr-gateways-eliminating-the-byte-faithful-rust-mirror-dregg--6">Eliminating the &quot;Byte-Faithful Rust Mirror&quot;: <code>dregg_deleg_admit</code></h4><p>Historically, <code>sdk/src/tool_gateway.rs</code>, <code>starbridge-apps/tool-access-delegation/src/lib.rs</code>, and <code>dreggnet-offerings/src/session.rs</code> each maintained a five-conjunct <code>&amp;&amp;</code> expression in Rust described as a &quot;byte-faithful Rust mirror&quot; of the Lean specification. Ember deleted all three mirrors and replaced them with a direct C-ABI FFI call into Lean 4 (<code>@[export dregg_deleg_admit]</code>), documented in <a href="https://github.com/emberian/breadstuffs/blob/main/metatheory/Dregg2/Apps/DelegAdmit.lean#L12-L23" target="_blank" rel="noopener" title="breadstuffs/metatheory/Dregg2/Apps/DelegAdmit.lean#L12-L23"><code>metatheory/Dregg2/Apps/DelegAdmit.lean</code></a>:</p><blockquote><p><em>&quot;That <code>delegAdmit</code> was a plain <code>def</code> — not <code>@[export]</code>ed — so THREE hand-maintained Rust re-implementations of the same five-conjunct decision shipped alongside it (<code>sdk/src/tool_gateway.rs</code>, <code>starbridge-apps/tool-access-delegation/src/lib.rs</code>, <code>dreggnet-offerings/src/session.rs</code>). Each was &#x27;the byte-faithful Rust mirror&#x27;; none of them was the decision. A Rust mirror plus a differential test is NOT a verified implementation — there is no formal semantics of Rust, so a case-test proves nothing about all inputs. This module is where <code>Grant</code> and <code>delegAdmit</code> now LIVE, and it is <code>@[export dregg_deleg_admit]</code>-ed so Rust CALLS it.&quot;</em></p></blockquote><p>The Lean 4 definition in <a href="https://github.com/emberian/breadstuffs/blob/main/metatheory/Dregg2/Apps/DelegAdmit.lean#L52-L73" target="_blank" rel="noopener" title="breadstuffs/metatheory/Dregg2/Apps/DelegAdmit.lean#L52-L73"><code>metatheory/Dregg2/Apps/DelegAdmit.lean</code></a> imports nothing beyond core <code>Init</code> (so <code>leanc</code>-emitted C code links into <code>libdregg_lean.a</code> without dragging Mathlib initializers into the FFI binary):</p><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>-- /Users/ember/dev/breadstuffs/metatheory/Dregg2/Apps/DelegAdmit.lean:52-73
+structure Grant where
+  /-- The single allowlisted tool / MCP id the worker is scoped to (the SCOPE). -/
+  toolId    : Int
+  /-- The granted invocation ceiling N: at most N tool calls under this mandate (the RATE). -/
+  rateLimit : Int
+  /-- The expiry height/clock: invocations presented at `now &gt; deadline` are refused (the DEADLINE). -/
+  deadline  : Int
+  deriving Repr, DecidableEq
 
-      <div class="grid-2">
-        <article class="card card-accent">
-          <div class="badge-row"><span class="badge">MPC-TLS + STARK</span><span class="badge badge-emerald">`zkoracle-live`</span></div>
-          <h3>2-PC Garbled-Circuit AES-GCM + Selective Redaction</h3>
-          <p>
-            In <code>breadstuffs/crates/zkoracle-live</code>, the proxy runs a 2-party TLSNotary session where the verifier holds a garbled-circuit share of the TLS 1.3 AES-GCM session key. The HTTP Authorization header is zeroed in the committed transcript while the response body is committed into an 8-lane Poseidon2 sponge.
-          </p>
-        </article>
+def delegAdmit (g : Grant) (now tool : Int) (old new : Int) : Bool :=
+  decide (tool = g.toolId)            -- SCOPE: the presented tool is the allowlisted one
+    &amp;&amp; decide (now ≤ g.deadline)      -- DEADLINE: still within the granted window
+    &amp;&amp; decide (new = old + 1)         -- single-step increment (a genuine one-call advance)
+    &amp;&amp; decide (0 ≤ old)               -- sane prior count
+    &amp;&amp; decide (new ≤ g.rateLimit)     -- RATE: the new count does not exceed the granted ceiling</code></pre></div><p>Over the C-ABI wire, <code>dregg_deleg_admit</code> accepts a single-line space-separated string of seven signed decimal integers (<code>toolId rateLimit deadline now tool old new</code>) and returns <code>&quot;1&quot;</code> (ADMIT), <code>&quot;0&quot;</code> (REFUSE), or <code>&quot;&quot;</code> (malformed wire, which Rust maps to <code>Err</code> and fail-closes as <code>GatewayRefusal::OracleUnavailable</code>). On the Rust side (<a href="https://github.com/emberian/breadstuffs/blob/main/sdk/src/tool_gateway.rs#L241-L282" target="_blank" rel="noopener" title="breadstuffs/sdk/src/tool_gateway.rs#L241-L282"><code>sdk/src/tool_gateway.rs</code></a>):</p><div class="code-block-wrap"><div class="code-header"><span>rust</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>// /Users/ember/dev/breadstuffs/sdk/src/tool_gateway.rs:241-253
+pub fn deleg_admit(g: &amp;ToolGrant, now: i64, tool: i64, old: i64, new: i64) -&gt; Result&lt;bool, String&gt; {
+    dregg_lean_ffi::deleg_admit(
+        dregg_lean_ffi::DelegGrant {
+            tool_id: g.tool_id,
+            rate_limit: g.rate_limit,
+            deadline: g.deadline,
+        },
+        now,
+        tool,
+        old,
+        new,
+    )
+}
 
-        <article class="card card-navy">
-          <div class="badge-row"><span class="badge badge-navy">Welded Automaton</span><span class="badge badge-gold">`AttestedAutomatonWeld8.lean`</span></div>
-          <h3>Zero-Extra-Column JSON &amp; Policy Welding</h3>
-          <p>
-            Rather than hashing the TLS transcript in one circuit and re-parsing JSON in another, <code>AttestedAutomatonWeld8.lean</code> welds the Dyck JSON / DFA state transition directly into the rate-8 Poseidon2 absorption row—binding the TLS notary signature, the Poseidon2 transcript digest, and the JSON schema/policy verdict into a single `ATTESTATION_SLOT = 8` commitment.
-          </p>
-        </article>
-      </div>
-    </section>
+// /Users/ember/dev/breadstuffs/sdk/src/tool_gateway.rs:269-282
+pub fn mandate_program(rate_limit: i64) -&gt; CellProgram {
+    let ceiling = if rate_limit &lt; 0 { 0 } else { rate_limit as u64 };
+    CellProgram::Predicate(vec![
+        // RATE: the post-state counter never exceeds the granted ceiling.
+        StateConstraint::FieldLte {
+            index: CALLS_MADE_SLOT,
+            value: field_from_u64(ceiling),
+        },
+        // NO ROLLBACK: the counter can never decrease (no forged head-room).
+        StateConstraint::Monotonic {
+            index: CALLS_MADE_SLOT,
+        },
+    ])
+}</code></pre></div><h4 id="pr-gateways-synchronous-gate-invoke-vs-asynchronous-promise--7">Synchronous Gate (<code>invoke</code>) vs. Asynchronous Promise Dataplane (<code>enqueue</code> / <code>drive_executor</code> / <code>resolve</code>)</h4><p><code>ToolGateway</code> (<a href="https://github.com/emberian/breadstuffs/blob/main/sdk/src/tool_gateway.rs#L519-L563" target="_blank" rel="noopener" title="breadstuffs/sdk/src/tool_gateway.rs#L519-L563"><code>sdk/src/tool_gateway.rs</code></a>) operates as both a synchronous admission gate (<code>ToolGateway::invoke</code>) and an asynchronous capability-routed dataplane (<code>ToolGateway::enqueue</code> → <code>ToolGateway::drive_executor</code> → <code>ToolGateway::resolve</code>):</p><div class="code-block-wrap"><div class="code-header"><span>rust</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>// /Users/ember/dev/breadstuffs/sdk/src/tool_gateway.rs:519-563
+pub struct ToolGateway {
+    grant: ToolGrant,
+    charge: Option&lt;Charge&gt;,
+    spent: u64,
+    consumer_asset: AssetId,
+    worker: SubAgent,
+    worker_cell: CellId,
+    calls_made: i64,
+    inbox: VecDeque&lt;RoutedWork&gt;,
+    pending: PendingTurnRegistry,
+    results: std::collections::HashMap&lt;[u8; 32], Result&lt;RoutedResult, String&gt;&gt;,
+}</code></pre></div><p>When <code>enqueue</code> is called, it runs <code>deleg_admit</code> immediately and <strong>reserves</strong> the counter slot (<code>calls_made: old → old + 1</code>) and budget (<code>spent + price &lt;= budget</code>) at enqueue time so two concurrent calls cannot pass the rate gate against the same <code>old</code> value. It returns a non-blocking <code>RoutedHandle</code> (<code>routed_hash: [u8; 32]</code>, <code>tool: i64</code>, <code>enqueued_at: i64</code>, lines 463–470) backed by <code>dregg_turn::PendingTurnRegistry</code>. When the execution environment drains the queue via <code>drive_executor</code>, it commits the metered turn on the worker cell and emits both a <code>ToolReceipt</code> (<code>receipt: TurnReceipt</code>, <code>calls_made: i64</code>, <code>remaining: i64</code>, <code>paid: u64</code>, lines 383–395) and a custody-receipt-shaped <code>DeliveryReceipt</code> (<code>routed_hash: [u8; 32]</code>, <code>executor_cell: CellId</code>, <code>enqueued_at: i64</code>, <code>delivered_at: i64</code>, lines 419–428). If the route breaks, the reserved counter slot and budget are released.</p><hr/><h3 id="pr-gateways-1-2-deos-hermes-dreggnet-hermes-confining-nous-r-8">1.2 <code>deos-hermes</code> &amp; <code>dreggnet-hermes</code>: Confining Nous Research&#x27;s Hermes Agent over ACP + MPC-TLS/STARK <code>ZkOracleAttestation</code></h3><p>In <a href="https://github.com/emberian/breadstuffs/blob/main/deos-hermes/src/lib.rs#L1-L90" target="_blank" rel="noopener" title="breadstuffs/deos-hermes/src/lib.rs#L1-L90"><code>deos-hermes/src/lib.rs</code></a>, Ember integrates Nous Research&#x27;s self-improving Hermes agent (<code>~/pug/hermes-agent</code>) into Dregg over the <strong>Agent Client Protocol (ACP)</strong> (ndjson JSON-RPC). Every <code>session/request_permission</code> emitted by Hermes is intercepted by <code>deos-hermes</code> and routed through a per-kind or per-tool <code>ToolGateway</code>.</p><h4 id="pr-gateways-acp-tool-classification-and-permission-outcomes--9">ACP Tool Classification and Permission Outcomes (<code>deos-hermes/src/acp.rs</code>)</h4><p><a href="https://github.com/emberian/breadstuffs/blob/main/deos-hermes/src/acp.rs#L36-L149" target="_blank" rel="noopener" title="breadstuffs/deos-hermes/src/acp.rs#L36-L149"><code>deos-hermes/src/acp.rs</code></a> defines a byte-faithful mapping from Hermes&#x27;s Python <code>acp_adapter/tools.py::TOOL_KIND_MAP</code> into six confinement classes, defaulting unknown tools to <code>ToolKind::Other</code> (the most restricted class):</p><div class="code-block-wrap"><div class="code-header"><span>rust</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>// /Users/ember/dev/breadstuffs/deos-hermes/src/acp.rs:36-68
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(rename_all = &quot;snake_case&quot;)]
+pub enum ToolKind {
+    Read,    // read_file, skill_view, skills_list, browser_snapshot, browser_vision, ...
+    Edit,    // write_file, patch, skill_manage, create_card, edit_card
+    Execute, // terminal, process, execute_code, browser_click, delegate_task, ...
+    Fetch,   // web_search, web_extract, browser_navigate
+    Search,  // search_files
+    Other,   // default fail-safe confinement class
+}</code></pre></div><p>Inbound calls arrive as <code>ToolCallRequest { session_id, tool_call_id, name, kind, arguments }</code> (lines 77–89). When <code>HermesGateway::admit_call</code> invokes the underlying <code>ToolGateway</code>, it maps the result into an extended ACP <code>PermissionOutcome</code> (lines 123–149):</p><ul><li><code>PermissionOutcome::Allow { tool_call_id, receipt, remaining, paid }</code> — maps to ACP <code>allow_once</code> on the wire while attaching the committed Dregg <code>TurnReceipt</code> hash, remaining rate calls, and conserved payment <code>paid</code>.</li><li><code>PermissionOutcome::Reject { tool_call_id, reason }</code> — maps to ACP <code>deny</code> on the wire while feeding the exact <code>GatewayRefusal</code> leg (<code>OutOfScope</code>, <code>PastDeadline</code>, <code>OverRate</code>, <code>OverBudget</code>, <code>OracleUnavailable</code>) back into Hermes&#x27;s trajectory so the reactive <code>LlmBrain</code> (<code>LocalBrain</code> or <code>HttpLlm</code>) observes why its action was refused and adapts.</li></ul><h4 id="pr-gateways-cryptographic-brain-attestation-deos-hermes-src--10">Cryptographic Brain Attestation (<code>deos-hermes/src/attest.rs</code> &amp; <code>tee_fact.rs</code>)</h4><p>To prove that the confined agent&#x27;s decisions came from an authentic upstream LLM response that was also free of prompt-injection payloads, <a href="https://github.com/emberian/breadstuffs/blob/main/deos-hermes/src/attest.rs#L92-L145" target="_blank" rel="noopener" title="breadstuffs/deos-hermes/src/attest.rs#L92-L145"><code>deos-hermes/src/attest.rs</code></a> computes a domain-separated BLAKE3 <code>attestation_commitment</code> over <code>ZkOracleAttestation</code>:</p><div class="code-block-wrap"><div class="code-header"><span>rust</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>// /Users/ember/dev/breadstuffs/deos-hermes/src/attest.rs:92-145
+pub fn attestation_commitment(att: &amp;ZkOracleAttestation) -&gt; [u8; 32] {
+    let pres = &amp;att.presentation;
+    let mut h = blake3::Hasher::new();
+    h.update(ATTESTATION_COMMIT_DOMAIN);
+    // Authentic leg — the pinned session identity + the signed transcripts.
+    h.update(&amp;(pres.server_name.len() as u64).to_le_bytes());
+    h.update(pres.server_name.as_bytes());
+    h.update(&amp;pres.connection_time.to_le_bytes());
+    h.update(&amp;(pres.sent.len() as u64).to_le_bytes());
+    h.update(&amp;pres.sent);
+    h.update(&amp;(pres.recv.len() as u64).to_le_bytes());
+    h.update(&amp;pres.recv);
+    h.update(&amp;pres.notary_sig);
+    // Cross-leg weld — ALL EIGHT LANES (widened 2026-08-01; a 1-felt seed had a 2^15.45 collision set)
+    for lane in &amp;att.content_commit {
+        h.update(&amp;lane.as_u32().to_le_bytes());
+    }
+    // Injection-free leg — the committed field span within the authenticated body.
+    h.update(&amp;(att.field_span.offset as u64).to_le_bytes());
+    h.update(&amp;(att.field_span.len as u64).to_le_bytes());
+    // THE LIVE AUTHENTIC LEG — the REAL MPC-TLS presentation (tlsn_presentation).
+    // ...
+    // THE STARK INJECTION LEG — the in-circuit proof of the prose&#x27;s DFA run (zk_injection).
+    // ...
+    *h.finalize().as_bytes()
+}</code></pre></div><p>Furthermore, <a href="https://github.com/emberian/breadstuffs/blob/main/deos-hermes/src/tee_fact.rs#L41-L135" target="_blank" rel="noopener" title="breadstuffs/deos-hermes/src/tee_fact.rs#L41-L135"><code>deos-hermes/src/tee_fact.rs</code></a> implements <code>TeeFactVerifier</code> (implementing <code>TeeAttestationVerifier</code>) and <code>install_tee_fact_verifier</code>, turning enclave-attested execution sessions into light-client-checkable facts (landed in commit <code>ad33c9247</code>, 2026-07-12).</p><h4 id="pr-gateways-dreggnet-hermes-replay-verifiable-hosted-agent-o-11"><code>dreggnet-hermes</code>: Replay-Verifiable Hosted Agent Offerings</h4><p>In <a href="https://github.com/emberian/breadstuffs/blob/main/dreggnet-hermes/src/lib.rs#L1-L85" target="_blank" rel="noopener" title="breadstuffs/dreggnet-hermes/src/lib.rs#L1-L85"><code>dreggnet-hermes/src/lib.rs</code></a> (1,032 lines), Ember wraps <code>deos-hermes</code> and <code>ToolGateway</code> into Offering #1 of <code>dreggnet-offerings</code> (where Offering #0 was a verifiable dungeon game). Each <code>HermesSession</code> derives a deterministic <code>AgentRuntime</code> and root token from the session seed and lazily spawns per-tool-class <code>ToolGateway</code> workers carrying both a <code>ToolGrant</code> rate cap and a <code>Charge</code> value budget. Calling <code>Offering::verify</code> re-derives a fresh identically-seeded confined agent and replays the recorded inputs to verify that the entire confinement decision chain (each step&#x27;s <code>Outcome::Landed</code> vs. <code>Outcome::Refused</code> verdict plus rate and value meters) is bit-for-bit reproducible.</p><hr/><h3 id="pr-gateways-1-3-agent-platform-post-grains-id-act-demo-keyle-12">1.3 <code>agent-platform</code> (<code>POST /grains/:id/act</code>) &amp; <code>demo/keyless-grain-proxy.py</code></h3><p>In <a href="https://github.com/emberian/breadstuffs/blob/main/agent-platform/src/serve.rs#L85-L115" target="_blank" rel="noopener" title="breadstuffs/agent-platform/src/serve.rs#L85-L115"><code>agent-platform/src/serve.rs</code></a> and <a href="https://github.com/emberian/breadstuffs/blob/main/agent-platform/src/serve.rs#L659-L734" target="_blank" rel="noopener" title="breadstuffs/agent-platform/src/serve.rs#L659-L734">lines 659–734</a>, Ember built the HTTP front door for driving hosted grains under a <strong>Bring-Your-Own-Key (BYOK) or Keyless</strong> split:</p><ul><li>The external brain (either a user&#x27;s browser tab holding their own API key in memory, or the server-side keyless Bedrock sidecar) sends a proposed tool invocation <code>{ &quot;tool&quot;: &quot;...&quot;, &quot;args&quot;: { ... } }</code> to <code>POST /act</code> (or <code>POST /grains/:id/act</code>) with <code>X-Dregg-Subject</code> and <code>X-Dregg-Grain-Host</code>.</li><li><code>act_over_http</code> (<a href="https://github.com/emberian/breadstuffs/blob/main/agent-platform/src/serve.rs#L659-L686" target="_blank" rel="noopener" title="breadstuffs/agent-platform/src/serve.rs#L659-L686"><code>agent-platform/src/serve.rs</code></a>) authenticates the driver capability, runs the single tool step through the grain&#x27;s <code>ToolGatewayMinter</code>, and serializes the response via <code>act_response_json</code> (lines 692–733):</li></ul><div class="code-block-wrap"><div class="code-header"><span>rust</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>// /Users/ember/dev/breadstuffs/agent-platform/src/serve.rs:692-733
+fn act_response_json(
+    report: &amp;dregg_agent::session::GoalReport,
+    receipt: Option&lt;&amp;dregg_agent::agent::AgentReceipt&gt;,
+) -&gt; Vec&lt;u8&gt; {
+    let receipt_json = match receipt {
+        Some(r) =&gt; format!(
+            &quot;{{\&quot;seq\&quot;:{},\&quot;action\&quot;:{},\&quot;cost\&quot;:{},\&quot;consumed_after\&quot;:{},\&quot;cell_root\&quot;:\&quot;{}\&quot;}}&quot;,
+            r.seq,
+            serde_json::to_string(&amp;r.action).unwrap_or_else(|_| &quot;\&quot;\&quot;&quot;.to_string()),
+            r.cost,
+            r.consumed_after,
+            hex32_str(&amp;r.cell_root),
+        ),
+        None =&gt; &quot;null&quot;.to_string(),
+    };
+    let step = report.steps.last();
+    let output_json = step
+        .and_then(|s| s.tool_summary.as_ref())
+        .map(|t| serde_json::to_string(t).unwrap_or_else(|_| &quot;\&quot;\&quot;&quot;.to_string()))
+        .unwrap_or_else(|| &quot;null&quot;.to_string());
+    let outcome_json = step
+        .map(|s| serde_json::to_string(&amp;s.outcome).unwrap_or_else(|_| &quot;\&quot;\&quot;&quot;.to_string()))
+        .unwrap_or_else(|| &quot;null&quot;.to_string());
+    format!(
+        &quot;{{\&quot;admitted\&quot;:{},\&quot;cap_refused\&quot;:{},\&quot;budget_refused\&quot;:{},\&quot;consumed\&quot;:{},\&quot;receipt\&quot;:{},\&quot;outcome\&quot;:{},\&quot;output\&quot;:{}}}&quot;,
+        report.admitted, report.cap_refused, report.budget_refused,
+        report.consumed, receipt_json, outcome_json, output_json
+    ).into_bytes()
+}</code></pre></div><p>As commits <code>85d6e6546</code> (<code>BYOK: POST /act — your key stays in your tab; the host cap-gates, meters, mints, receipts</code>, 2026-07-10), <code>fa10bddf3</code> (<code>BYOK: close the OBSERVE half — /act returns the tool&#x27;s real verdict + the gate&#x27;s word, so the model can read back</code>, 2026-07-10), and <code>0b609e7e2</code> (<code>grain demo: KEYLESS — the AI is driven by AWS Bedrock (Nova-Micro) server-side, no visitor key</code>, 2026-07-10) record, <a href="https://github.com/emberian/breadstuffs/blob/main/demo/keyless-grain-proxy.py#L1-L78" target="_blank" rel="noopener" title="breadstuffs/demo/keyless-grain-proxy.py#L1-L78"><code>demo/keyless-grain-proxy.py</code></a> listens on <code>127.0.0.1:8904</code>, exposes five tools to AWS Bedrock <code>us.amazon.nova-micro-v1:0</code> (<code>fs_write</code>, <code>fs_read</code>, <code>list_dir</code> which the grain admits, plus <code>http_get</code> and <code>shell</code> which the grain&#x27;s capability mask refuses), forwards each proposed <code>toolUse</code> to <code>http://127.0.0.1:8903/act</code>, and feeds <code>&quot;BLOCKED by the sandbox: ... This did not run.&quot;</code> back into Bedrock&#x27;s Converse loop when <code>admitted == 0</code>.</p><hr/><h3 id="pr-gateways-1-4-minidregg-s-oracle-appliance-mini-keys-so-pe-13">1.4 MiniDregg&#x27;s <code>oracle-appliance</code> &amp; <code>mini-keys</code> (<code>SO_PEERCRED</code> Broker for <code>CLONE_NEWNET</code> Sandboxes)</h3><p>In <code>/Users/ember/dev/minidregg</code>, confined grains execute inside strict Linux namespaces (<code>CLONE_NEWNET</code>, <code>CLONE_NEWNS</code>, <code>CLONE_NEWPID</code>, <code>CLONE_NEWIPC</code>, <code>CLONE_NEWUTS</code>) with <strong>zero network interfaces</strong> and <strong>zero ambient credentials</strong>. Two mechanisms bridge external intelligence and specialist computation into these networkless grains:</p><ol><li><strong>The Oracle7 / <code>veri7vn</code> Appliance (<a href="https://github.com/emberian/minidregg/blob/main/docs/oracle-appliance.md#L1-L90" target="_blank" rel="noopener" title="minidregg/docs/oracle-appliance.md#L1-L90"><code>docs/oracle-appliance.md</code></a>):</strong> Packages a signed 97 MB runtime SPK alongside a 15 GB read-only shared public dataset mounted at <code>/opt/oracle-data</code> (verified against a signed inventory digest) and per-source-session private workspaces in <code>/var</code>. Agents invoke <code>mini_oracle_discover</code> and <code>mini_oracle_call</code> over an established application lifetime route; a bounded class-L worker pool (1 resident Engine worker, 128 persistent workspaces, 716 MiB peak observed cgroup memory under a 2 GiB cap) serves 32+ tenant workspaces while replaying exact retries in 1.22–25.98 ms from disk without starting a worker.</li><li><strong>The <code>mini-keys</code> <code>SO_PEERCRED</code> Credential &amp; Provider Broker (<a href="https://github.com/emberian/minidregg/blob/main/native/mini-keys/src/peer.rs#L1-L58" target="_blank" rel="noopener" title="minidregg/native/mini-keys/src/peer.rs#L1-L58"><code>native/mini-keys/src/peer.rs</code></a>, <a href="https://github.com/emberian/minidregg/blob/main/native/mini-keys/src/server/mod.rs#L36-L318" target="_blank" rel="noopener" title="minidregg/native/mini-keys/src/server/mod.rs#L36-L318"><code>src/server/mod.rs</code></a>, <a href="https://github.com/emberian/minidregg/blob/main/native/mini-keys/src/server/provider.rs#L113-L562" target="_blank" rel="noopener" title="minidregg/native/mini-keys/src/server/provider.rs#L113-L562"><code>src/server/provider.rs</code></a>):</strong></li><li>When a sandboxed runner connects to the <code>mini-keys</code> Unix domain socket, <a href="https://github.com/emberian/minidregg/blob/main/native/mini-keys/src/peer.rs#L15-L49" target="_blank" rel="noopener" title="minidregg/native/mini-keys/src/peer.rs#L15-L49"><code>native/mini-keys/src/peer.rs</code></a> extracts the kernel-captured peer credentials at connect time:</li></ol><div class="code-block-wrap"><div class="code-header"><span>rust</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>     // /Users/ember/dev/minidregg/native/mini-keys/src/peer.rs:6-31
+     #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+     pub struct Peer {
+         pub uid: u32,
+         pub gid: u32,
+         pub pid: i32,
+     }
 
-    <!-- TAB 3D: VERIFIED HTTP DATAPLANE (ORB) -->
-    <section id="tab-orb" class="tab-panel" role="tabpanel">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">03D · Verified Proxy Dataplane</div>
-          <h2>`Orb`: 312-Module Lean 4 HTTP Proxy Lowered via HOL4/CakeML to 1,868 Bytes of x86-64</h2>
-        </div>
-        <div>
-          <p>
-            Even the strongest cryptographic receipt can be undermined if the HTTP proxy dataplane parsing the wire bytes suffers from buffer overflows, request smuggling, or circuit-breaker state bugs. We built and verified the proxy dataplane itself (`Orb`) across Lean 4 and HOL4/CakeML/Pancake.
-          </p>
-        </div>
-      </div>
+     #[cfg(any(target_os = &quot;linux&quot;, target_os = &quot;android&quot;))]
+     pub fn of(stream: &amp;UnixStream) -&gt; Result&lt;Peer, String&gt; {
+         let mut cred: libc::ucred = unsafe { std::mem::zeroed() };
+         let mut len = std::mem::size_of::&lt;libc::ucred&gt;() as libc::socklen_t;
+         let rc = unsafe {
+             libc::getsockopt(
+                 stream.as_raw_fd(),
+                 libc::SOL_SOCKET,
+                 libc::SO_PEERCRED,
+                 &amp;mut cred as *mut _ as *mut libc::c_void,
+                 &amp;mut len,
+             )
+         };
+         if rc != 0 || len as usize != std::mem::size_of::&lt;libc::ucred&gt;() {
+             return Err(&quot;peer credentials unavailable&quot;.into());
+         }
+         Ok(Peer { uid: cred.uid, gid: cred.gid, pid: cred.pid })
+     }</code></pre></div><ul><li><code>Config::roles_of(&amp;self, peer: &amp;Peer) -&gt; Vec&lt;Role&gt;</code> (<a href="https://github.com/emberian/minidregg/blob/main/native/mini-keys/src/server/mod.rs#L304" target="_blank" rel="noopener" title="minidregg/native/mini-keys/src/server/mod.rs#L304"><code>src/server/mod.rs</code></a>) maps the peer&#x27;s kernel UID/GID via <code>PeerRule</code> to its permitted <code>Role</code>s (<code>first_frame_bound</code>, <code>role_for</code>), and <code>helper_pinned(path, sha, trust_owner)</code> (<a href="https://github.com/emberian/minidregg/blob/main/native/mini-keys/src/server/mod.rs#L193-L198" target="_blank" rel="noopener" title="minidregg/native/mini-keys/src/server/mod.rs#L193-L198"><code>src/server/mod.rs</code></a>) verifies that every ancestor directory of the namespace helper is root-owned, not group/other writable, and that the binary SHA-256 matches the pinned image digest.</li><li>To make an outbound LLM call without ever exposing a bearer token to the sandbox, <a href="https://github.com/emberian/minidregg/blob/main/native/mini-keys/src/server/provider.rs#L117-L562" target="_blank" rel="noopener" title="minidregg/native/mini-keys/src/server/provider.rs#L117-L562"><code>src/server/provider.rs</code></a> splits the operation into two phases over the Unix socket:</li><li><code>authorize(broker, peer, request, note)</code> (line 117): checks the member&#x27;s epoch-scoped <code>Grant</code> (via <code>CredentialStore::authorize_grant</code> / <code>authorize_model_epoch</code> in <a href="https://github.com/emberian/minidregg/blob/main/native/mini-keys/src/credentials/store.rs#L528-L560" target="_blank" rel="noopener" title="minidregg/native/mini-keys/src/credentials/store.rs#L528-L560"><code>src/credentials/store.rs</code></a>) or operator pool daily spend ceiling (<code>pool_member_spend</code>, line 718), durably writes a single-use ticket bound to <code>(uid, row, runner, owner, body_sha256)</code>, and increments the call counter (an exact retry with the same body digest while the ticket is live returns the existing ticket without double-counting).</li><li><code>forward(broker, peer, request, stream, note)</code> (line 386): verifies that the request body (<code>1..=MAX_PROVIDER_REQUEST</code> bytes) hashes to the ticket&#x27;s committed digest, unseals the encrypted API key inside <code>mini-keys</code> (<code>CredentialStore::unseal</code>, line 602, zeroized on drop via <code>wire::zero</code>), performs the HTTPS POST on behalf of the networkless sandbox, and polls <code>caller_gone(stream: &amp;UnixStream) -&gt; bool</code> (lines 254–265, using <code>libc::poll</code> with <code>POLLIN</code>) so that if the controller revokes the grain&#x27;s lease by closing the socket, the upstream provider call is aborted immediately.</li></ul><hr/><h3 id="pr-gateways-1-5-secs-magik-users-ember-zenith-secs-daemon-fr-14">1.5 <code>secS-magik</code> (<code>/Users/ember/zenith/secS-daemon</code>): From <code>ZenithPacket v0</code> to <code>VerifiedCallContext</code> and Chained SQLite <code>Receipt</code>s</h3><p>As documented in <code>/Users/ember/dev/secS-magik is the verifier seam between scoped auth tokens and future Dregg roots.pdf</code> and implemented in <span class="src-loc" title="file:///Users/ember/zenith/secS-daemon/README.md#L50-L185"><code>/Users/ember/zenith/secS-daemon</code></span>, <code>secS-magik</code> is Ember&#x27;s permissioned RPC and verifier pipeline that bridges scoped authentication tokens to Dregg-style receipt chains:</p><ol><li><strong><code>ZenithPacket</code> v0 (<span class="src-loc" title="file:///Users/ember/zenith/secS-daemon/core/src/lib.rs"><code>core/src/lib.rs</code></span>, <span class="src-loc" title="file:///Users/ember/zenith/secS-daemon/core/src/caller_proof.rs#L4-L75"><code>core/src/caller_proof.rs</code></span>):</strong> Inbound requests are framed as <code>ZenithPacket</code> v0 envelopes carrying an opcode (<code>u8</code>), payload bytes (<code>Vec&lt;u8&gt;</code>), and a cryptographic <code>proof</code> envelope (<code>caller_proof.rs</code>) that binds the entire packet envelope to the caller&#x27;s identity (<code>CallerIdentity</code>).</li><li><strong>Receiver-Local <code>OperationDescriptor</code> (<span class="src-loc" title="file:///Users/ember/zenith/secS-daemon/server/src/manifest.rs"><code>server/src/manifest.rs</code></span>):</strong> Rather than letting the caller dictate execution semantics, the server resolves the packet&#x27;s opcode against a receiver-local manifest of <code>OperationDescriptor</code> entries governing opcode ranges, required capability scopes, and payload schemas (<span class="src-loc" title="file:///Users/ember/zenith/secS-daemon/server/src/payload.rs#L4-L60"><code>server/src/payload.rs</code></span>).</li><li><strong>Ed25519 <code>VerifiedCallContext</code> &amp; SQLite <code>Receipt</code> Chain:</strong> Once the caller proof and <code>OperationDescriptor</code> policy pass, the verifier mints an Ed25519-signed <code>VerifiedCallContext</code> (or a signed rejection receipt on refusal) and appends a chained <code>Receipt</code> to a local SQLite store, establishing an auditable hash-linked history of every admitted or refused RPC operation.</li></ol><hr/></div></div></section>
+    <section id="tab-orb" class="tab-panel" role="tabpanel"><div class="doc-layout"><aside class="doc-toc" aria-label="Section table of contents"><div class="doc-toc-title">On This Tab (5 Sections)</div><ul><li><a href="#pr-orb-3-formally-verified-http-proxy-dataplane-orb-dre-1">3. Formally Verified HTTP/Proxy Dataplane (<code>Orb</code>, <code>dregg-serve-spec</code>, <code>orb-compiler</code>, <code>dreggnet-engine</code>)</a></li><li class="toc-h3"><a href="#pr-orb-3-1-breadstuffs-orb-the-lean-4-verified-reverse--2">3.1 <code>breadstuffs/orb</code>: The Lean 4 Verified Reverse/Forward Proxy &amp; C-ABI Dataplane (<code>drorb_serve</code>)</a></li><li class="toc-h3"><a href="#pr-orb-3-2-dregg-serve-spec-orb-compiler-verified-panca-6">3.2 <code>dregg-serve-spec</code> &amp; <code>orb-compiler</code>: Verified Pancake Codegen (<code>serveExport_serves_get_real</code>)</a></li><li class="toc-h3"><a href="#pr-orb-3-3-deploy-gateway-ask-discharge-gateway-edge-tl-7">3.3 <code>deploy/gateway-ask</code> &amp; <code>discharge-gateway</code>: Edge TLS/Capability Gateways</a></li><li class="toc-h3"><a href="#pr-orb-3-4-dreggnet-engine-model-dreggnetarenascript-sm-8">3.4 <code>dreggnet-engine/model/dreggnetArenaScript.sml</code>: HOL4 Proof of the Zero-Copy Arena + <code>SIDECAR_BASE</code> Header Resolver</a></li></ul></aside><div class="doc-prose"><div class="callout" style="margin-top:0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"><div><div class="callout-title">Dossier 02 (§3) · Formally Verified HTTP/Proxy Dataplane (`Orb`, `dregg-serve-spec`, `orb-compiler`, `dreggnetArenaScript.sml`)</div><div>Complete primary-source monograph rendered inline below, with verbatim theorem statements, code blocks, git commit tables, and <code>cv</code> session transcripts.</div></div><div style="display:flex;gap:8px;"><a class="btn btn-primary" href="https://github.com/emberian/whatember/blob/main/sources/02-merkle-agent-proxies-and-dataplanes.md" target="_blank" rel="noopener">View on GitHub ↗</a><a class="btn btn-ghost" style="color:var(--ink);border-color:var(--line);" href="sources/02-merkle-agent-proxies-and-dataplanes.md" target="_blank">Raw Markdown ↗</a></div></div><h2 id="pr-orb-3-formally-verified-http-proxy-dataplane-orb-dre-1">3. Formally Verified HTTP/Proxy Dataplane (<code>Orb</code>, <code>dregg-serve-spec</code>, <code>orb-compiler</code>, <code>dreggnet-engine</code>)</h2><h3 id="pr-orb-3-1-breadstuffs-orb-the-lean-4-verified-reverse--2">3.1 <code>breadstuffs/orb</code>: The Lean 4 Verified Reverse/Forward Proxy &amp; C-ABI Dataplane (<code>drorb_serve</code>)</h3><p>In <a href="https://github.com/emberian/breadstuffs/blob/main/orb/Dataplane.lean#L1-L70" target="_blank" rel="noopener" title="breadstuffs/orb/Dataplane.lean#L1-L70"><code>/Users/ember/dev/breadstuffs/orb/</code></a> (~40,000+ lines of Lean 4 across 120+ modules), Ember built <strong>Orb</strong> (<code>drorb</code>): a formally verified HTTP/1.1, HTTP/2, HTTP/3 (QUIC/QPACK), WebSocket, SSE, gRPC-Web, Forward Proxy (<code>CONNECT</code>), SOCKS, ACME/CT, mTLS/PQ-TLS, Tailscale DERP/Disco/STUN, and CapTP reverse proxy and ingress reactor.</p><h4 id="pr-orb-inverting-the-ffi-boundary-dataplane-lean-export-3">Inverting the FFI Boundary: <code>Dataplane.lean</code> (<code>@[export drorb_serve]</code>)</h4><p>As documented in <a href="https://github.com/emberian/breadstuffs/blob/main/orb/Dataplane.lean#L1-L70" target="_blank" rel="noopener" title="breadstuffs/orb/Dataplane.lean#L1-L70"><code>orb/Dataplane.lean</code></a> (3,182 lines), Orb supports two execution topologies:</p><ol><li><code>IoMac.lean</code> / <code>IoLinux.lean</code> / <code>Uring.lean</code>: Lean is the callee of <code>@[extern]</code> C socket accept loops.</li><li><code>Dataplane.lean</code>: <strong>Inverts the FFI direction</strong> by exporting the proven Lean pipeline across the C ABI via <code>@[export drorb_serve]</code>, <code>@[export drorb_proxy_pick]</code>, <code>@[export drorb_serve_grpcweb]</code>, <code>@[export drorb_serve_ws_frame]</code>, <code>@[export drorb_serve_datagram]</code>, <code>@[export drorb_serve_step]</code>, <code>@[export drorb_serve_resume]</code>, and <code>@[export drorb_serve_proxy_stream_head]</code>. A native Rust host owns the socket reactor and calls into <code>libdrorb.a</code> for every request.</li><li>Notice the <code>@[csimp]</code> performance refinement in <a href="https://github.com/emberian/breadstuffs/blob/main/orb/Dataplane.lean#L20-L28" target="_blank" rel="noopener" title="breadstuffs/orb/Dataplane.lean#L20-L28"><code>orb/Dataplane.lean</code></a>: importing <code>Reactor.ObserveFast</code> installs <code>Reactor.ObserveFast.corrBytes_eq_fast</code> via <code>@[csimp]</code>, replacing the specification&#x27;s $O(N^2)$ <code>String.intercalate</code> correlation-ID renderer (<code>Reactor.Deploy.corrBytes</code>) with a proven byte-identical $O(N)$ linear renderer <code>corrBytesFast</code> in the compiled binary without altering the logical specification.</li></ol><h4 id="pr-orb-forward-proxy-normalization-access-control-forwa-4">Forward Proxy Normalization &amp; Access Control (<code>ForwardProxy.lean</code>, <code>AccessControlProxy.lean</code>, <code>ForwardProxyCorrect.lean</code>)</h4><ul><li><strong><a href="https://github.com/emberian/breadstuffs/blob/main/orb/ForwardProxy.lean#L64-L200" target="_blank" rel="noopener" title="breadstuffs/orb/ForwardProxy.lean#L64-L200"><code>orb/ForwardProxy.lean</code></a>:</strong> Formalizes RFC 9110 §7.1 / §7.2 <code>absolute-form</code> forward-proxy request normalization (<code>WireReq</code>, <code>normalize</code>, <code>HeaderOp</code>, <code>applyOps</code>) and proves <code>absolute_form_host_override</code> (line 154) and <code>host_header_irrelevant</code> (line 159)—proving that when a client sends an <code>absolute-form</code> target URI, the authority extracted from the request line overrides any spoofed <code>Host</code> header.</li><li><strong><a href="https://github.com/emberian/breadstuffs/blob/main/orb/AccessControlProxy.lean#L55-L180" target="_blank" rel="noopener" title="breadstuffs/orb/AccessControlProxy.lean#L55-L180"><code>orb/AccessControlProxy.lean</code></a>:</strong> Defines CIDR prefix matching (<code>Cidr</code>, <code>inCidr</code>, proving <code>inCidr_base</code> at line 66 and <code>inCidr_slash32</code> at line 70), destination allowlists (<code>Dest</code>, <code>Policy</code>), and the deployed admission gate <code>admit (pol : Policy) (ip : Nat) (dst : Dest) (n : Nat) : Decision</code> (line 119), along with safety theorems <code>acl_empty_allowlist_denies</code> (line 135), <code>acl_default_deny</code> (line 155), and <code>admit_under_cap</code> (line 168).</li><li><strong><a href="https://github.com/emberian/breadstuffs/blob/main/orb/ForwardProxyCorrect.lean#L120-L260" target="_blank" rel="noopener" title="breadstuffs/orb/ForwardProxyCorrect.lean#L120-L260"><code>orb/ForwardProxyCorrect.lean</code></a> (373 lines):</strong> Upgrades the one-directional safety theorems to a full <strong>biconditional refinement</strong> against an independent propositional specification (<code>SpecClientAllowed</code>, <code>SpecDestPermitted</code>, <code>SpecUnderCap</code>, <code>admitSpec</code>), plus concrete non-vacuity witnesses proving that broken gates disagree with the spec:</li></ul><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>-- /Users/ember/dev/breadstuffs/orb/ForwardProxyCorrect.lean:199-200
+theorem admit_refines_spec (pol : Policy) (ip : Nat) (dst : Dest) (n : Nat) :
+    admit pol ip dst n = admitSpec pol ip dst n
 
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Dataplane Layer</th>
-              <th>Module / File Path</th>
-              <th>Formal Guarantee</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Forward &amp; Access-Control Proxy Logic</strong></td>
-              <td><code>breadstuffs/orb/{ForwardProxy,AccessControlProxy,ForwardProxyCorrect}.lean</code></td>
-              <td><code>admit_refines_spec</code> &amp; <code>admit_iff_admissible</code>: total, panic-free HTTP request parsing, header sanitization, and capability admission.</td>
-            </tr>
-            <tr>
-              <td><strong>Verified Circuit Breaker &amp; Health State Machine</strong></td>
-              <td><code>breadstuffs/orb/{ProxyBreakerCorrect,ProxyHealthCorrect}.lean</code></td>
-              <td><code>breaker_admits_refines_spec</code> &amp; <code>broken_admits_while_open_fails</code>: proves the proxy never forwards traffic to an open-circuit upstream.</td>
-            </tr>
-            <tr>
-              <td><strong>End-to-End HTTP Wire Specification</strong></td>
-              <td><code>breadstuffs/dregg-serve-spec/ServeSpec.lean</code></td>
-              <td><code>serveOne_Sound</code>: wire-level byte refinement for HTTP request/response framing.</td>
-            </tr>
-            <tr>
-              <td><strong>HOL4 / CakeML / Pancake x86-64 Machine Lowering</strong></td>
-              <td><code>breadstuffs/orb-compiler/Pancake/ServeExportServes.lean</code> + <code>dreggnetArenaScript.sml</code></td>
-              <td><code>serveExport_serves_get_real</code>, <code>serveExport_serves_405_real</code>, and HOL4 <code>wf_parsed_values_total</code> over a verified <strong>1,868-byte x86-64 machine loop</strong>.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+-- /Users/ember/dev/breadstuffs/orb/ForwardProxyCorrect.lean:227-229
+theorem admit_iff_admissible (pol : Policy) (ip : Nat) (dst : Dest) (n : Nat) :
+    admit pol ip dst n = .admit ↔
+      (SpecClientAllowed pol ip ∧ SpecDestPermitted pol dst ∧ SpecUnderCap pol n)
+
+-- /Users/ember/dev/breadstuffs/orb/ForwardProxyCorrect.lean:244-255
+theorem denied_dst_is_dstBlocked (pol : Policy) (ip : Nat) (dst : Dest) (n : Nat)
+    (hc : SpecClientAllowed pol ip) (hd : ¬ SpecDestPermitted pol dst) :
+    admit pol ip dst n = .deny .dstBlocked
+
+theorem overcap_is_capReached (pol : Policy) (ip : Nat) (dst : Dest) (n : Nat)
+    (hc : SpecClientAllowed pol ip) (hd : SpecDestPermitted pol dst) (hn : ¬ SpecUnderCap pol n) :
+    admit pol ip dst n = .deny .capReached</code></pre></div><h4 id="pr-orb-circuit-breaker-active-health-check-refinements--5">Circuit Breaker &amp; Active Health-Check Refinements (<code>ProxyBreakerCorrect.lean</code> &amp; <code>ProxyHealthCorrect.lean</code>)</h4><ol><li><strong><a href="https://github.com/emberian/breadstuffs/blob/main/orb/ProxyBreakerCorrect.lean#L61-L320" target="_blank" rel="noopener" title="breadstuffs/orb/ProxyBreakerCorrect.lean#L61-L320"><code>orb/ProxyBreakerCorrect.lean</code></a> (360 lines):</strong> Proves by simulation relation (<code>Rel : BState → SpecState → Prop</code>, <code>rel_start</code>, <code>rel_step</code>, <code>rel_run</code>, <code>rel_admits</code>) that the deployed proxy circuit breaker (<code>BState.init</code>, <code>step</code>, <code>run</code>) refines the standard 3-phase (<code>closed</code> / <code>open</code> / <code>halfOpen</code>) fail-fast state machine across all event traces, and refutes broken implementations (<code>broken_admits_while_open_fails</code>):</li></ol><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>   -- /Users/ember/dev/breadstuffs/orb/ProxyBreakerCorrect.lean:278-291
+   theorem breaker_admits_refines_spec (cfg : BreakerCfg) (trace : List BEvent) :
+       (step cfg (run cfg BState.init trace) .probe).2
+         = (if (specRun cfg SpecState.start trace).admits
+             then [BOutput.attempt] else [BOutput.reject]) :=
+     rel_admits (rel_run cfg BState.init SpecState.start rel_start trace) cfg
+
+   theorem breaker_phase_refines_spec (cfg : BreakerCfg) (trace : List BEvent) :
+       (run cfg BState.init trace).phase
+         = bphaseOf (specRun cfg SpecState.start trace).phase :=
+     (rel_run cfg BState.init SpecState.start rel_start trace).phase
+
+   -- /Users/ember/dev/breadstuffs/orb/ProxyBreakerCorrect.lean:308-312
+   theorem broken_admits_while_open_fails :
+       (badAdmitStep ⟨2, 5⟩ (run ⟨2, 5⟩ BState.init [.failure, .failure]) .probe).2
+         ≠ (if (specRun ⟨2, 5⟩ SpecState.start [.failure, .failure]).admits
+             then [BOutput.attempt] else [BOutput.reject]) := by
+     decide</code></pre></div><ol><li><strong><a href="https://github.com/emberian/breadstuffs/blob/main/orb/ProxyHealthCorrect.lean#L1-L287" target="_blank" rel="noopener" title="breadstuffs/orb/ProxyHealthCorrect.lean#L1-L287"><code>orb/ProxyHealthCorrect.lean</code></a> (287 lines):</strong> Proves that the proxy&#x27;s active health-check machine <code>Proxy.hstep</code> refines an independent HAProxy-style <code>rise</code>/<code>fall</code> consecutive-threshold hysteresis specification (<code>health_refines_spec</code>), accompanied by non-vacuity theorems <code>broken_no_hysteresis_fails</code> and <code>broken_no_recovery_fails</code>. Because the spec retains the consecutive counter upon flipping while the implementation zeroes both counters on a flip, the two machines are not state-identical; the refinement requires an inductive relational invariant <code>rel_step</code> proving that the live counters agree while the &quot;dead&quot; counter is unconstrained.</li></ol><hr/><h3 id="pr-orb-3-2-dregg-serve-spec-orb-compiler-verified-panca-6">3.2 <code>dregg-serve-spec</code> &amp; <code>orb-compiler</code>: Verified Pancake Codegen (<code>serveExport_serves_get_real</code>)</h3><p>To eliminate prose-only &quot;mirror pins&quot; between the verified HTTP dataplane (<code>orb</code>) and the verified Pancake systems-language compiler (<code>orb-compiler</code>), Ember extracted <span class="src-loc" title="dregg-serve-spec/ServeSpec.lean#L1-L255"><code>/Users/ember/dev/dregg-serve-spec/ServeSpec.lean</code></span> (255 lines, Lean 4 v4.30.0, zero external dependencies):</p><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>-- /Users/ember/dev/dregg-serve-spec/ServeSpec.lean:36-79
+abbrev Bytes := List UInt8
+
+structure Response where
+  status  : Nat
+  reason  : Bytes
+  headers : List (Bytes × Bytes)
+  body    : Bytes
+deriving Repr, DecidableEq
+
+structure Wire where
+  status        : Nat
+  reason        : Bytes
+  headers       : List (Bytes × Bytes)
+  contentLength : Nat
+  body          : Bytes
+
+def build (r : Response) : Wire :=
+  { status := r.status, reason := r.reason, headers := r.headers,
+    contentLength := r.body.length, body := r.body }
+
+def statusLine (w : Wire) : Bytes :=
+  http11 ++ [32] ++ natToDec w.status ++ [32] ++ w.reason</code></pre></div><p>Notice that <code>ServeSpec.Response</code> has <strong>no <code>Content-Length</code> field</strong>: <code>build</code> derives <code>contentLength := r.body.length</code> structurally, making response-smuggling via <code>Content-Length</code> mismatch unrepresentable in the specification.</p><p>Then, in <a href="https://github.com/emberian/breadstuffs/blob/main/orb-compiler/Pancake/ServeExportServes.lean#L362-L590" target="_blank" rel="noopener" title="breadstuffs/orb-compiler/Pancake/ServeExportServes.lean#L362-L590"><code>/Users/ember/dev/breadstuffs/orb-compiler/Pancake/ServeExportServes.lean</code></a> (623 lines, proved in <code>cv</code> sessions <code>a351c3bb</code>, <code>aea51949</code>, <code>a675df29</code>, <code>a1369b92</code> on 2026-07-17), Ember proved the end-to-end compiler theorem bridging the emitted <code>.pnk</code> Pancake AST (<code>serveExport BS200 BS405</code>) through <code>lower</code> to operational execution under <code>PancakeSem</code>:</p><div class="code-block-wrap"><div class="code-header"><span>lean</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>-- /Users/ember/dev/breadstuffs/orb-compiler/Pancake/ServeExportServes.lean:557-585
+theorem serveExport_serves_get_real (o : Oracle σ) (s : PancakeState σ) (outBase reqAddr : Word)
+    (hout : s.locals &quot;out&quot; = some outBase)
+    (hreq : s.locals &quot;req&quot; = some reqAddr)
+    (hget : memLoadByte s.memory s.memaddrs s.be reqAddr = some (71 : BitVec 8))
+    (haddr : ∀ i, i &lt; BS200.length → s.memaddrs (byteAlign (outBase + BitVec.ofNat 64 i)) = true)
+    (hinj : ∀ i j, i &lt; BS200.length → j &lt; BS200.length → i ≠ j →
+        outBase + BitVec.ofNat 64 i ≠ outBase + BitVec.ofNat 64 j) :
+    ∃ P s&#x27;, lower (serveExport BS200 BS405) = some P
+      ∧ PancakeSem o P s = (some (.return_ (BitVec.ofNat 64 BS200.length)), s&#x27;)
+      ∧ MemBytesAtB s&#x27;.memory s.memaddrs s.be outBase BS200 := by
+  obtain ⟨s&#x27;, hsem, hmb⟩ :=
+    serveExport_serves_get o s BS200 BS405 outBase reqAddr hout hreq hget haddr hinj
+  exact ⟨serveModel BS200 BS405, s&#x27;, serveExport_lowers BS200 BS405, hsem, hmb⟩
+
+theorem serveExport_serves_405_real (o : Oracle σ) (s : PancakeState σ) (outBase reqAddr : Word)
+    (hout : s.locals &quot;out&quot; = some outBase)
+    (hreq : s.locals &quot;req&quot; = some reqAddr)
+    (hbyte : memLoadByte s.memory s.memaddrs s.be reqAddr = some (88 : BitVec 8))
+    (haddr : ∀ i, i &lt; BS405.length → s.memaddrs (byteAlign (outBase + BitVec.ofNat 64 i)) = true)
+    (hinj : ∀ i j, i &lt; BS405.length → j &lt; BS405.length → i ≠ j →
+        outBase + BitVec.ofNat 64 i ≠ outBase + BitVec.ofNat 64 j) :
+    ∃ P s&#x27;, lower (serveExport BS200 BS405) = some P
+      ∧ PancakeSem o P s = (some (.return_ (BitVec.ofNat 64 BS405.length)), s&#x27;)
+      ∧ MemBytesAtB s&#x27;.memory s.memaddrs s.be outBase BS405 := by
+  obtain ⟨s&#x27;, hsem, hmb⟩ :=
+    serveExport_serves_405 o s BS200 BS405 outBase reqAddr hout hreq hbyte haddr hinj
+  exact ⟨serveModel BS200 BS405, s&#x27;, serveExport_lowers BS200 BS405, hsem, hmb⟩</code></pre></div><p>And §9 of <code>ServeExportServes.lean</code> (lines 587–623) proves non-vacuity: the GET branch returns <code>|serialize resp200| = 164</code> bytes while the non-GET branch returns <code>|serialize resp405| = 227</code> bytes (<code>ofNat_len_ne</code>, line 606), proving the compiled Pancake program genuinely branches on the input request byte at <code>reqAddr</code>.</p><hr/><h3 id="pr-orb-3-3-deploy-gateway-ask-discharge-gateway-edge-tl-7">3.3 <code>deploy/gateway-ask</code> &amp; <code>discharge-gateway</code>: Edge TLS/Capability Gateways</h3><p>Two Rust edge gateways in <code>breadstuffs</code> connect the HTTP dataplane to capability verification and third-party caveat discharge:</p><ol><li><strong><a href="https://github.com/emberian/breadstuffs/blob/main/deploy/gateway-ask/src/lib.rs#L66-L468" target="_blank" rel="noopener" title="breadstuffs/deploy/gateway-ask/src/lib.rs#L66-L468"><code>breadstuffs/deploy/gateway-ask/src/lib.rs</code></a>:</strong> Implements Caddy&#x27;s on-demand TLS <code>ask</code> endpoint (<code>site_exists_response</code> at line 131, <code>parse_domain_query</code> at line 149) backed by <code>Arc&lt;DomainRegistry&gt;</code>, plus capability-token edge admission (<code>CapAuth</code> at line 202, <code>cap_auth_decision</code> at line 224, <code>cap_auth_response</code> at line 277, <code>extract_token</code> at line 290) anchored to <code>GatewayState::with_auth_root</code> (line 87), and IPFS launch-landing composition (<code>compose_launch_landing&lt;C: IpfsClient&gt;</code> at line 405).</li><li><strong><a href="https://github.com/emberian/breadstuffs/blob/main/discharge-gateway/src/lib.rs#L61-L460" target="_blank" rel="noopener" title="breadstuffs/discharge-gateway/src/lib.rs#L61-L460"><code>breadstuffs/discharge-gateway/src/lib.rs</code></a>:</strong> Implements the HTTP third-party caveat discharge service (<code>build_gateway(config: &amp;GatewayConfig) -&gt; Result&lt;(SharedState, Router), String&gt;</code> at line 229, <code>post_discharge</code> at line 394, <code>get_conditions</code> at line 435, <code>get_health</code> at line 454). It verifies payment conditions (<code>PaymentConfig</code>, line 99) and zero-knowledge proof conditions (<code>ProofVerifierKind</code> at line 106, <code>ProofVerifierConfig</code> at line 116) before signing a discharge token with a <code>Zeroizing&lt;[u8; 32]&gt;</code> key (<code>resolve_key</code>, line 318).</li></ol><hr/><h3 id="pr-orb-3-4-dreggnet-engine-model-dreggnetarenascript-sm-8">3.4 <code>dreggnet-engine/model/dreggnetArenaScript.sml</code>: HOL4 Proof of the Zero-Copy Arena + <code>SIDECAR_BASE</code> Header Resolver</h3><p>In <span class="src-loc" title="dreggnet-engine/model/dreggnetArenaScript.sml#L36-L138"><code>/Users/ember/dev/dreggnet-engine/model/dreggnetArenaScript.sml</code></span> (138 lines of HOL4), Ember mechanized the memory model of <code>dreggnet-engine</code>&#x27;s zero-copy HTTP header parser and lazy sidecar mutation buffer. Parsed headers reference slices via a 31-bit tagged offset (<code>SIDECAR_BASE = 2^31</code>): offsets <code>&lt; 2^31</code> index the immutable request <code>arena</code>, whereas offsets <code>&gt;= 2^31</code> index the mutable <code>sidecar</code> at <code>off - SIDECAR_BASE</code>:</p><div class="code-block-wrap"><div class="code-header"><span>hol4</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>(* /Users/ember/dev/dreggnet-engine/model/dreggnetArenaScript.sml:36-97 *)
+Datatype:
+  hname = WellKnown num
+        | Custom num num            (* (offset, length) into the region *)
+End
+
+Datatype:
+  hentry = &lt;| hname : hname ; voff : num ; vlen : num |&gt;
+End
+
+Definition SIDECAR_BASE_def:
+  SIDECAR_BASE = 2n ** 31
+End
+
+Datatype:
+  parsed = &lt;| arena : num list ; sidecar : num list ; entries : hentry list |&gt;
+End
+
+Definition region_buf_def:
+  region_buf p off = if off &lt; SIDECAR_BASE then p.arena else p.sidecar
+End
+
+Definition region_off_def:
+  region_off p off = if off &lt; SIDECAR_BASE then off else off - SIDECAR_BASE
+End
+
+Definition resolve_def:
+  resolve p off len = TAKE len (DROP (region_off p off) (region_buf p off))
+End
+
+Definition inbounds_def:
+  inbounds p off len = (region_off p off + len &lt;= LENGTH (region_buf p off))
+End
+
+Definition wf_entry_def:
+  wf_entry p e =
+    (inbounds p e.voff e.vlen /\
+     case e.hname of
+       WellKnown _ =&gt; T
+     | Custom coff clen =&gt; inbounds p coff clen)
+End
+
+Definition wf_parsed_def:
+  wf_parsed p = EVERY (wf_entry p) p.entries
+End</code></pre></div><p>Lines 105–136 prove the four foundational bounds-safety and totality theorems in HOL4 (<code>take_drop_len</code>, <code>resolve_length</code>, <code>wf_entry_value_length</code>, and <code>wf_parsed_values_total</code>):</p><div class="code-block-wrap"><div class="code-header"><span>hol4</span><button class="code-copy-btn" type="button">Copy</button></div><pre><code>(* /Users/ember/dev/dreggnet-engine/model/dreggnetArenaScript.sml:105-136 *)
+Theorem take_drop_len:
+  !n m l. m + n &lt;= LENGTH l ==&gt; LENGTH (TAKE n (DROP m l)) = n
+Proof
+  rpt strip_tac &gt;&gt;
+  `n &lt;= LENGTH (DROP m l)` by simp[LENGTH_DROP] &gt;&gt;
+  simp[LENGTH_TAKE]
+QED
+
+Theorem resolve_length:
+  !p off len. inbounds p off len ==&gt; LENGTH (resolve p off len) = len
+Proof
+  rw[resolve_def, inbounds_def] &gt;&gt; irule take_drop_len &gt;&gt; simp[]
+QED
+
+Theorem wf_entry_value_length:
+  !p e. wf_entry p e ==&gt; LENGTH (resolve p e.voff e.vlen) = e.vlen
+Proof
+  rw[wf_entry_def] &gt;&gt; metis_tac[resolve_length]
+QED
+
+Theorem wf_parsed_values_total:
+  !p. wf_parsed p ==&gt;
+      EVERY (\e. LENGTH (resolve p e.voff e.vlen) = e.vlen) p.entries
+Proof
+  rw[wf_parsed_def, EVERY_MEM] &gt;&gt; metis_tac[wf_entry_value_length]
+QED</code></pre></div><hr/></div></div></section>
+    <section id="tab-zkoracle" class="tab-panel" role="tabpanel"><div class="doc-layout"><aside class="doc-toc" aria-label="Section table of contents"><div class="doc-toc-title">On This Tab (3 Sections)</div><ul><li><a href="#pr-arch-4-git-cv-session-archaeology-1">4. Git &amp; <code>cv</code> Session Archaeology</a></li><li class="toc-h3"><a href="#pr-arch-4-1-chronological-git-commit-spine-users-ember-d-2">4.1 Chronological Git Commit Spine (<code>/Users/ember/dev/breadstuffs</code>)</a></li><li class="toc-h3"><a href="#pr-arch-4-2-primary-source-cv-session-transcripts-design-3">4.2 Primary-Source <code>cv</code> Session Transcripts &amp; Design Provenance</a></li></ul></aside><div class="doc-prose"><div class="callout" style="margin-top:0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"><div><div class="callout-title">Dossier 02 (§4) · Chronological Git Commit Spine &amp; Primary-Source `cv` Design Provenance</div><div>Complete primary-source monograph rendered inline below, with verbatim theorem statements, code blocks, git commit tables, and <code>cv</code> session transcripts.</div></div><div style="display:flex;gap:8px;"><a class="btn btn-primary" href="https://github.com/emberian/whatember/blob/main/sources/02-merkle-agent-proxies-and-dataplanes.md" target="_blank" rel="noopener">View on GitHub ↗</a><a class="btn btn-ghost" style="color:var(--ink);border-color:var(--line);" href="sources/02-merkle-agent-proxies-and-dataplanes.md" target="_blank">Raw Markdown ↗</a></div></div><h2 id="pr-arch-4-git-cv-session-archaeology-1">4. Git &amp; <code>cv</code> Session Archaeology</h2><h3 id="pr-arch-4-1-chronological-git-commit-spine-users-ember-d-2">4.1 Chronological Git Commit Spine (<code>/Users/ember/dev/breadstuffs</code>)</h3><div class="table-wrap"><table><thead><tr><th>Commit SHA</th><th>Date</th><th>Subsystem</th><th>Commit Subject &amp; Architectural Significance</th></tr></thead><tbody><tr><td><code>531751eb0</code></td><td>2026-07-01</td><td><code>metatheory</code></td><td><code>wip(accum8): STEP 1 cont — geometry consumers + wide re-lay + Rust consts</code> — begins widening 1-felt accumulator/Merkle roots to 8-felt (~124-bit) digest groups.</td></tr><tr><td><code>a96aa35b8</code></td><td>2026-07-04</td><td><code>breadstuffs</code></td><td><code>initial commit</code> — base monorepo consolidation.</td></tr><tr><td><code>e1dfe6f97</code></td><td>2026-07-10</td><td><code>agent-platform</code></td><td><code>grain web frontend: DRIVE a confined grain in the browser — rent/watch/verify (+ browser-friendly routing shim)</code>.</td></tr><tr><td><code>f00ed5ed7</code></td><td>2026-07-10</td><td><code>agent-platform</code></td><td><code>agent-platform(drive_live): FIX the served live-drive — operator tools were mis-slotted as flat services (drive admitted nothing)</code>.</td></tr><tr><td><code>85d6e6546</code></td><td>2026-07-10</td><td><code>agent-platform</code></td><td><code>BYOK: POST /act — your key stays in your tab; the host cap-gates, meters, mints, receipts</code>.</td></tr><tr><td><code>fa10bddf3</code></td><td>2026-07-10</td><td><code>agent-platform</code></td><td><code>BYOK: close the OBSERVE half — /act returns the tool&#x27;s real verdict + the gate&#x27;s word, so the model can read back</code>.</td></tr><tr><td><code>e58f9a244</code></td><td>2026-07-10</td><td><code>demo</code></td><td><code>grain demo: a HUMAN front door (play.html) — &quot;boss an AI around a box it can&#x27;t escape&quot;, plain language, watch it get blocked, verify in plain terms</code>.</td></tr><tr><td><code>0b609e7e2</code></td><td>2026-07-10</td><td><code>demo</code></td><td><code>grain demo: KEYLESS — the AI is driven by AWS Bedrock (Nova-Micro) server-side, no visitor key</code> (<code>demo/keyless-grain-proxy.py</code>).</td></tr><tr><td><code>1ee750724</code></td><td>2026-07-10</td><td><code>FullForestAuth</code></td><td><code>revoked-attest: gatedActionInvG gains the 4th revocationGate conjunct</code>.</td></tr><tr><td><code>25992b73c</code></td><td>2026-07-10</td><td><code>grain-turn</code></td><td><code>vk-epoch(rust ghost mirror, commitments dual): commit the commitments accumulator root FAITHFULLY + a live executor set — the CREATE dual of the nullifier mirror</code>.</td></tr><tr><td><code>fd3ef502a</code></td><td>2026-07-10</td><td><code>orb</code></td><td><code>orb: carry conformance 20/21 — conditional stages + cache-key fix</code>.</td></tr><tr><td><code>db51584c2</code></td><td>2026-07-11</td><td><code>orb</code> / <code>orb-compiler</code></td><td><code>orb + orb-compiler: fresh cut (latest) — PQ TLS edge + RUNG-3 Pancake codegen, for the public dregg repo</code>.</td></tr><tr><td><code>550f0a08d</code></td><td>2026-07-11</td><td><code>HeapOpenEmit</code></td><td><code>DEBT-A Phase-0: FieldsOpen + HeapOpen + AccumulatorOpen/Insert + CarrierOctetGates → mod-p (no wrap-residuals; stale geometry fixed)</code>.</td></tr><tr><td><code>efc819043</code></td><td>2026-07-11</td><td><code>agent-platform</code></td><td><code>agent-platform: rent an anchored grain -&gt; ENVELOPED end-to-end (upgrade-safety fully live)</code>.</td></tr><tr><td><code>d89198ccd</code></td><td>2026-07-11</td><td><code>sdk</code>+<code>grain-turn</code></td><td><code>sdk+grain-turn: stamp the owner-signed envelope at spawn (upgrade-safety, now LIVE not inert)</code>.</td></tr><tr><td><code>41ec2e6f8</code></td><td>2026-07-11</td><td><code>turn</code>+<code>sdk</code></td><td><code>turn+sdk+agent-platform: envelope owner-LIVENESS — register the owner verifier on the worker&#x27;s executor</code>.</td></tr><tr><td><code>43e36191e</code></td><td>2026-07-12</td><td><code>grain-turn</code></td><td><code>grain-turn: bind each grain&#x27;s receipt history into its committed state (CommitBindsMMR, per-grain)</code> — lands <code>HISTORY_ROOT_SLOT = 3</code>, <code>grain_history_root</code>, and <code>verify_grain_history</code>.</td></tr><tr><td><code>ad33c9247</code></td><td>2026-07-12</td><td><code>deos-hermes</code></td><td><code>tee: producer scaffold + rail join — an enclave-attested session becomes a light-client-checkable fact</code>.</td></tr><tr><td><code>44dc3e792</code></td><td>2026-07-15</td><td><code>agent-platform</code></td><td><code>agent-platform: harden the hosting front door — poison recovery, traversal-proof workdir, body cap, real eviction/GC + per-owner cap</code>.</td></tr><tr><td><code>ddd2408c5</code></td><td>2026-07-15</td><td><code>orb</code> / <code>orb-compiler</code></td><td><code>orb + orb-compiler: fresh cut 2026-07-15 — honest snapshot (verified engine + compiler-in-progress)</code>.</td></tr><tr><td><code>76ea0243e</code></td><td>2026-07-20</td><td><code>orb</code></td><td><code>★★ truth-in-naming: the kernel confirms verifyCore_is_spec was P=P — renamed; + ML-DSA verify/decaps NIST-anchored</code>.</td></tr><tr><td><code>977e73b19</code></td><td>2026-07-20</td><td><code>grain-turn</code></td><td><code>consensus anchors on the AIR-bound chip 8-felt, not the trusted-Rust BLAKE3 ledger root</code>.</td></tr><tr><td><code>988b01684</code></td><td>2026-07-23</td><td><code>Heap.lean</code></td><td><code>metatheory: the 1-felt sponge reduction spine, and the heap-root anti-ghost rebuilt on it</code>.</td></tr><tr><td><code>a71fa3305</code></td><td>2026-07-23</td><td><code>Heap.lean</code></td><td><code>crypto: re-point deployed bindings from the refuted IsPolyTime floor onto the keyed-ROM floor (SystemRoots + Heap-addr), delete the vacuous _from_polyTime discharges</code>.</td></tr><tr><td><code>594d79d4b</code></td><td>2026-07-24</td><td><code>grain-turn</code></td><td><code>felt-width #22: grain R3&#x27;s anti-ghost tooth binds 8 felts AND a caller-held VK (both empty conjuncts closed)</code>.</td></tr><tr><td><code>07942f63c</code></td><td>2026-07-28</td><td><code>orb</code></td><td><code>workspace: 40,000 lines of orb were in NEITHER members NOR exclude — and seven more packages were in the same silence</code>.</td></tr><tr><td><code>45234efd2</code></td><td>2026-07-28</td><td><code>orb</code></td><td><code>orb: proxy_grpc said &quot;wired into the running dataplane&quot; and has zero callers — it is the UNWIRED half of a seam, and now says so</code>.</td></tr><tr><td><code>e612e3f98</code></td><td>2026-08-01</td><td><code>HeapOpenEmit</code></td><td><code>chiparity: land the stalled cutover — the arity condition reaches its 32 consumers, and three descriptors that could never have proved</code>.</td></tr><tr><td><code>278e4646b</code></td><td>2026-08-06</td><td><code>orb</code></td><td><code>orb: the SerializeSanitize wiring note pointed at Reactor/Dataplane.lean — the file is orb/Dataplane.lean and the extra path segment made it the tree&#x27;s only NEW dead lean reference</code>.</td></tr><tr><td><code>f6a490eae</code></td><td>2026-08-06</td><td><code>grain-turn</code></td><td><code>fix(pi)!: the five one-felt TURN_HASH writes never ran — and the executor comparison four docblocks credited had no caller at all</code>.</td></tr><tr><td><code>d62ec21d7</code></td><td>2026-08-07</td><td><code>grain-turn</code></td><td><code>fix(pq,grain)!: a signature wire nobody could READ rendered as the string an honest REJECT renders as — so every negative test on the ML-DSA and R3 verify paths was satisfied by &quot;nothing was verified&quot;</code>.</td></tr><tr><td><code>45caf4c32</code></td><td>2026-08-08</td><td><code>ci</code> / <code>sdk</code></td><td><code>fix(ci)!: five gates that had never produced a verdict — and the descriptor stamp stopped reaching its own subject the day a composite action landed</code>.</td></tr></tbody></table></div><hr/><h3 id="pr-arch-4-2-primary-source-cv-session-transcripts-design-3">4.2 Primary-Source <code>cv</code> Session Transcripts &amp; Design Provenance</h3><ol><li><strong>Birth of <code>deos-hermes</code> &amp; the ADOS Confined-Agent Thesis (2026-06-22 to 2026-06-28):</strong></li><li><code>cv</code> sessions <code>a3d1845c</code>, <code>ab73ebc6</code>, <code>af8b4ff8</code>, <code>ad14bb07</code> (2026-06-22) and <code>acd7246e</code> (2026-06-28):</li></ol><blockquote><p><em>&quot;Build <strong>deos-hermes</strong>: integrate Hermes (Nous Research&#x27;s self-improving agent at ~/pug/hermes-agent) ... Deepen the deos-hermes / ADOS integration toward a real confined agent. Project: /Users/ember/dev/breadstuffs ... Advance deos-hermes from &#x27;a working confined agent (seam)&#x27; to RUNNING IN A SANDBOX-PD + a mountable CockpitSurface.&quot;</em></p></blockquote><ol><li><strong>Wiring <code>ToolGatewayMinter</code> and the <code>ZkOracleAttestation</code> Full Fusion into <code>grain-turn</code> (2026-07-05 to 2026-07-12):</strong></li><li><code>cv</code> session <code>ab98fd5c</code> (sub-agent of <code>8358f48c</code>, 2026-07-05):</li></ol><blockquote><p><em>&quot;Wire the flagship R2 kernel-turn minter into the shipped hosted-agent platform ... <code>grain-turn/src/lib.rs</code> around :139 and :183-226 — the <code>ToolGatewayMinter</code>.&quot;</em></p></blockquote><ul><li><code>cv</code> session <code>a9fc38dc</code> (sub-agent of <code>3e4eb6b5</code>, 2026-07-06):</li></ul><blockquote><p><em>&quot;THE FULL FUSION — bind the zkOracle attestation (the confined brain&#x27;s authentic MPC-TLS + STARK injection-free proof) into the grain turn cell (<code>ToolGatewayMinter</code>, the CONSUMED/HEAP_ROOT/ACTION/ATTESTATION slots).&quot;</em></p></blockquote><ul><li><code>cv</code> session <code>a99c9264</code> (lane W5 of <code>b7cdd58a</code>, 2026-07-12):</li></ul><blockquote><p><em>&quot;Investigate and, if the seam is crisp, weld the receipt-chain/MMR code (<code>grain-turn</code>, <code>turn/</code>, cell evidence substance) so each grain&#x27;s receipt history is bound into its committed state.&quot;</em></p></blockquote><ol><li><strong>Adversarial Documentation &amp; Seam Audits on <code>keyless-grain-proxy.py</code> (2026-07-16):</strong></li><li><code>cv</code> sessions <code>aea87d7b</code>, <code>ae6eb775</code>, <code>a997b1c6</code>, <code>add94076</code>, <code>afa4ae77</code> (2026-07-16):</li></ol><blockquote><p><em>&quot;Adversarial documentation audit in the dregg repository at <code>/Users/ember/dev/breadstuffs</code> ... <code>/keyless-drive</code> is not in <code>agent-platform/src/serve.rs:198-561</code>; it exists only in <code>demo/keyless-grain-proxy.py</code>, a dev-only Python sidecar with a hardcoded <code>/Users/ember/dev/breadstuffs/site/grain</code> path.&quot;</em></p></blockquote><ol><li><strong>Proving <code>serveExport_serves</code> in <code>orb-compiler/Pancake/ServeExportServes.lean</code> (2026-07-17):</strong></li><li><code>cv</code> sessions <code>a351c3bb</code>, <code>aea51949</code>, <code>a675df29</code>, <code>a1369b92</code>, <code>ad26da60</code> (sub-agents of <code>88809072</code>, 2026-07-17):</li></ol><blockquote><p><em>&quot;★TRACK 2 PHASE A — prove <code>serveExport_serves</code>: <code>behavior(emitted .pnk) = serialize(miniServe)</code> ... <code>serveExport_serves</code> (<code>Pancake/ServeExportServes.lean</code>, just landed) bridges the whole PFun <code>behavior=spec</code>. ★TRACK 2 PHASE B — the emitted <code>.pnk</code> READS the config frame the host already writes.&quot;</em></p></blockquote><ol><li><strong>Dark Egg Research <code>inclusion-availability</code> MMR, Receipts &amp; Equivocation Verdicts (2026-08-18):</strong></li><li><code>cv</code> sessions <code>a9e30597</code>, <code>aad1c550</code>, <code>a7e674c7</code>, <code>afe91af4</code>, <code>aab5df2f</code> (sub-agents of <code>c37f7ac1</code>, 2026-08-18):</li></ol><blockquote><p><em>&quot;You are the inclusion/availability lane for Dark Egg Research at <code>/Users/ember/dev/degg-research</code> ... Scope: NEW directory <code>experiments/inclusion-availability/**</code> plus a NEW doc <code>docs/research/INCLUSION_AVAILABILITY.md</code> (MMR log, receipts, equivocation verdicts, nullifiers, reserve ledger, abort/refund, 125 tests).&quot;</em></p></blockquote><ol><li><strong>MiniDregg&#x27;s <code>mini-keys</code> <code>SO_PEERCRED</code> Broker &amp; <code>Theory/AuthTrie.lean</code> (2026-10-04 to 2026-10-30):</strong></li><li><code>cv</code> sessions <code>af4a51e2</code> and <code>aa652223</code> (sub-agents of <code>c1e4d723</code>, 2026-10-04):</li></ol><blockquote><p><em>&quot;You are lane TENANCY-B on Mini (GitHub <code>emberian/minidregg</code>; Lean owns semantics) ... 1. A key-service account (<code>mini-keys</code>) with a small Rust broker daemon reachable over a Unix socket owned by <code>mini-keys</code>, authenticating callers via <code>SO_PEERCRED</code>.&quot;</em></p></blockquote><ul><li><code>cv</code> sessions <code>a713a7c8</code> (2026-10-14), <code>cae9944c</code> &amp; <code>9760e03e</code> (2026-10-28), <code>239be6fc</code> (2026-10-29), and <code>01a18fbd</code> (2026-10-30):</li></ul><blockquote><p><em>&quot;Your shard: 158 - <code>Theory/AuthTrie.lean</code> (563 lines) - <code>Theory/AuthTrieCache.lean</code> (1035 lines) - <code>Theory/AuthTrieErase.lean</code> (<code>Trie.eraseCounted</code>: one walk, <code>join</code> collapses lone leaves) - <code>Theory/AuthTrieRange.lean</code> - <code>Theory/AuthTrieReveal.lean</code>.&quot;</em></p></blockquote><hr/></div></div></section>
+    
   </main>
 
   <footer class="site-footer">
     <div class="wrap footer-grid">
       <div>
-        <strong>whatember</strong> · 03 · Merkleized Agent Proxies, Capabilities &amp; Verified Dataplanes<br/>
-        Primary Source: <a href="sources/02-merkle-agent-proxies-and-dataplanes.md">Dossier 02 (82 KB)</a>
+        <strong>whatember</strong> · 03 · Merkleized Agent Proxies, Capabilities & Verified Dataplanes (Full Dossier 02 · 82 KB)<br/>
+        All claims anchored to primary-source git commits, zero-<code>sorry</code> Lean 4 / HOL4 / ACL2 / Isabelle theorems, and reproducible benchmarks.
       </div>
       <div>
-        <a href="workload.html">← 02 · Workload &amp; Absence</a> ·
-        <a href="hardware.html">04 · Hardware &amp; Silicon →</a>
+        <a href="https://github.com/emberian/whatember">GitHub Repo</a> ·
+        <a href="https://emberian.github.io/dregg-microsites/">Dregg Microsites</a> ·
+        <a href="atlas.html">Master Atlas</a>
       </div>
     </div>
   </footer>
