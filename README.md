@@ -7,13 +7,13 @@
 
 ---
 
-## Site Architecture (7 Pages, 27 Interactive Sub-Tabs)
+## Site Architecture (`open-strands` Branch: 10 Pages, 41 Interactive Sub-Tabs, 2.29 MB Rendered HTML)
 
 1. **[`index.html` — 01 · Overview & Executive Index](https://emberian.github.io/whatember/index.html)**
    - **1A · Architecture & Thesis**: How hardware attestation, Merkle/MMR history commitments, and algebraic/formal certificates interlock.
    - **1B · Problem → Primitive → Proof Matrix**: Interactive filterable table mapping every verification threat to concrete crates and zero-`sorry` theorems.
    - **1C · Briefing for Quinn & Lucid Computing**: Curated guide to live visual essays (`dregg-microsites`) and reference codebases.
-   - **1D · 8 Primary-Source Dossiers**: Direct index of `sources/01..08-*.md` (~619 KB total).
+   - **1D · Primary-Source Dossiers**: Direct index of all primary-source dossiers (`sources/01..08-*.md` & `sources/strands/09..19-*.md`, ~1.39 MB total).
 2. **[`workload.html` — 02 · Workload Verification, Absence Proofs, zkML & vFHE](https://emberian.github.io/whatember/workload.html)**
    - **2A · Proving Training-Set & Corpus Absence**: 6-phase protocol combining `Blake3Mmr`/`DocTree` commitments, `RangeCertificate` non-omission proofs (`MMR.lean:server_cannot_omit_position`), certified BPE tokenization (`tokenizer`), 3,522-line Lean 4 Brzozowski regex-complement DFAs (`Dregg2/Crypto/Deriv/*`), 4M-token/40ms welded parsing certificates (`AttestedAutomatonWeld8.lean`), zero-budget STARKs (`audit`), and `DARK-TRAINING.md`.
    - **2B · Selvage & Commit-Then-Audit (`AuditSampling.lean`)**: Zero-`sorry` Lean 4 supermartingale bounds ($\mathbb{E}[C_\tau] \le 1/q$), `failOpen_no_legs`, and **78×–308×** boundary exchange cost reduction.
@@ -36,10 +36,27 @@
    - **5D · Computable Law & Operatorless Agents**: `OPERATORLESS_AGENTS.md`, `leakage-lab`, and 5 CFTC/SEC regulatory comment filings.
 6. **[`vision.html` — 06 · The Vision, Decade Lineage (2013–2026) & Swarm Engineering](https://emberian.github.io/whatember/vision.html)**
 7. **[`atlas.html` — 07 · Searchable Master Atlas: 38+ Repos, 19 Microsites, 65+ Posters & Papers](https://emberian.github.io/whatember/atlas.html)**
+8. **[`deos.html` — 08 · DeOS, MiniDregg, NanoDregg, DelveTalk & The `breadstuffs` Diaspora](deos.html)**
+   - **8A · DeOS, MiniDregg, NanoDregg, DelveTalk & Spween**: Complete operating system and live-programming stack (`DelveTalk` 18-opcode bytecode + Smalltalk-80 environment, `Spween` scene graph, `Preoscript`, and `OBend` hardware unification).
+   - **8B · `breadstuffs` Diaspora I (Kernels, Circuits & Crypto)**: How `bread-kernel`, `bread-circuit`, `bread-stark`, and `bread-Poseidon2` split into `minidregg`, `nanodregg`, and `obend`.
+   - **8C · `breadstuffs` Diaspora II (DeOS Surfaces & `starbridge`)**: `deos-ui`, `spween`, `preoscript`, `delvetalk`, `starbridge` MCP/WebSocket bridge, and how to take back up the declarative visual desktop surface.
+   - **8D · `breadstuffs` Diaspora III (`dreggnet`, Worlds & PoA)**: P2P gossip, Proof-of-Agency (`poa`), interactive worlds (`mud`, `don`), and deterministic world-tick verification.
+   - **8E · `breadstuffs` Diaspora IV (Federation, Chains & Polisware)**: Cross-chain bridges (Mina/Solana/Ethereum), Polisware civic governance, and `commons` resource accounting.
+9. **[`verticals.html` — 09 · All Verticals: Cognitive Learning, ISAs/Math, Markets, Residents & Interiority](verticals.html)**
+   - **9A · Cognitive Learning (`abcdeez`, `factshift`, `EKOS`/`verekos`, `teach`)**: Non-stationary bandit spaced repetition, 4-axis competence vector, and formal skill graphs.
+   - **9B · Custom RISC ISAs (`absass`), RNS Math (`intmat`/`intmat2`) & Physics (`eshkol`, `torchship`)**: Absolute Ass RISC ISA, exact integer RNS matrices, `graphplay`, and relativistic spacecraft telemetry.
+   - **9C · Prediction Markets (`dclutch`, `joshi`, `pbot1`) & Mina ZK**: Combinatorial LMSR + Bregman projection in Lean 4/Rust, autonomous market-making engines, and Mina/Kimchi/Pickles recursive ZK.
+   - **9D · Resident Minds (`allgame`, `tulip`, `fn`/`fn2`), Games (`don`, `automatafl`) & `audec`**: Persistent autonomous minds, 322-tool `fn` with 5-tier context compression, GPU evolution worlds, and verified neural audio codecs.
+   - **9E · Machine Interiority (`comp-theo`), The Bridge, Interpretability (`negstab`, `formal-organisms`) & Social Choice**: Phenomenology of artificial minds, model organisms of negotiated stabilization, and formal social choice (`socchoice`, `law`).
+10. **[`triage.html` — 10 · Metamanagement, Unclosed Cycles (`C1`–`C15`), Revival Candidates & Human Triage (`H1`–`H15`)](triage.html)**
+    - **10A · Swarm Metamanagement & `cv distill`**: Quantitative continuity architecture (`21.5 / 24` recall vs `0.5 / 24` handoff notes), `CLAUDE.md` stratigraphy, and `mission-control`/`helm`.
+    - **10B · Portfolio Maturity Matrix (`L0`–`L4`) & 15 Unclosed Engineering Cycles (`C1`–`C15`)**: Concrete closure pathways across all 374 `~/dev` directories.
+    - **10C · Top 15 Revival Candidates ("Take Back Up")**: High-leverage dormant gems now unlocked by `minidregg`/`nanodregg`/`obend`/`svenvs`.
+    - **10D · 15 Struggling Areas Needing Human Attention (`H1`–`H15`)**: Architectural forks, multi-worktree divergences, and taste judgments that only Ember can resolve.
 
 ---
 
-## Primary-Source Dossiers (`sources/`)
+## Primary-Source Dossiers (`sources/` & `sources/strands/`)
 
 | # | Dossier File | Size | Topic |
 |---|---|---|---|
@@ -51,3 +68,14 @@
 | 06 | [`sources/06-vision-origins-and-complete-project-atlas.md`](sources/06-vision-origins-and-complete-project-atlas.md) | 89 KB | The Vision, Decade Lineage (2013–2026), Swarm Engineering (`redregg` & `cv`) & Complete Project Atlas |
 | 07 | [`sources/07-obend-silicon-fpga-and-latest-dregg.md`](sources/07-obend-silicon-fpga-and-latest-dregg.md) | 78 KB | `obend` Silicon Elaborator (`ExprCAM`, Futamura, 3-Phase `ICAP` DPR), Sky130 PDK DRC & 6-Stage FPGA/CDNA3/FP4 Equivalence |
 | 08 | [`sources/08-october-november-2026-stratum.md`](sources/08-october-november-2026-stratum.md) | 72 KB | Late Oct–Nov 2026 Stratum: `svenvs` & `hol-reflection`, `verekos`, `o7vn`, `fn2`, `negstab` & `forensics` |
+| 09 | [`sources/strands/09-deos-minidregg-nanodregg-delvetalk-deep-dive.md`](sources/strands/09-deos-minidregg-nanodregg-delvetalk-deep-dive.md) | 64 KB | Deep Dive: `DeOS`, `MiniDregg`, `NanoDregg`, `DelveTalk`, `Spween`, `Preoscript` & `OBend` Hardware Unification |
+| 10 | [`sources/strands/10-cognitive-learning-abcdeez-factshift-ekos.md`](sources/strands/10-cognitive-learning-abcdeez-factshift-ekos.md) | 80 KB | Cognitive Learning & Adaptive Memory: `abcdeez`, `factshift`, `EKOS`/`verekos`, `teach`/`sensei` & `notecard` |
+| 11 | [`sources/strands/11-isa-compilers-physics-math-substrates.md`](sources/strands/11-isa-compilers-physics-math-substrates.md) | 89 KB | Custom RISC ISA (`absass`), `dhttp`, `intmat`/`intmat2` RNS Matrices, `graphplay`, `eshkol` & `torchship` |
+| 12 | [`sources/strands/12-markets-dclutch-solana-joshi-mina-zk.md`](sources/strands/12-markets-dclutch-solana-joshi-mina-zk.md) | 77 KB | Combinatorial Prediction Markets (`dclutch`), `joshi`/`pbot1`/`polymarket-arb` & Mina/Kimchi/Pickles Recursive ZK |
+| 13 | [`sources/strands/13-residents-bots-games-worlds-audec.md`](sources/strands/13-residents-bots-games-worlds-audec.md) | 85 KB | Resident Minds (`allgame`, `tulip`, `fn`/`fn2`), Games (`don`, `automatafl`, `c6-4x`, `mud`) & `audec` Audio Codecs |
+| 14 | [`sources/strands/14-interiority-bridge-interpretability-organisms.md`](sources/strands/14-interiority-bridge-interpretability-organisms.md) | 87 KB | Machine Interiority (`comp-theo`), The Bridge, Interpretability (`gowexp`, `negneg`, `negstab`, `formal-organisms`) & Social Choice |
+| 15 | [`sources/strands/15-metamanagement-open-cycles-revival-triage.md`](sources/strands/15-metamanagement-open-cycles-revival-triage.md) | 87 KB | Metamanagement, Unclosed Cycles (`C1`–`C15`), Top 15 Revival Candidates & Human Triage (`H1`–`H15`) |
+| 16 | [`sources/strands/16-breadstuffs-kernel-circuits-crypto-diaspora.md`](sources/strands/16-breadstuffs-kernel-circuits-crypto-diaspora.md) | 42 KB | `breadstuffs` Diaspora I: Kernel (`bread-kernel`), Plonky3 STARK Circuits & Cryptographic Primitives |
+| 17 | [`sources/strands/17-breadstuffs-deos-surfaces-starbridge-diaspora.md`](sources/strands/17-breadstuffs-deos-surfaces-starbridge-diaspora.md) | 46 KB | `breadstuffs` Diaspora II: `deos-ui`, `spween`, `preoscript`, `delvetalk`, `starbridge` & `deos-hermes` |
+| 18 | [`sources/strands/18-breadstuffs-dreggnet-games-worlds-diaspora.md`](sources/strands/18-breadstuffs-dreggnet-games-worlds-diaspora.md) | 72 KB | `breadstuffs` Diaspora III: `dreggnet` P2P Gossip, Proof-of-Agency (`poa`) & Interactive Worlds (`mud`, `don`) |
+| 19 | [`sources/strands/19-breadstuffs-federation-chains-commons-diaspora.md`](sources/strands/19-breadstuffs-federation-chains-commons-diaspora.md) | 50 KB | `breadstuffs` Diaspora IV: Federation, Cross-Chain Bridges, Polisware Civic Governance & `commons` |

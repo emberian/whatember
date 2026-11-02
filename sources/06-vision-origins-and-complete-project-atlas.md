@@ -18,15 +18,14 @@ flowchart LR
     L4V --> ROB["Robigalia (2016+)<br/>Rust on seL4 microkernel<br/>Capability OS across a network"]
     ROB --> MINA["O(1) Labs / Mina Protocol<br/>Founding Engineer<br/>Pickles / Kimchi / Snarky<br/>CallForest Account Updates"]
     MINA --> HEL["Hellas (2025, Bio Context Only)<br/>Compute & Workload Verification<br/>Morpheus Consensus Exploration"]
-    HEL --> ELIDE["Elide & WHIPLASH (Dec 2025 - Apr 2026)<br/>dhttp / TransportCQ / persvati<br/>~/elide/breadstuffs Macaroons<br/>chronicle TLA+ HIR Extractor"]
-    ELIDE --> PYANA["pyana -> Dregg / breadstuffs (May 2026)<br/>Attenuable Proof-Carrying Tokens<br/>Dregg2 Lean 4 Metatheory<br/>Lean-Emitted STARK/FRI & Carriers"]
+    HEL --> PYANA["breadstuffs / pyana -> Dregg (Feb-May 2026)<br/>Macaroons & Biscuits -> ZK Capabilities<br/>Dregg2 Lean 4 Metatheory<br/>Lean-Emitted STARK/FRI & Carriers"]
     PYANA --> MINI["minidregg / fn / delvetalk / nanodregg (Aug-Oct 2026)<br/>Objective Bend (Core4) & Spween<br/>37,317 ACL2 Theorems in fn<br/>nanodregg 12-Law Verified Kernel"]
 ```
 
 1. **Pre-1.0 Rust Contributor, `rustdoc`, Name Resolution, & *This Week in Rust* (`2013–2015`)**:
    - In [`aidev/docs/synthesis/delve-bio.md`](file:///Users/ember/dev/aidev/docs/synthesis/delve-bio.md#L11-L13), Ember summarizes their earliest systems work:
      > *"Ember was a prolific contributor to Pre-1.0 Rust, writing the first version of `rustdoc`, helping to develop Rust's name resolution algorithm, and founding This Week in Rust."*
-   - During the Elide documentation sprint on `2026-02-23` (session `ad68da21`, prompt #31, cited in [`aidev/docs/synthesis/elide.md`](file:///Users/ember/dev/aidev/docs/synthesis/elide.md#L211-L214)), Ember reflected on writing `rustdoc` by hand in high school:
+   - On `2026-02-23` (session `ad68da21`, prompt #31), Ember reflected on writing `rustdoc` by hand in high school:
      > *"as the original author of rustdoc (wrote it by hand in high school before rust hit 1.0), it has special meaning to me that i am getting to do it with you, in 2026."*
 
 2. **Undergraduate Quantum Walks & Proof Engineering on `l4v` / `seL4` at UNSW (`2016`)**:
@@ -60,13 +59,12 @@ flowchart LR
      > *"hellas also is attacking the workload verification problem and i worked for them for a while and the project i was doing with them eventually turned into dregg."*
    - *(Note: All Hellas repositories remain strictly external biographical background and are excluded from Ember's open project atlas.)*
 
-6. **`Elide` & `WHIPLASH`: High-Performance Runtime, `~/elide/breadstuffs`, `persvati`, and `chronicle` (`Dec 2025 – Apr 2026`)**:
-   - From December 2025 to April 2026, Ember drove the **Elide** polyglot runtime and **WHIPLASH** (`dhttp`, `xprt`) across 965 Claude Code sessions (`13,261` human prompts; [`aidev/docs/synthesis/elide.md`](file:///Users/ember/dev/aidev/docs/synthesis/elide.md#L1-L26)).
-   - Four direct precursors to Dregg were forged inside the Elide workspace:
-     1. **`~/elide/breadstuffs` (`2026-02-07`)**: Started as `~/elide/oauth`, then renamed `breadstuffs` (macaroons, biscuits, croutons, "garlicbread" encrypted tokens, and a Datalog authorizer; [`elide.md`](file:///Users/ember/dev/aidev/docs/synthesis/elide.md#L40-L43), [`dregg.md`](file:///Users/ember/dev/aidev/docs/synthesis/dregg.md#L21-L23)).
-     2. **`TransportCQ` ("the god queue")**: A single-threaded event-loop completion queue (`crates/transport/src/cq.rs`) that unified timers, sockets, files, and worker threads (`elide` session `43a6de33`, `2026-01-23`: *"Is all IO going through our central god queue?"*; [`elide.md`](file:///Users/ember/dev/aidev/docs/synthesis/elide.md#L69-L83)) — the architectural ancestor of `DreggNet`'s verified reactor and `nanodregg`'s single deterministic `Host/Loop.lean`.
-     3. **`persvati` (`2026-02-19..20`)**: "Persistent vats" (CapTP/ERights + durable SQLite/LMDB snapshots + content-addressed code + Macaroon/Biscuit capability invocation; [`elide.md`](file:///Users/ember/dev/aidev/docs/synthesis/elide.md#L187-L199)). On `2026-02-20`, Ember provisioned a dedicated 24-core Linux box named `persvati` (*"persvati is for Aigents"*, [`interiority.md`](file:///Users/ember/dev/aidev/docs/synthesis/interiority.md#L288)).
-     4. **`chronicle` (`2026-03-16..18`)**: A rustc HIR extractor (`#[chronicle::Action]`, `#[chronicle::State]`) that compiled Rust state machines directly into TLA+ specifications checked by `tlc` and `apalache` with zero drift (`whiplash` session `70b525a0`: *"Is the TLA+ still extracted from the rust or is it drifting?"*; [`elide.md`](file:///Users/ember/dev/aidev/docs/synthesis/elide.md#L279-L296)). This dissatisfaction with model-vs-code drift directly catalyzed Dregg's June 2026 pivot to *"Lean IS the implementation."*
+6. **Early 2026 Capability Tokens, Persistent Vats (`persvati`), and HIR-to-TLA+ Extraction (`chronicle`) (`Feb – Mar 2026`)**:
+   - Four early-2026 Rust prototypes directly seeded Dregg's architecture:
+     1. **`breadstuffs` (`2026-02-07`)**: Macaroons, biscuits, croutons, "garlicbread" encrypted tokens, and a Datalog authorizer ([`dregg.md`](file:///Users/ember/dev/aidev/docs/synthesis/dregg.md#L21-L23)).
+     2. **Single-Loop Completion Queue (`TransportCQ`)**: A single-threaded event-loop completion queue unifying timers, sockets, files, and worker threads (`2026-01-23`) — the architectural ancestor of `DreggNet`'s verified reactor and `nanodregg`'s single deterministic `Host/Loop.lean`.
+     3. **`persvati` (`2026-02-19..20`)**: "Persistent vats" (CapTP/ERights + durable SQLite/LMDB snapshots + content-addressed code + Macaroon/Biscuit capability invocation). On `2026-02-20`, Ember provisioned a dedicated 24-core Linux box named `persvati` (*"persvati is for Aigents"*, [`interiority.md`](file:///Users/ember/dev/aidev/docs/synthesis/interiority.md#L288)).
+     4. **`chronicle` (`2026-03-16..18`)**: A rustc HIR extractor (`#[chronicle::Action]`, `#[chronicle::State]`) that compiled Rust state machines directly into TLA+ specifications checked by `tlc` and `apalache` with zero drift. Dissatisfaction with model-vs-code drift directly catalyzed Dregg's June 2026 pivot to *"Lean IS the implementation."*
 
 7. **`pyana` $\to$ `dregg` (`breadstuffs`) $\to$ `minidregg` $\to$ `fn` $\to$ `delvetalk` & `nanodregg` (`May – Oct 2026`)**:
    - **`2026-05-19` (`pyana`, commit `3d0d0bfaf`)**: Imported into `/Users/ember/dev/breadstuffs` as a 22-crate, ~70k LOC Rust workspace for *"distributed object-capability authorization with ZK proofs"* (`pyana-core`, `pyana-zk`, `pyana-vat`, `pyana-captp`, `pyana-bend`, `pyana-nock`).
@@ -207,7 +205,7 @@ As stated in [`/Users/ember/dev/redregg/README.txt`](file:///Users/ember/dev/red
 #### 3.1.2 `redregg/intent/`: The Six Foundational Shifts & Subsystem Deep Dives
 
 1. **[`intent/foundations-intent-model.txt`](file:///Users/ember/dev/redregg/intent/foundations-intent-model.txt#L1-L254) — The Six Foundational Shifts (`F01`–`F17`)**:
-   - **Shift 1 (`2026-02-07` $\to$ `2026-05-19`): From Authorization Tokens to a Capability Runtime**: `~/elide/breadstuffs` (macaroons/biscuits + Datalog authorizer) evolved into `pyana` (`F01`), where attenuable capabilities carry zero-knowledge proofs of their delegation chains.
+   - **Shift 1 (`2026-02-07` $\to$ `2026-05-19`): From Authorization Tokens to a Capability Runtime**: Early `breadstuffs` (macaroons/biscuits + Datalog authorizer) evolved into `pyana` (`F01`), where attenuable capabilities carry zero-knowledge proofs of their delegation chains.
    - **Shift 2 (`2026-02-19` $\to$ `2026-05-25`): From Single-Node Vats to Distributed Persistent Capabilities with Local ZK Proofs**: `persvati` durable vats + CapTP merged with local client-side proving (`F02`, `F03`).
    - **Shift 3 (`2026-05-28`): From Object-Capability Runtime to Unified State-Transition Engine (`Dregg`)**: Renamed `dregg` (`F04`), unifying capability invocation, state cells, nullifiers, and recursive proof composition into a single `Turn` abstraction (`F05`).
    - **Shift 4 (`2026-05-29` $\to$ `2026-06-11`): From Rust-Authoritative Execution + Separate Proofs to Lean-Authoritative Execution + Lean-Emitted Circuits**: Launching `Dregg2` in Lean 4 (`F06`), requiring the Rust node to call Lean `@[export]` C-ABI entrypoints (`F07`), and requiring all STARK/AIR constraints to be emitted from Lean definitions (`F08`).
@@ -310,12 +308,8 @@ In October 2026 (`2026-10-10` to `2026-10-12`), Ember commissioned a read-only a
    - Synthesizes the full trajectory of `breadstuffs`, `minidregg`, `DreggNet`, `drorb`, `DreggCloud`, `dclutch`, `dragons-clutch`, `zkml-research`, `degg-research`, `dregg-assortia`, `dregg-site`, `dregg-microsites`, and `dregg-posters`.
    - Catalogs **30 load-bearing prompts** (`§6`, [lines 352–425](file:///Users/ember/dev/aidev/docs/synthesis/dregg.md#L352-L425)) and **18 open technical problems** (`§7`, [lines 427–460](file:///Users/ember/dev/aidev/docs/synthesis/dregg.md#L427-L460)), including the FRI soundness floor at BabyBear (`conjectured 130 / proven 51–73 / ceiling 2^123.6`), non-native field widening (`FieldLanes9`), and the two-state-machine seam between `NativeHost` and `World.admit` that `nanodregg` later closed.
 
-2. **[`docs/synthesis/elide.md`](file:///Users/ember/dev/aidev/docs/synthesis/elide.md#L1-L381) — The Elide & WHIPLASH Era (965 Sessions, 13,261 Prompts)**:
-   - Traces how Ember built a full-stack polyglot runtime (`dhttp`, `xprt`, `TransportCQ`, `persvati`, `chronicle`, `loicense`, `elide-native-ape`) from December 2025 to April 2026.
-   - Shows how every core Dregg invariant — capability tokens (`~/elide/breadstuffs`), single-loop deterministic IO (`TransportCQ`), persistent vats (`persvati`), and compiler-extracted formal specs (`chronicle`) — was prototyped in Rust before Ember pivoted to Lean 4 and ACL2.
-
-3. **[`docs/synthesis/rest.md`](file:///Users/ember/dev/aidev/docs/synthesis/rest.md#L1-L431) — Everything Else (121 Repos, 1,103 Sessions, 5,502 Prompts)**:
-   - Maps the five non-Dregg, non-Elide clusters of Ember's 2025–2026 work:
+2. **[`docs/synthesis/rest.md`](file:///Users/ember/dev/aidev/docs/synthesis/rest.md#L1-L431) — Everything Else (121 Repos, 1,103 Sessions, 5,502 Prompts)**:
+   - Maps the five non-Dregg clusters of Ember's 2025–2026 work:
      1. **`fn` (`16,911` commits, `37,317` ACL2 theorems)**: Industrial-strength ACL2 + Rust clean-sheet verifiable agent collaboration, versioned filesystem, NNTP, and DTN node.
      2. **`don` ("Descent of Nations", `1,003` commits, `753,376` LOC Rust)**: Clean-room reimplementation of the 2003 lockstep RTS *Rise of Nations* built as a gift for Ember's friend Arke, validated against the shipped `ron.exe` binary across **18,722,565 differential oracle trials with zero mismatches**, and designed so per-turn state checksums across 15 simulation channels become ZK-provable turn digests (*"Make the digest a proof"*).
      3. **`cv` (`claurdvoyant` / ClusterVision, `2,662` commits, `222,337` LOC Rust)**: Cross-harness session search, live terminal multiplexing, workflow orchestration, and context distillation.

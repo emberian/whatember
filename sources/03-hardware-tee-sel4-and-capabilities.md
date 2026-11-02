@@ -1,7 +1,7 @@
 # Hardware Roots of Trust, Multi-Vendor TEE Attestation, Confidential GPU E2EE, Bare-Metal `seL4` Microkit, & Post-Quantum Object-Capability Security
 
 > **Primary-Source Technical Dossier**  
-> **Scope:** `breadstuffs` (`tee-verify`, `tee-produce`, `cell::tee_attest`, `dregg-chutes-e2ee`, `attest-check`, `sel4/`, `grain-jail`, `macaroon`, `token`, `dregg-auth`, `dregg-pq`, `pqvrf`, `credentials`, `intent`, `audit`, `starbridge-apps`), `degg-research` (`experiments/shielded-baseline`), `nanodregg` (`sandbox`), and `~/elide/breadstuffs` (`95e87c6f`).
+> **Scope:** `breadstuffs` (`tee-verify`, `tee-produce`, `cell::tee_attest`, `dregg-chutes-e2ee`, `attest-check`, `sel4/`, `grain-jail`, `macaroon`, `token`, `dregg-auth`, `dregg-pq`, `pqvrf`, `credentials`, `intent`, `audit`, `starbridge-apps`), `degg-research` (`experiments/shielded-baseline`), and `nanodregg` (`sandbox`).
 
 ---
 
@@ -639,20 +639,16 @@ In [`starbridge-apps/tool-access-delegation/src/lib.rs`](file:///Users/ember/dev
 
 ## 6. Chronological Git & `cv` Archaeology
 
-### Phase 1: `~/elide/oauth` → `~/elide/breadstuffs` (2026-02-07, Session `95e87c6f-fb60-4963-a126-0b26186708ad`)
-The entire capability lineage began on **2026-02-07** inside `~/elide/oauth`, which Ember renamed to `~/elide/breadstuffs` in Claude Code session `95e87c6f-fb60-4963-a126-0b26186708ad` (recorded in [`/Users/ember/.claude/history.jsonl`](file:///Users/ember/.claude/history.jsonl) and [`/Users/ember/.claude/projects/-Users-ember-elide-breadstuffs/memory/MEMORY.md`](file:///Users/ember/.claude/projects/-Users-ember-elide-breadstuffs/memory/MEMORY.md#L1-L54)):
+### Phase 1: Initial `breadstuffs` Macaroon & Biscuit Prototype (2026-02-07, Session `95e87c6f-fb60-4963-a126-0b26186708ad`)
+The capability lineage began on **2026-02-07** in Claude Code session `95e87c6f-fb60-4963-a126-0b26186708ad` (recorded in [`/Users/ember/.claude/history.jsonl`](file:///Users/ember/.claude/history.jsonl)):
 
-- **1770467854240 (2026-02-07)**:
-  > `"(we just renamed this from ~/elide/oauth to ~/elide/breadstuffs, ensure any path references in .git get fixed, idk if there even are any)"`
 - **1770467968194 (2026-02-07)**:
-  > `"Excellent! Now, you can read docs/ for more about what we are up to on this branch. We are working on \"breadstuffs,\" excellent implementations of macaroons and biscuits to offer to our runtime customers. We also want to offer value-provided cloud services that complement this, as a monetization strategy for our company, so we can make open source for the whole planet and still eat meals in a home. We need to make a huge design effort."`
-- **1770468126947 (2026-02-07)**:
-  > `"Cloud services and improving the actual interface and proving out its real-world utility with awesome, \"killer app\" style demos. (we don't want to extract breadstuffs into its own product, it is firmly a component of elide. but the crates, well, we can easily package it up later whenever we want). We basically want to weaponize biscuits and macaroons."`
+  > `"We are working on \"breadstuffs,\" excellent implementations of macaroons and biscuits... We basically want to weaponize biscuits and macaroons."`
 
-In that February 2026 sprint ([`weaponize-progress.md`](file:///Users/ember/.claude/projects/-Users-ember-elide-breadstuffs/memory/weaponize-progress.md#L1-L72), [`security-fixes.md`](file:///Users/ember/.claude/projects/-Users-ember-elide-breadstuffs/memory/security-fixes.md#L1-L37)), Ember built the `em2_` HMAC-SHA256 `macaroon` crate (with XChaCha20-Poly1305 3P caveats and `ZeroizeOnDrop` `WireTicket`s), the `eb2_` Ed25519 + Datalog `token` crate (`FeatureGlob`, `Budget`, `Revocable`), and the cuckoo-filter revocation mesh.
+In that February 2026 sprint, Ember built the `em2_` HMAC-SHA256 `macaroon` crate (with XChaCha20-Poly1305 3P caveats and `ZeroizeOnDrop` `WireTicket`s), the `eb2_` Ed25519 + Datalog `token` crate (`FeatureGlob`, `Budget`, `Revocable`), and the cuckoo-filter revocation mesh.
 
 ### Phase 2: `pyana` — Distributed Object-Capability Runtime with ZK Proofs (2026-05-19..21)
-After leaving Elide, Ember extracted the `macaroon` and `token` crates into `/Users/ember/dev/breadstuffs` as **`pyana`**:
+Ember brought the `macaroon` and `token` crates into `/Users/ember/dev/breadstuffs` as **`pyana`**:
 - **`3d0d0bfafb2d89fef4ed03537b5191f85dbc1cf5` (2026-05-19)**: *"pyana: distributed object-capability authorization with ZK proofs — A post-quantum capable authorization system for AI agent execution across trust domains. Prove you're authorized without revealing your delegation chain. 22 crates, ~70k LOC, 1000+ tests."* (Importing `macaroon`, `token`, `cell`, `bridge`, `audit`, `circuit`).
 - **`d5be7258e` (2026-05-20)**: Added the distributed `intent` engine (`Intent`, `MatchSpec`, `Fulfillment`).
 - **`77b998170` / `d1b48d885` (2026-05-24)**: Added the `credentials` crate (selective disclosure, blinded federation registry, unlinkable multi-show).
