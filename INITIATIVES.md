@@ -27,10 +27,10 @@ there; never keep what is there only because it is there.
 | 12 | Tree automata over JSON/CBOR transcripts | NEW | breadstuffs | L0 | structural claims over committed structured records, Lean statement, counts, demo over real transcripts | GROUNDING.md | opened 2026-11-06 |
 | 13 | Eval-provenance / model-identity receipt (FlashProve commitment + registry v2 + signed eval) | NEW | zkml-research | L1 | one receipt binding commitment ID, per-expert roots, eval record; verifier CLI; which-model microsite updated | GROUNDING.md | opened 2026-11-06 |
 | 14 | Hardware: tensor-core field experiment + holography accumulation read (F3, F4) | NEW | zkml-research, obend notes | L0 | counts-exact MMA model validated on a GPU if one is granted; accumulation verdict with recursion-verifier sizes | GROUNDING.md | opened 2026-11-06 |
-| 15 | ArkLib upstream: RBR-to-Fiat-Shamir/BCS compiler contribution | NEW | minidregg, fork of ArkLib | L1 | PR-ready branch on a fork, their conventions, their CI green; ember opens the PR | GROUNDING.md | opened 2026-11-06 |
+| 15 | ArkLib: premise refuted (RBR→state-restoration merged upstream; SR→FS in maintainer review, stronger than ours); now (a) review draft of #1274/#1277/#1283 and (b) L1 bridge retiring Selvage FS/Depth onto upstream | init-15 lane | minidregg bridges/arklib-ud, zkml-research | L0→L1 | (a) postable review with a concrete Q=0 finding; (b) coupling lemma proved, derivable-theorem list; (c) Merkle-adapter/BCS blueprint only on ember word | first proved bridge lemma | 2026-11-06 GROUNDING `49bbaa60` |
 | 16 | Unlearning / forgetting certificates (C18-C20) | NEW | zkml-research | L0 | exact-deletion certificate in the harness with attacks refused and counts; Lean statement | GROUNDING.md | opened 2026-11-06 |
 
 Decisions waiting on ember (also tracked here so they are not lost): transcript.json on public GitHub (initiative 1);
 ledger policy A/B and the three vacuous ProofProducing demos (5); 3 vs 5 custodians (3); chokepoint home in minidregg
 (4); keep/move/delete the Mac shared mathlib cache (7); whether to apply for an H100 on the VCF cluster (8); whether a GPU may be used for 14 (vast is not ours to use
-without ember's word); whether to open the ArkLib PR (15).
+without ember's word); whether we contribute the Merkle-adapter/BCS blueprint upstream (15c).
