@@ -20,7 +20,7 @@ there; never keep what is there only because it is there.
 | 5 | HOL4-Lean bridge (panSem export, row contracts, install) | bridge follow-on (done) | DreggNet, breadstuffs, degg-research | L3 | 64 contracts; Mac install 60 s; ladder on exported evaluate | ember: ledger policy A/B; vacuous demos | 2026-11-06 |
 | 6 | Mina/Pickles emitter rescue | rescue lane | breadstuffs | L0 | every module < 4 GB / 60 s or retired with census | census + diagnosis | opened 2026-11-06 |
 | 7 | Iteration speed (profiles, olean cache, Mac setup, check-fast) | iteration lane | minidregg, breadstuffs, redregg | L0 | umbrella < 10 min on bb2; no non-Mina module > 4 GB; lane loop < 2 min on Mac | ranked table | opened 2026-11-06 |
-| 8 | Audit theorem instantiated over FlashProve proofs | NEW | zkml-research, minidregg | L1 | Rust auditor whose alarm routes through AuditSampling; ε_chk from their theorem; beacon leg; injected corruptions measured vs 1/q on real proofs | GROUNDING.md | opened 2026-11-06 |
+| 8 | Audit theorem instantiated over FlashProve proofs | init-8 lane | zkml-research, minidregg, breadstuffs | L1 | brief bar plus GROUNDING §3: ε_chk as a good-oracle event (+n·δ), C++/Lean gap named, exact-match proofs only, fail-closed on every non-accept, beacon round anchored by the requester | Lean instance + codex #1 | 2026-11-06 GROUNDING `a9244fb6` |
 | 9 | Attested transport + receipts (MPC-TLS call-tree certificates) | NEW | breadstuffs | L2 | one real HTTPS call tree certified end to end with a verifiable receipt per hop | GROUNDING.md | opened 2026-11-06 |
 | 10 | Third-party verification of a real Claude Code session (R0-R3) | NEW | breadstuffs, cv | L2 | a stranger verifies a cv-exported session through R3 with no host trust; microsite | GROUNDING.md | opened 2026-11-06 |
 | 11 | Streaming certificates (prefix receipts over a live log, Büchi/ω) | NEW | breadstuffs | L0 | per-window receipts with MMR non-omission; a policy holds "so far" on a live transcript stream | GROUNDING.md | opened 2026-11-06 |
@@ -32,5 +32,5 @@ there; never keep what is there only because it is there.
 
 Decisions waiting on ember (also tracked here so they are not lost): transcript.json on public GitHub (initiative 1);
 ledger policy A/B and the three vacuous ProofProducing demos (5); 3 vs 5 custodians (3); chokepoint home in minidregg
-(4); keep/move/delete the Mac shared mathlib cache (7); whether a GPU may be used for 14 (vast is not ours to use
+(4); keep/move/delete the Mac shared mathlib cache (7); whether to apply for an H100 on the VCF cluster (8); whether a GPU may be used for 14 (vast is not ours to use
 without ember's word); whether to open the ArkLib PR (15).
