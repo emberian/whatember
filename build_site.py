@@ -370,9 +370,9 @@ def build_all():
 
     # Extract Tab 1B (matrix) and Tab 1C (quinn) inner HTML from old_index
     m_mat = re.search(r'<section id="tab-matrix"[^>]*>(.*?)</section>', old_index, re.S)
-    matrix_inner = m_mat.group(1) if m_mat else ""
+    matrix_inner = m_mat.group(1).strip() if m_mat else ""
     m_quinn = re.search(r'<section id="tab-quinn"[^>]*>(.*?)</section>', old_index, re.S)
-    quinn_inner = m_quinn.group(1) if m_quinn else ""
+    quinn_inner = m_quinn.group(1).strip() if m_quinn else ""
 
     # Build INDEX.HTML
     exec_synth_md = (
@@ -396,6 +396,32 @@ def build_all():
         dossier_badge="Dossier 08 · Complete October–November 2026 Stratum (72 KB)",
         raw_dossier_file="08-october-november-2026-stratum.md",
     )
+    with open(os.path.join(ROOT, "PROGRAM-2026-11-12-obend-cathedral-and-trimodel-roadmap.md"), "r", encoding="utf-8") as f:
+        prog_nov12_md = f.read()
+    with open(os.path.join(ROOT, "INITIATIVES.md"), "r", encoding="utf-8") as f:
+        init_nov12_md = f.read()
+    tab_1e_header = (
+        '<div class="callout" style="margin-top:0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">'
+        '<div><div class="callout-title">Active Master Charter · November 12, 2026 Convergence (<code>obend</code> + <code>obb v2</code> + Tri-Model Campaign)</div>'
+        '<div>Consolidated cathedral architecture (<code>O1</code>–<code>O7</code>), <code>obb quarry</code> donor surgery (<code>refs/quarry/*</code>), <code>Oracle7</code> severance, Waves 1–3.8 ground truth, and Wave-4 <code>Gemini</code> × <code>Claude Fable</code> × <code>Codex Astra</code> peer engineering.</div></div>'
+        '<div style="display:flex;gap:8px;">'
+        '<a class="btn btn-primary" href="https://github.com/emberian/whatember/blob/main/PROGRAM-2026-11-12-obend-cathedral-and-trimodel-roadmap.md" target="_blank" rel="noopener">Program Charter ↗</a>'
+        '<a class="btn btn-ghost" style="color:var(--ink);border-color:var(--line);" href="https://github.com/emberian/whatember/blob/main/INITIATIVES.md" target="_blank" rel="noopener">Initiatives Register ↗</a>'
+        "</div></div>"
+    )
+    tab_1e_monograph = tab_1e_header + render_markdown_to_monograph(
+        prog_nov12_md + "\n\n---\n\n" + init_nov12_md,
+        prefix="idx-cathedral",
+    )
+    nov12_banner_html = (
+        '<div class="callout" style="margin:0 0 28px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">'
+        '<div><div class="callout-title">Nov 12, 2026 Update · <code>obend</code> Cathedral + <code>obb v2</code> Metaharness &amp; Tri-Model Roadmap</div>'
+        '<div>Active work across <code>breadstuffs</code>, <code>minidregg</code>, <code>svenvs</code>, and <code>lean-transport</code> now converges into <code>obend</code> (<code>dev</code>, 785+ Lean 4.35 modules) under <code>obb v2</code> (<code>cone</code>, <code>apex</code>, <code>pipeline</code>, <code>quarry</code>, <code>broker</code>), severing <code>Oracle7</code> and advancing Organs <code>O1</code>–<code>O7</code> via <code>Gemini</code> × <code>Claude claude-fable-5-2</code> × <code>Codex gpt-6-astra</code>.</div></div>'
+        '<div style="display:flex;gap:8px;">'
+        '<a class="btn btn-primary" href="https://github.com/emberian/whatember/blob/main/PROGRAM-2026-11-12-obend-cathedral-and-trimodel-roadmap.md" target="_blank" rel="noopener">Read Nov 12 Charter ↗</a>'
+        '<a class="btn btn-ghost" style="color:var(--ink);border-color:var(--line);" href="https://github.com/emberian/whatember/blob/main/INITIATIVES.md" target="_blank" rel="noopener">Initiatives Register ↗</a>'
+        "</div></div>"
+    )
 
     m_hero_idx = re.search(r'(<section class="hero">.*?</section>)', old_index, re.S)
     hero_idx = m_hero_idx.group(1)
@@ -406,6 +432,7 @@ def build_all():
     <section id="tab-exec" class="tab-panel active" role="tabpanel">
       {exec_cards_html}
       <hr style="margin:42px 0;border:0;border-top:2px solid var(--line);" />
+      {nov12_banner_html}
       {tab_1a_monograph}
     </section>
     <section id="tab-matrix" class="tab-panel" role="tabpanel">
@@ -416,6 +443,9 @@ def build_all():
     </section>
     <section id="tab-dossiers" class="tab-panel" role="tabpanel">
       {tab_1d_monograph}
+    </section>
+    <section id="tab-cathedral" class="tab-panel" role="tabpanel">
+      {tab_1e_monograph}
     </section>
     """
     index_html = page_shell(
@@ -428,6 +458,7 @@ def build_all():
             ("tab-matrix", "1B · Interactive Problem → Primitive → Foothold Matrix"),
             ("tab-quinn", "1C · Briefing for Quinn & Lucid Computing"),
             ("tab-dossiers", "1D · Oct–Nov 2026 Stratum (svenvs, verekos, o7vn, fn2)"),
+            ("tab-cathedral", "1E · Nov 12 Cathedral Roadmap (obend + obb v2)"),
         ],
         index_panels,
         "01 · Overview & Workshop Map",

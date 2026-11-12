@@ -2,17 +2,33 @@
 
 **Live Site:** [https://emberian.github.io/whatember/](https://emberian.github.io/whatember/)
 
-`whatember` is a working notebook and open map of what Ember is exploring across `~/dev` — a living index of active research threads, half-built worlds, formal kernels, composted generations, and open engineering cycles. Rather than a statement of done, it is organized as an invitation moving forward: what questions we are pulling on, what prototypes and formal footholds exist so far, which loops are still unclosed, and where to jump in across **DeOS / MiniDregg / NanoDregg / DelveTalk**, **`obend` language & silicon**, **verifiable compute & corpus-absence proofs**, **Merkleized agent proxies**, **multi-vendor TEEs & `seL4`**, **deductive neural organs (`clairnets` / `GLaDOS`)**, **neurobiology (`chreatures`)**, **combinatorial markets (`dclutch`)**, and **swarm continuity (`cv`, `wesvet`)**.
+`whatember` is a working notebook and open map of what Ember is exploring across `~/dev` — a living index of active research threads, half-built worlds, formal kernels, composted generations, and open engineering cycles. Rather than a statement of done, it is organized as an invitation moving forward: what questions we are pulling on, what prototypes and formal footholds exist so far, which loops are still unclosed, and where to jump in across **Objective Bend (`obend`) + `obebuilder` (`obb v2`)**, **Houyhnhnm ZK-OCap `Polis` & `DeOS` (`breadstuffs` / `minidregg` quarries)**, **Dual-Track 2026 Cryptography & `SymbolicZkVM`**, **Physical-Cryptographic AI Cluster Governance (`LucidEnvelope × Obend` + `svenvs`)**, **Certified Silicon, Lean FPGAs & RDNA2 GPUs**, **deductive neural organs (`clairnets` / `GLaDOS`)**, **neurobiology (`chreatures`)**, **combinatorial markets (`dclutch`)**, and **swarm continuity (`cv`, `wesvet`)**.
 
 ---
 
-## Site Map (10 Pages · 49 Interactive Sub-Tabs · 27 Field-Note Dossiers)
+## Current Strategic Programme & Convergence Ledger (`2026-11-12`)
+
+> **November 12, 2026 Architectural Convergence:** Active engineering across the constellation has consolidated into **one unified target cathedral** (`~/dev/obend` on `dev`, 785+ Lean 4.35 modules + Rust CLI/FFI) supervised by **one anti-vacuity & module-cone metaharness** (`~/dev/obebuilder`, `obb v2`: `lint`, `cone`, `apex`, `pipeline`, `judge`, `quarry`, `broker`, `serve`).
+> - **Quarry Synthesis (`obb quarry` / `refs/quarry/*`):** Grade-(A) mathematical and systems organs from `breadstuffs`, `minidregg`, `svenvs`, and `lean-transport` are surgically imported behind 6 anti-vacuity/soundness gates—leaving behind unpinned public inputs, `empty_revoked_root_8()`, narrow `<128b` digest welds, and `73b` BabyBear Johnson floors. Legacy `Oracle7` string-list prototypes have been cleanly severed (`9396b68`), and standalone `o7vn` (`veri7vn`) is frozen as historical Oct 2026 archive material.
+> - **Completed Waves 1–3.8 & Active Wave-4 Tri-Model Campaign:** Waves 1–3.8 landed `obb v2`, Shards `S1`–`S7` (`ChunkedWorld` 65 ms 20k-page Vault, unified DeOS spine, 29/29 certified RDNA2 GPU ISA stages, `silicon_simp`, `TaylorModel`/`Flowpipe`, `FOC-HIL` LEC), Groundwork `G2`–`G3`, Chasms `C2`–`C5` (`svenvs` corrigibility lift, unified GL/VGRS `Reasons` + complete `LawDial`), and Trailblazers `T1`–`T2` (`CathedralApex.lean`). Wave 4 runs as a **Tri-Model Peer Engineering Campaign (`Gemini` × `Claude claude-fable-5-2` × `Codex gpt-6-astra`)** discharging `STAGE_A_LOCKED` $\to$ `STAGE_B_SEALED` Golden obligations across all 7 Cathedral Organs (`O1`–`O7`).
+
+| Date | Programme / Review Document | Scope & Role |
+|---|---|---|
+| **2026-11-12** | **[`PROGRAM-2026-11-12-obend-cathedral-and-trimodel-roadmap.md`](PROGRAM-2026-11-12-obend-cathedral-and-trimodel-roadmap.md)** | **Active Master Charter:** Constellation consolidation into `obend` + `obb v2`, `Oracle7` severance, the 7 Cathedral Organs (`O1`–`O7`) & Silver/Golden gates, Waves 1–3.8 SHAs, and Tri-Model (`Gemini` × `Claude Fable` × `Codex Astra`) peer engineering |
+| **2026-11-12** | **[`INITIATIVES.md`](INITIATIVES.md)** | **Master Initiatives Register:** Section I tracks the live `M0` + `O1`–`O7` Wave-4 Cathedral register & resolved decisions; Section II preserves the historical Nov 6–7 19-row pre-consolidation register & quarry mappings |
+| 2026-11-07 | [`ASTRA-DIRECTION-REVIEW-2026-11-07.md`](ASTRA-DIRECTION-REVIEW-2026-11-07.md) & [`DIRECTIVES-DIG-2026-11-07.md`](DIRECTIVES-DIG-2026-11-07.md) | `gpt-6-astra` forensic audit diagnosing validation-seeking seams (Row 5 uninhabited locals, Row 10 model-head R3, narrow welds) that directly motivated `obb v2` (`pipeline`, `apex`, `lint`) and `obend` consolidation |
+| 2026-11-05 | [`PROGRAM-2026-11-05-constructions-and-governance.md`](PROGRAM-2026-11-05-constructions-and-governance.md), [`SWARM-2026-11-05-SYNTHESIS.md`](SWARM-2026-11-05-SYNTHESIS.md) & [`LUCID-INTERVIEW-BRIEF-2026-11-05.md`](LUCID-INTERVIEW-BRIEF-2026-11-05.md) | Nov 5 technical AI governance baseline, `lucidcomputing.ai` reconnaissance, and 3-lane Opus/Codex foundation critique |
+
+---
+
+## Site Map (10 Pages · 50 Interactive Sub-Tabs · 27 Field-Note Dossiers)
 
 1. **[`index.html` — 01 · Overview & Workshop Map](https://emberian.github.io/whatember/index.html)**
-   - **1A · Workshop Map & Open Directions**: The active questions, current footholds, and open seams across all threads.
+   - **1A · Workshop Map & Open Directions**: The active questions, current footholds, and open seams across all threads (updated with Nov 12 Cathedral banner).
    - **1B · Problem → Primitive → Foothold Matrix**: Interactive filterable table mapping open verification problems to crates, prototypes, and theorems.
    - **1C · Briefing for Quinn & Lucid Computing**: Entry points on verifiable compute, Merkleized agent proxies, and reference codebases.
-   - **1D · Oct–Nov 2026 Stratum**: Recent explorations in `svenvs` & `hol-reflection`, `verekos`, `o7vn` (`veri7vn`), `fn2`, `negstab`, and `forensics`.
+   - **1D · Oct–Nov 2026 Stratum**: Explorations in `svenvs` & `hol-reflection`, `verekos`, historical Oct 2026 `o7vn` (`veri7vn`), `fn2`, `negstab`, and `forensics`.
+   - **1E · Nov 12, 2026 Cathedral Convergence (`obend` + `obb v2` + Tri-Model Roadmap)**: Full interactive monograph of [`PROGRAM-2026-11-12-obend-cathedral-and-trimodel-roadmap.md`](PROGRAM-2026-11-12-obend-cathedral-and-trimodel-roadmap.md).
 2. **[`workload.html` — 02 · Workload Verification, Absence Proofs, zkML & vFHE](https://emberian.github.io/whatember/workload.html)**
    - **2A · Attested MMR Queries & Training-Set Absence Protocol**: 6-phase protocol combining `Blake3Mmr`/`DocTree` commitments, `RangeCertificate` non-omission proofs (`MMR.lean:server_cannot_omit_position`), certified BPE tokenization (`tokenizer`), and zero-budget STARKs (`audit`).
    - **2B · Regex-Complement DFAs & Symbolic Derivatives**: 3,522-line Lean 4 Brzozowski regex-complement DFAs (`Dregg2/Crypto/Deriv/*`).
